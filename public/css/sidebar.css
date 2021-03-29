@@ -1,0 +1,12 @@
+.item-hover a{
+    transition:.25s all ease-in-out ;
+}
+
+.item-hover a:hover{
+    padding: 8px;
+
+    background:rgb(214, 73, 92);
+    border-radius: 15px;
+    /* border-top-left-radius:15px ; */
+    text-align: center;
+}
