@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Backend\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\productController;
 use App\Http\Controllers\Backend\EmployeeController;
@@ -41,6 +41,14 @@ Route::get('/products/edit/{id}',[ProductController::class,'edit'])->name('produ
 Route::put('/products/update/{id}',[ProductController::class,'update'])->name('products.update');
 
 
+//product-categories
+Route::get('/productCategory',[ProductController::class,'categories'])->name('products.categories');
+Route::post('/productCategory',[ProductController::class,'category_create'])->name('productCategory.create');
+Route::get('/productCategory/delete/{id}',[ProductController::class,'category_delete'])->name('productCategory.delete');
+
+
+
+
 //employee route........
 Route::get('/employees',[EmployeeController::class,'employees'])->name('employees.list');
 Route::post('/employees',[EmployeeController::class,'create'])->name('employees.create');
@@ -50,9 +58,17 @@ Route::put('/employees/update/{id}',[EmployeeController::class,'update'])->name(
 
 
 
+//customer route.........
+Route::get('/customers',[CustomerController::class,'customers'])->name('customers.list');
+Route::post('/customers',[CustomerController::class,'create'])->name('customers.create');
+Route::get('/customers/delete/{id}',[CustomerController::class,'delete'])->name('customers.delete');
+Route::get('/customers/edit/{id}',[CustomerController::class,'edit'])->name('customers.edit');
+Route::put('/customers/update/{id}',[CustomerController::class,'update'])->name('customers.update');
+
+
 // task route .....
 Route::get('/tasks',[TaskController::class,'tasks'])->name('tasks.list');
-
+Route::post('/tasks',[TaskController::class,'create'])->name('tasks.create');
 
 // sales
 Route::get('/sales',[SaleController::class,'sales'])->name('sales.list');

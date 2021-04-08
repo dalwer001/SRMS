@@ -1,32 +1,61 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductCategories;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+
+
     // get method
     public function products()
     {
-        $products=Product::all();
-        return view('backend.contents.products.products-list',compact('products'));
+        $categories=ProductCategories::all();
+        $products = Product::all();
+        return view('backend.contents.products.products-list', compact('products','categories'));
     }
+
 
     //post method
     public function create(Request $request)
     {
+        //        dd($request->file('product_image')->getClientOriginalExtension());
+
+        $file_name='';
+        //step1: check request has file?
+        if($request->hasFile('product_image'))
+        {
+            //file is valid or not
+            $file=$request->file('product_image');
+            if($file->isValid())
+            {
+                //generate unique file name
+                $file_name=date('Ymdhms').'.'.$file->getClientOriginalExtension();
+
+                //store image into local directory
+                $file->storeAs('product',$file_name);
+            }
+
+        }
+
         Product::create([
-            'name' => $request -> name,
-            'quantity' => $request -> quantity,
-            'price'=> $request -> price
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'image'=>$file_name,
+            'quantity' => $request->quantity,
+            'price' => $request->price
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success-message','Product Created Successfully.');
     }
-//DELETE METHOD
-    public function delete($id){
-        $products=Product::find($id);
+    //DELETE METHOD
+    public function delete($id)
+    {
+        $products = Product::find($id);
         $products->delete();
         return redirect()->route('products.list');
     }
@@ -36,18 +65,43 @@ class ProductController extends Controller
     {
 
         $products = Product::find($id);
-        return view('backend.contents.products.product-edit-list',['products'=>$products]);
+        return view('backend.contents.products.product-edit-list', compact('products'));
     }
 
-// update method
+    // update method
     public function update(Request $request)
     {
-        $products=Product::find($request->id);
-        $products->name=$request->name;
-        $products->quantity=$request->quantity;
-        $products->price=$request->price;
+        $products = Product::find($request->id);
+        $products->name = $request->name;
+        $products->quantity = $request->quantity;
+        $products->price = $request->price;
         $products->save();
         return redirect()->route('products.list');
-
     }
+
+    //categories get method
+    public function categories()
+    {
+        $productCategories= ProductCategories::all();
+        return view('backend.contents.products.product-categories-list',compact('productCategories'));
+    }
+
+    //product categories post method
+    public function category_create(Request $request)
+    {
+        ProductCategories::create([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+        return redirect()->route('products.categories');
+    }
+
+//
+    public function category_delete($id)
+    {
+        $productCategory = ProductCategories::find($id);
+        $productCategory->delete();
+        return redirect()->route('products.categories');
+    }
+
 }

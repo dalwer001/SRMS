@@ -15,14 +15,12 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->integer('emp_Id');
-            $table->string('emp_name',255);
-            $table->integer('pd_Id');
-            $table->double('pd_price');
+            $table->integer('employee_id');
+            $table->integer('product_id');
+            $table->double('target_price');
             $table->double('target_quantity');
-            $table->double('selling_quantity');
-            $table->double('left_quantity');
-
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }

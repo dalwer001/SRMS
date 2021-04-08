@@ -24,14 +24,16 @@
 
                 <div class=" mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Contact Number</label>
-                <input type="number" name="contact_no" class="form-control" id="exampleFormControlInput1"
+                <input type="text" name="contact_no" class="form-control" id="exampleFormControlInput1"
                     placeholder="01785496362" value="{{ $employees['contact_no'] }}">
                 </div>
+
                 <div class=" mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Rank</label>
-                <input type="text" class="form-control" name="rank" id="exampleFormControlInput1"
-                    placeholder="Senior Executive" value="{{ $employees['rank'] }}" >
-                </div>
+                    <label for="exampleFormControlInput1" class="form-label">Address</label>
+                    <input type="text" name="address" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Enter Your Address" value="{{ $employees['address'] }}">
+                    </div>
+
                 <div class=" mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Salary</label>
                 <input type="number" class="form-control" name="salary" id="exampleFormControlInput1" placeholder="50000TK"
@@ -42,10 +44,16 @@
                 <input type="date" class="form-control" name="birth_date" id="exampleFormControlInput1"
                     placeholder="Birthday-date" value="{{ $employees['birth_date'] }}" >
                 </div>
+
                 <div class=" mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Join Date</label>
                 <input type="date" class="form-control" name="join_date" id="exampleFormControlInput1"
                     placeholder="join-Date" value="{{ $employees['join_date'] }}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="exampleFormControlInput1"
+                        value="{{ $employees['password'] }}">
                 </div>
         </div>
 
