@@ -12,7 +12,7 @@
                 <th scope="col">Categories_Id</th>
                 <th scope="col">Category Name</th>
                 <th scope="col">Description</th>
-                <th scope="col"></th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         @foreach ($productCategories as $data)

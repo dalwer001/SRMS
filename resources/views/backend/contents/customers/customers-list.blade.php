@@ -22,7 +22,7 @@
                 <th scope="col">City</th>
                 <th scope="col">Product Quantity</th>
                 <th scope="col">Total Sold Price</th>
-                <th scope="col"></th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>

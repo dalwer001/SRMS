@@ -20,7 +20,7 @@
                 <th scope="col">Product Image</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
-                <th scope="col"></th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         @foreach ($products as $key => $data)

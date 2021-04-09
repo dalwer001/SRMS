@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
-    public function Sales(){
-        return view('backend.contents.sales.sales-list');
+    public function mangeSales(){
+        return view('backend.contents.sales.manage-sales-list');
+    }
+
+    public function saleSummary()
+    {
+        return view('backend.contents.sales.sale-summary-list');
     }
 }

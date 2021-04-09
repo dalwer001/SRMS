@@ -23,7 +23,7 @@
                 <th scope="col">Birthday Date</th>
                 <th scope="col">Join date</th>
                 <th scope="col">Password</th>
-                <th scope="col"></th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>

@@ -71,6 +71,7 @@ Route::get('/tasks',[TaskController::class,'tasks'])->name('tasks.list');
 Route::post('/tasks',[TaskController::class,'create'])->name('tasks.create');
 
 // sales
-Route::get('/sales',[SaleController::class,'sales'])->name('sales.list');
+Route::get('/manage-sales',[SaleController::class,'mangeSales'])->name('manageSales.list');
+Route::get('/sale-summary',[SaleController::class,'saleSummary'])->name('saleSummary.list');
 
 

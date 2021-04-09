@@ -7,11 +7,19 @@
                     Dashboard
                 </a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link text-white" href="{{ route('sales.list') }}">
-                    <span data-feather="file"></span>
+            <li class="nav-item  dropend">
+                <a class="nav-link text-white dropdown-toggle btn-group"
+                        type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-balance-scale"></i>
                     Sales
                 </a>
+                <ul class="dropdown-menu bg-dark m-0">
+                    <li> <a class="nav-link text-white" href="">New Sale</a> </li>
+                    <li> <a class="nav-link  text-white" href="{{ route('manageSales.list')}}">Manage sale</a></li>
+                    <li> <a class="nav-link text-white" href="{{ route('saleSummary.list')}}">Sale Summary</a></li>
+                </ul>
+                
             </li>
             <li class="nav-item ">
                 <a class="nav-link text-white" href="{{ route('products.categories') }}">
@@ -38,7 +46,7 @@
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link text-white" href="{{route('customers.list')}}">
+                <a class="nav-link text-white" href="{{ route('customers.list') }}">
                     <span data-feather="users"></span>
                     Customer
                 </a>
