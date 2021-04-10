@@ -15,7 +15,7 @@
                     Sales
                 </a>
                 <ul class="dropdown-menu bg-dark m-0">
-                    <li> <a class="nav-link text-white" href="">New Sale</a> </li>
+                    <li> <a class="nav-link text-white" href="{{ route('newSale.list')}}">New Sale</a> </li>
                     <li> <a class="nav-link  text-white" href="{{ route('manageSales.list')}}">Manage sale</a></li>
                     <li> <a class="nav-link text-white" href="{{ route('saleSummary.list')}}">Sale Summary</a></li>
                 </ul>

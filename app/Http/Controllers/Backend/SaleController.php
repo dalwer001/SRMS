@@ -15,4 +15,8 @@ class SaleController extends Controller
     {
         return view('backend.contents.sales.sale-summary-list');
     }
+
+    public function newSale(){
+        return view('backend.contents.sales.new-sale-list');
+    }
 }
