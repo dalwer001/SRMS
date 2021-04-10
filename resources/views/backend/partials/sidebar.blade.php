@@ -19,41 +19,41 @@
                     <li> <a class="nav-link  text-white" href="{{ route('manageSales.list')}}">Manage sale</a></li>
                     <li> <a class="nav-link text-white" href="{{ route('saleSummary.list')}}">Sale Summary</a></li>
                 </ul>
-                
+
             </li>
             <li class="nav-item ">
                 <a class="nav-link text-white" href="{{ route('products.categories') }}">
-                    <span data-feather="file"></span>
+                    <i class="far fa-file-alt"></i>
                     Products Categories
                 </a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link text-white" href="{{ route('products.list') }}">
-                    <span data-feather="file"></span>
+                    <i class="far fa-file-alt"></i>
                     Products
                 </a>
             <li class="nav-item ">
                 <a class="nav-link text-white" href="{{ route('tasks.list') }}">
-                    <span data-feather="file"></span>
+                    <i class="fas fa-tasks"></i>
                     Tasks
                 </a>
             </li>
             </li>
             <li class="nav-item ">
                 <a class="nav-link text-white" href="{{ route('employees.list') }}">
-                    <span data-feather="users"></span>
+                    <i class="far fa-user"></i>
                     Employees
                 </a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link text-white" href="{{ route('customers.list') }}">
-                    <span data-feather="users"></span>
+                    <i class="fas fa-users"></i>
                     Customer
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white" href="#">
-                    <span data-feather="bar-chart-2"></span>
+                    <i class="fas fa-chart-bar"></i>
                     Reports
                 </a>
             </li>
