@@ -14,8 +14,8 @@
                 <th scope="col">Customer Name</th>
                 <th scope="col">Customer Email</th>
                 <th scope="col">Mobile No</th>
-                <th scope="col">Total product Sold</th>
-                <th scope="col">Total Sold Price</th>
+                <th scope="col">Product Quantity</th>
+                <th scope="col">Tptal Amount</th>
                 <th scope="col">Date</th>
                 <th scope="col">Action</th>
             </tr>

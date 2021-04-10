@@ -13,8 +13,8 @@
                 <th scope="col">Current sale</th>
                 <th scope="col">Sale leftover</th>
                 <th scope="col">Montly sale leftover</th>
-                <th scope="col">Total product Sold</th>
-                <th scope="col">Total Sold Price</th>
+                <th scope="col">Total Product Quantity</th>
+                <th scope="col">Grand Total Price</th>
                 <th scope="col">Status</th>
                 <th scope="col">Action</th>
             </tr>
