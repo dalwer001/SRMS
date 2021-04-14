@@ -32,7 +32,7 @@
                     <td>{{ $data->employee->email }}</td>
                     <td>{{$data->contact_no}}</td>
                     <td>{{$data->address}}</td>
-                    <td>{{$data->total_price}}</td>
+                    <td>{{$data->city}}</td>
                     <td>
                         <a class="btn btn-primary btn-sm">View</a>
                         <a class="btn btn-danger btn-sm"  href={{route('customers.delete',$data['id'])}}>Delete</a>
