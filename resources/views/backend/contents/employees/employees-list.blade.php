@@ -10,7 +10,7 @@
 
 
     </div>
-    <table class="table table-dark table-striped">
+    <table class="table table-success table-striped">
         <thead>
             <tr>
                 <th scope="col">Serial</th>
@@ -42,9 +42,9 @@
                     <td>{{ $data->join_date }}</td>
                     <td>{{ $data->password }}</td>
                     <td>
-                        <a class="btn btn-primary ">View</a>
-                        <a class="btn btn-danger "  href={{route('employees.delete',$data['id'])}}>Delete</a>
-                        <a class="btn btn-warning " href={{route('employees.edit',$data['id'])}}>Edit</a>
+                        <a class="text-primary mx-2"><i class="far fa-eye"></i></a>
+                        <a class="text-danger mx-2"  href={{route('employees.delete',$data['id'])}}><i class="far fa-trash-alt"></i></a>
+                        <a class="text-success mx-2" href={{route('employees.edit',$data['id'])}}><i class="far fa-edit"></i></a>
                     </td>
                 </tr>
             @endforeach

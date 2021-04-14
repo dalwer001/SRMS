@@ -20,8 +20,6 @@
                 <th scope="col">Contact No</th>
                 <th scope="col">Address</th>
                 <th scope="col">City</th>
-                <th scope="col">Product Quantity</th>
-                <th scope="col">Total Sold Price</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -35,12 +33,10 @@
                     <td>{{$data->contact_no}}</td>
                     <td>{{$data->address}}</td>
                     <td>{{$data->city}}</td>
-                    <td>{{$data->quantity}}</td>
-                    <td>{{$data->total_price}}</td>
                     <td>
-                        <a class="btn btn-primary btn-sm">View</a>
-                        <a class="btn btn-danger btn-sm"  href={{route('customers.delete',$data['id'])}}>Delete</a>
-                        <a class="btn btn-warning btn-sm" href={{route('customers.edit',$data['id'])}}>Edit</a>
+                        <a class="text-primary mx-2"><i class="far fa-eye"></i></a>
+                        <a class="text-danger mx-2"  href={{route('customers.delete',$data['id'])}}><i class="far fa-trash-alt"></i></a>
+                        <a class="text-success mx-2" href={{route('customers.edit',$data['id'])}}><i class="far fa-edit"></i></a>
                     </td>
                 </tr>
             @endforeach
@@ -108,16 +104,6 @@
                                     placeholder="write your address" required>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">product Quantity</label>
-                                <input type="number" class="form-control" name="quantity" id="exampleFormControlInput1"
-                                    placeholder="5000" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Total Sold Price</label>
-                                <input type="number" class="form-control" name="total_price" id="exampleFormControlInput1"
-                                    placeholder="50000TK" required>
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

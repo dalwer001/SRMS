@@ -1,13 +1,18 @@
-.item-hover a{
-    
+.item-hover a {
     text-decoration: none;
-    transition:.25s all ease-in-out ;
+    transition: .25s all ease-in-out;
 }
 
-.item-hover li a:hover{
+.item-hover li a:hover {
     padding: 8px;
-
-    background:rgb(214, 73, 92);
+    background: rgb(214, 73, 92);
     /* border-top-left-radius:15px ; */
     text-align: center;
+}
+
+.background {
+    background-image:url(../img/doctors.jpg);
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-attachment: fixed;
 }

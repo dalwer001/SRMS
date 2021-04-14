@@ -6,7 +6,7 @@
             Add Products Categories
         </button>
     </div>
-    <table class="table table-dark table-striped">
+    <table class="table table-success table-striped">
         <thead>
             <tr>
                 <th scope="col">Categories_Id</th>
@@ -22,9 +22,9 @@
                     <td>{{$data->name}}</td>
                     <td>{{$data->description}}</td>
                     <td>
-                        <a class="btn btn-primary" href="#">View</a>
-                        <a class="btn btn-danger" href={{ route('productCategory.delete', $data['id']) }}>Delete</a>
-                        <a class="btn btn-warning" href="#">Edit</a>
+                        <a class="text-primary mx-2" href="#"><i class="far fa-eye"></i></a>
+                        <a class="text-danger mx-2" href={{ route('productCategory.delete', $data['id']) }}><i class="far fa-trash-alt"></i></a>
+                        <a class="text-success mx-2" href="#"><i class="far fa-edit"></i></a>
                     </td>
                 </tr>
             </tbody>

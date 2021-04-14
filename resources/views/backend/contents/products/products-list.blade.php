@@ -11,7 +11,7 @@
             {{ session()->get('success-message') }}
         </div>
     @endif
-    <table class="table table-dark table-striped">
+    <table class="table table-success table-striped">
         <thead>
             <tr>
                 <th scope="col">serial</th>
@@ -35,9 +35,9 @@
                     <td>{{ $data->quantity }}</td>
                     <td>{{ $data->price }}Tk</td>
                     <td>
-                        <a class="btn btn-primary" href="#">View</a>
-                        <a class="btn btn-danger" href={{ route('products.delete', $data['id']) }}>Delete</a>
-                        <a class="btn btn-warning" href={{ route('products.edit', $data['id']) }}>Edit</a>
+                        <a class="text-primary mx-2" href="#"><i class="far fa-eye"></i></a>
+                        <a class="text-danger mx-2"  href={{ route('products.delete', $data['id']) }}><i class="far fa-trash-alt"></i></a>
+                        <a class="text-success mx-2" href={{ route('products.edit', $data['id']) }}><i class="far fa-edit"></i></a>
                     </td>
                 </tr>
             </tbody>

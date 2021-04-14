@@ -7,35 +7,37 @@
 
     <div>
 
-        <form method="POST" action="{{ route('customers.update',$customers['id'])}}">
+        <form method="POST" action="{{ route('customers.update', $customers['id']) }}">
             @csrf
             @method('PUT')
             <div class="mb-3 form-group">
                 <label for="exampleFormControlInput1" class="form-label">Customers Name</label>
-                <input type="text" name="name" class="form-control"
-                    placeholder="Customer Name" value="{{$customers['name']}}">
+                <input type="text" name="name" class="form-control" placeholder="Customer Name"
+                    value="{{ $customers['name'] }}">
             </div>
 
             <div class="mb-3 form-group">
                 <label for="exampleFormControlInput1" class="form-label">Customers Email</label>
-                <input type="email" name="email" class="form-control"
-                    placeholder="Customer Email" value="{{$customers['email']}}">
+                <input type="email" name="email" class="form-control" placeholder="Customer Email"
+                    value="{{ $customers['email'] }}">
             </div>
 
             <div class="mb-3 form-group">
                 <label for="exampleFormControlInput1" class="form-label">Contact No</label>
-                <input type="text" name="contact_no" class="form-control"
-                    placeholder="01763956456" value="{{$customers['contact_no']}}">
+                <input type="text" name="contact_no" class="form-control" placeholder="01763956456"
+                    value="{{ $customers['contact_no'] }}">
             </div>
 
-            <div class="mb-3 form-group">
-                <label for="exampleFormControlInput1" class="form-label">Product Quantity</label>
-                <input type="number" name="quantity" class="form-control"  placeholder="500" value="{{$customers['quantity']}}">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Address</label>
+                <input type="text" name="address" class="form-control" id="exampleFormControlInput1"
+                placeholder="write your address" value="{{ $customers['address']}}"></input>
             </div>
 
-            <div class="mb-3 form-group">
-                <label for="exampleFormControlInput1" class="form-label">Price</label>
-                <input type="number" name="total_price" class="form-control"  placeholder="1000Tk" value="{{$customers['total_price']}}">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">City</label>
+                <input type="text" name="city" class="form-control" id="exampleFormControlInput1"
+                    placeholder="write your address" value="{{ $customers['city'] }}">
             </div>
     </div>
 

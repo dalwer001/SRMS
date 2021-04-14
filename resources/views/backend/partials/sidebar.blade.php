@@ -1,4 +1,4 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-success sidebar collapse ">
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar bg-dark collapse background">
     <div class="position-sticky pt-3 ">
         <ul class="nav flex-column item-hover ">
             <li class="nav-item ">
@@ -14,7 +14,7 @@
                     <i class="fa fa-balance-scale"></i>
                     Sales
                 </a>
-                <ul class="dropdown-menu bg-dark m-0">
+                <ul class="dropdown-menu background m-0">
                     <li> <a class="nav-link text-white" href="{{ route('newSale.list')}}">New Sale</a> </li>
                     <li> <a class="nav-link  text-white" href="{{ route('manageSales.list')}}">Manage sale</a></li>
                     <li> <a class="nav-link text-white" href="{{ route('saleSummary.list')}}">Sale Summary</a></li>

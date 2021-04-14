@@ -30,9 +30,9 @@
                     <td>{{$data->start_date}}</td>
                     <td>{{$data->end_date}}</td>
                     <td>
-                        <button class="btn btn-primary">View</button>
-                        <button class="btn btn-danger">Delete</button>
-                        <button class="btn btn-warning">Edit</button>
+                        <a class="text-primary mx-2" href=""><i class="far fa-eye"></i></a>
+                        <a class="text-danger mx-2" href=""><i class="far fa-trash-alt"></i></a>
+                        <a class="text-success mx-2" href=""><i class="far fa-edit"></i></a>
                     </td>
                 </tr>
             </tbody>

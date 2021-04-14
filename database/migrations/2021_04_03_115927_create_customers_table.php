@@ -20,8 +20,6 @@ class CreateCustomersTable extends Migration
             $table->string('contact_no',11);
             $table->string('address',1000);
             $table->string('city',255);
-            $table->integer('quantity');
-            $table->double('total_price');
             $table->string('email',255);
             $table->timestamps();
         });

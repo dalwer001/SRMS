@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Employee;
@@ -27,8 +26,6 @@ class CustomerController extends Controller
             'contact_no' => $request->contact_no,
             'address' => $request->address,
             'city' => $request->city,
-            'quantity' => $request->quantity,
-            'total_price' => $request->total_price
         ]);
         return redirect()->back();
     }
@@ -44,9 +41,8 @@ class CustomerController extends Controller
     //edit view
     public function edit($id)
     {
-
         $customers = Customer::find($id);
-        return view('backend.contents.customers.customer-edit-list',['customers'=>$customers]);
+        return view('backend.contents.customers.customer-edit-list',compact('customers'));
     }
 
     // update method
@@ -58,10 +54,7 @@ class CustomerController extends Controller
         $customers->contact_no=$request->contact_no;
         $customers->address=$request->address;
         $customers->city=$request->city;
-        $customers->quantity=$request->quantity;
-        $customers->total_price=$request->total_price;
         $customers->save();
         return redirect()->route('customers.list');
-
     }
 }
