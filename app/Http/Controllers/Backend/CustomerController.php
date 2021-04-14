@@ -27,8 +27,6 @@ class CustomerController extends Controller
             'contact_no' => $request->contact_no,
             'address' => $request->address,
             'city' => $request->city,
-            'quantity' => $request->quantity,
-            'total_price' => $request->total_price
         ]);
         return redirect()->back();
     }
@@ -58,8 +56,6 @@ class CustomerController extends Controller
         $customers->contact_no=$request->contact_no;
         $customers->address=$request->address;
         $customers->city=$request->city;
-        $customers->quantity=$request->quantity;
-        $customers->total_price=$request->total_price;
         $customers->save();
         return redirect()->route('customers.list');
 

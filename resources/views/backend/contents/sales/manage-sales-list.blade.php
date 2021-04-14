@@ -15,7 +15,7 @@
                 <th scope="col">Customer Email</th>
                 <th scope="col">Mobile No</th>
                 <th scope="col">Product Quantity</th>
-                <th scope="col">Tptal Amount</th>
+                <th scope="col">Total Amount</th>
                 <th scope="col">Date</th>
                 <th scope="col">Action</th>
             </tr>
