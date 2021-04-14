@@ -13,7 +13,8 @@
                 <th scope="col">Current sale</th>
                 <th scope="col">Sale leftover</th>
                 <th scope="col">Montly sale leftover</th>
-                <th scope="col">Total Product Quantity</th>
+                <th scope="col">Total sold Product Quantity</th>
+                <th scope="col">Leftover Product Quantity</th>
                 <th scope="col">Grand Total Price</th>
                 <th scope="col">Status</th>
                 <th scope="col">Action</th>
@@ -29,6 +30,7 @@
                 <td>300</td>
                 <td>3500</td>
                 <td>1000</td>
+                <td>2500</td>
                 <td>4000TK</td>
                 <td>Active</td>
                 <td>

@@ -29,6 +29,7 @@
             </div>
 
             <div class="mb-3">
+<<<<<<< HEAD
                 <label for="exampleFormControlInput1" class="form-label">Address</label>
                 <input type="text" name="address" class="form-control" id="exampleFormControlInput1"
                 placeholder="write your address" value="{{ $customers['address']}}"></input>
@@ -38,6 +39,11 @@
                 <label for="exampleFormControlInput1" class="form-label">City</label>
                 <input type="text" name="city" class="form-control" id="exampleFormControlInput1"
                     placeholder="write your address" value="{{ $customers['city'] }}">
+=======
+                <label for="exampleFormControlInput1" class="form-label">City</label>
+                <input type="text" name="city" class="form-control" id="exampleFormControlInput1"
+                    placeholder="write your address" value="{{$customers['city']}}">
+>>>>>>> e49002b14e5cf9513fed40bd27636051b544517a
             </div>
     </div>
 

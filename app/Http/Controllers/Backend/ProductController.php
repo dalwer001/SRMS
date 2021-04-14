@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function products()
     {
         $categories=ProductCategories::all();
-        $products = Product::all();
+        $products = Product::paginate(3);
         return view('backend.contents.products.products-list', compact('products','categories'));
     }
 
@@ -48,7 +48,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'image'=>$file_name,
             'quantity' => $request->quantity,
-            'price' => $request->price
+
         ]);
         return redirect()->back()->with('success-message','Product Created Successfully.');
     }
@@ -74,7 +74,7 @@ class ProductController extends Controller
         $products = Product::find($request->id);
         $products->name = $request->name;
         $products->quantity = $request->quantity;
-        $products->price = $request->price;
+
         $products->save();
         return redirect()->route('products.list');
     }

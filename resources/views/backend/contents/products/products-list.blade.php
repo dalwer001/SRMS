@@ -19,8 +19,7 @@
                 <th scope="col">Product Category</th>
                 <th scope="col">Product Image</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-                <th scope="col">Action</th>
+                <th scope="col">Action</t>
             </tr>
         </thead>
         @foreach ($products as $key => $data)
@@ -86,14 +85,12 @@
                                 <input type="number" name="quantity" class="form-control" id="exampleFormControlInput1"
                                     placeholder="500">
                             </div>
-
+{{--
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Price</label>
                                 <input type="number" name="price" class="form-control" id="exampleFormControlInput1"
                                     placeholder="1000Tk">
-
-
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="modal-footer">
@@ -103,5 +100,9 @@
         </form>
     </div>
     </div>
+    </div>
+
+    <div class="d-flex justify-content-center " >
+    {{$products->links()}}
     </div>
 @endsection

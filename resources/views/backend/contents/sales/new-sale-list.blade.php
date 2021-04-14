@@ -48,7 +48,7 @@
                 <tr>
                     <th scope="col">serial</th>
                     <th scope="col">Product Name</th>
-                    <th scope="col">Product Quantity</th>
+                    <th scope="col">Product Quantity <span>(3500)</span></th>
                     <th scope="col" colspan="2">total amount</th>
                     <th scope="col" colspan="2">Handle</th>
                 </tr>
@@ -72,7 +72,7 @@
             </tbody>
             <tfoot>
                 <td colspan="2"></td>
-                <td class="fw-bold">Total Product Quantity= 500 </td>
+                <td class="fw-bold">Total sold Product Quantity= 500 </td>
                 <td colspan="3" class="fw-bold">Grand Total Amount= 1000Tk </td>
             </tfoot>
         </table>
