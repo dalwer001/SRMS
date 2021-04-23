@@ -6,11 +6,36 @@
             Add Products
         </button>
     </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     @if (session()->has('success-message'))
         <div class="alert alert-success">
             {{ session()->get('success-message') }}
         </div>
     @endif
+
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Dropdown button
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+    </div>
+    
     <table class="table table-success table-striped">
         <thead>
             <tr>
@@ -34,8 +59,10 @@
                     <td>{{ $data->quantity }}</td>
                     <td>
                         <a class="text-primary mx-2" href="#"><i class="far fa-eye"></i></a>
-                        <a class="text-danger mx-2"  href={{ route('products.delete', $data['id']) }}><i class="far fa-trash-alt"></i></a>
-                        <a class="text-success mx-2" href={{ route('products.edit', $data['id']) }}><i class="far fa-edit"></i></a>
+                        <a class="text-danger mx-2" href={{ route('products.delete', $data['id']) }}><i
+                                class="far fa-trash-alt"></i></a>
+                        <a class="text-success mx-2" href={{ route('products.edit', $data['id']) }}><i
+                                class="far fa-edit"></i></a>
                     </td>
                 </tr>
             </tbody>
@@ -59,7 +86,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
                                 <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Product Name" >
+                                    placeholder="Product Name">
                             </div>
 
 
@@ -84,8 +111,7 @@
                                 <input type="number" name="quantity" class="form-control" id="exampleFormControlInput1"
                                     placeholder="500">
                             </div>
-{{--
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Price</label>
                                 <input type="number" name="price" class="form-control" id="exampleFormControlInput1"
                                     placeholder="1000Tk">
@@ -101,7 +127,7 @@
     </div>
     </div>
 
-    <div class="d-flex justify-content-center " >
-    {{$products->links()}}
+    <div class="d-flex justify-content-center ">
+        {{ $products->links() }}
     </div>
 @endsection

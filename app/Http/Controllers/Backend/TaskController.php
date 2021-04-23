@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Product;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
     public function tasks()
     {
-        $employees=Employee::all();
+        $employees=User::all();
         $products = Product::all();
         $tasks = Task::all();
         return view('backend.contents.task.task-list', compact('tasks','employees','products'));
@@ -30,4 +31,5 @@ class TaskController extends Controller
         ]);
         return redirect()->back();
     }
+    
 }

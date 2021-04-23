@@ -6,6 +6,17 @@
             Add Products Categories
         </button>
     </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <table class="table table-success table-striped">
         <thead>
             <tr>
@@ -18,22 +29,23 @@
         @foreach ($productCategories as $data)
             <tbody>
                 <tr>
-                    <th scope="row">{{$data->id}}</th>
-                    <td>{{$data->name}}</td>
-                    <td>{{$data->description}}</td>
+                    <th scope="row">{{ $data->id }}</th>
+                    <td>{{ $data->name }}</td>
+                    <td>{{ $data->description }}</td>
                     <td>
                         <a class="text-primary mx-2" href="#"><i class="far fa-eye"></i></a>
-                        <a class="text-danger mx-2" href={{ route('productCategory.delete', $data['id']) }}><i class="far fa-trash-alt"></i></a>
+                        <a class="text-danger mx-2" href={{ route('productCategory.delete', $data['id']) }}><i
+                                class="far fa-trash-alt"></i></a>
                         <a class="text-success mx-2" href="#"><i class="far fa-edit"></i></a>
                     </td>
                 </tr>
             </tbody>
-            @endforeach
+        @endforeach
     </table>
 
     {{-- modal --}}
     <div>
-        <form method="post" action="{{route('productCategory.create')}}">
+        <form method="post" action="{{ route('productCategory.create') }}">
             @csrf
             <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog modal-dialog-scrollable">

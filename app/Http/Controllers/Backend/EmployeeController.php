@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\controller;
 use App\Models\Employee;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -12,6 +12,7 @@ class EmployeeController extends Controller
     //get method
     public function employees()
     {
+        
         $employees = Employee::all();
         return view('backend.contents.employees.employees-list', compact('employees'));
     }
@@ -37,17 +38,32 @@ class EmployeeController extends Controller
             }
         }
 
+        $request->validate([
+            'name' => 'required',
+            'email' => 'email|required|unique:users',
+            'image'=>'required',
+            'contact_no'=>'required|min:11|numeric',
+            'address'=>'required',
+            'birth_date'=>'required',
+            'join_date'=>'required',
+            'salary'=>'required'
+
+        ]);
+
+        $users = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt('123456')
+        ]);
 
         Employee::create([
             'image'=>$file_name,
-            'name' => $request->name,
-            'email' => $request->email,
+            'user_id'=>$users->id,
             'contact_no' => $request->contact_no,
             'address' => $request->address,
             'birth_date' => $request->birth_date,
             'join_date' => $request->join_date,
-            'salary' => $request->salary,
-            'password' => $request->password
+            'salary' => $request->salary
         ]);
         return redirect()->back();
     }
@@ -79,7 +95,7 @@ class EmployeeController extends Controller
         $employees->birth_date = $request->birth_date;
         $employees->join_date = $request->join_date;
         $employees->salary = $request->salary;
-        $employees->password = $request->password;
+        $employees->password =  bcrypt($request->password);
         $employees->save();
         return redirect()->route('employees.list');
     }

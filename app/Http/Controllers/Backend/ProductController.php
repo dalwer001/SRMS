@@ -15,6 +15,7 @@ class ProductController extends Controller
     // get method
     public function products()
     {
+            
         $categories=ProductCategories::all();
         $products = Product::paginate(3);
         return view('backend.contents.products.products-list', compact('products','categories'));
@@ -43,11 +44,19 @@ class ProductController extends Controller
 
         }
 
+        $request->validate([
+            'name' => 'required',
+            'category_id'=>'required',
+            'image'=>'required',
+            'quantity'=>'required'
+
+        ]);
+
         Product::create([
             'name' => $request->name,
             'category_id' => $request->category_id,
             'image'=>$file_name,
-            'quantity' => $request->quantity,
+            'quantity' => $request->quantity
 
         ]);
         return redirect()->back()->with('success-message','Product Created Successfully.');
@@ -89,6 +98,12 @@ class ProductController extends Controller
     //product categories post method
     public function category_create(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'description'=>'required'
+
+        ]);
+
         ProductCategories::create([
             'name' => $request->name,
             'description' => $request->description
