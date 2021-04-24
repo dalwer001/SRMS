@@ -20,16 +20,16 @@
     <table class="table table-success table-striped">
         <thead>
             <tr>
-                <th scope="col">Categories_Id</th>
+                <th scope="col">Serial</th>
                 <th scope="col">Category Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
-        @foreach ($productCategories as $data)
+        @foreach ($productCategories as $key=> $data)
             <tbody>
                 <tr>
-                    <th scope="row">{{ $data->id }}</th>
+                    <th scope="row">{{ $key+1 }}</th>
                     <td>{{ $data->name }}</td>
                     <td>{{ $data->description }}</td>
                     <td>

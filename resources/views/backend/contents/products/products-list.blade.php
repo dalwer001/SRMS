@@ -23,19 +23,28 @@
         </div>
     @endif
 
-
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Dropdown button
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-    </div>
     
+        <div class="dropdown mb-3 d-flex justify-content-end">
+            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Categories List
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                <a class="dropdown-item" href="{{route('products.list')}}">All Product</a>
+
+                @foreach ($categories as $category)
+                
+                <a class="dropdown-item" href="{{route('products.list',['category_id'=>$category->id])}}">{{$category->name}}</a>
+
+                @endforeach
+            {{-- @dd($products) --}}
+
+            </ul>
+        </div>
+    
+
+
     <table class="table table-success table-striped">
         <thead>
             <tr>
@@ -128,6 +137,6 @@
     </div>
 
     <div class="d-flex justify-content-center ">
-        {{ $products->links() }}
+        {{ $products->links()}}
     </div>
 @endsection

@@ -14,7 +14,7 @@
             <a class="btn btn-danger" href="{{ route('logout') }}"> Logout</a>
         @else
             <a class="btn btn-success" href="{{ route('login.form') }}">Login</a>
-
+            
         @endauth
 
     </li>

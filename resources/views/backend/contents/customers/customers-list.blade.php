@@ -42,7 +42,7 @@
                     <td>{{ $data->employee->email }}</td>
                     <td>{{ $data->contact_no }}</td>
                     <td>{{ $data->address }}</td>
-                    <td>{{ $data->city }}</td>
+                    <td>{{ $data->city}}</td>
                     <td>
 
                         <a class="text-primary mx-2"><i class="far fa-eye"></i></a>
@@ -114,9 +114,17 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">City</label>
-                                <input type="text" name="city" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="write your address" required>
+                                <select class="form-select" name="city" aria-label="Default select example">
+                                    <option selected>select City</option>
+                                    <option value="Dhaka">Dhaka</option>
+                                    <option value="khulna">khulna</option>
+                                    <option value="Rajshahi">Rajshahi</option>
+                                    <option value="Barisal">Barisal</option>
+                                    <option value="Chittagong">Chittagong</option>
+                                    <option value="Shylet">Shylet</option>
+                                    <option value="Rangpur">Rangpur</option>
+                                    <option value="Mymensingh">Mymensingh</option>
+                                </select>
                             </div>
 
                         </div>

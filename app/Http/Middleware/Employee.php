@@ -26,7 +26,6 @@ class Employee
                 Auth::logout();
                 return redirect()->route('login.form')->with('success','You are not Employee.');
             }
-
         }
         else{
             return redirect()->route('login.form');
