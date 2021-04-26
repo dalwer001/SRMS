@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\productController;
 use App\Http\Controllers\Backend\EmployeeController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\TaskController;
 use App\Http\Controllers\Backend\UserController;
@@ -36,7 +37,7 @@ Route::group(['prefix' => 'admin'], function () {
     //dashboard route...
 
     Route::group(['middleware'=>'admin-auth'],function(){
-        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.list');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.list');
 
         // products route...
         Route::get('/products', [ProductController::class, 'products'])->name('products.list');
@@ -77,10 +78,11 @@ Route::group(['prefix' => 'employee'], function () {
 
     Route::group(['middleware'=>'employee-auth'],function(){
 
+    Route::get('/employee-profile',[ProfileController::class,'employeeProfile'])->name('employee.profile');
+
 
     // sales
     Route::get('/new-sale', [SaleController::class, 'newSale'])->name('newSale.list');
-
 
     //customer route.........
     Route::post('/customers', [CustomerController::class, 'create'])->name('customers.create');

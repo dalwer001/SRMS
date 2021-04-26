@@ -17,7 +17,6 @@
                 <th scope="col">Product Quantity</th>
                 <th scope="col">Total Amount</th>
                 <th scope="col">Date</th>
-                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -33,11 +32,6 @@
                 <td>1000</td>
                 <td>4000TK</td>
                 <td>04-22-2021</td>
-                <td>
-                    <a class="btn btn-primary" href="#">View</a>
-                    <a class="btn btn-danger" href="#">Delete</a>
-                    <a class="btn btn-warning" href="#">Edit</a>
-                </td>
             </tr>
 
         </tbody>

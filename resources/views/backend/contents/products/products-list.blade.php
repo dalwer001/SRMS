@@ -123,7 +123,7 @@
                             {{-- <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Price</label>
                                 <input type="number" name="price" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="1000Tk">
+                                placeholder="1000Tk">
                             </div> --}}
                         </div>
 

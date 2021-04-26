@@ -17,7 +17,6 @@
                 <th scope="col">Leftover Product Quantity</th>
                 <th scope="col">Grand Total Price</th>
                 <th scope="col">Status</th>
-                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -33,13 +32,7 @@
                 <td>2500</td>
                 <td>4000TK</td>
                 <td>Active</td>
-                <td>
-                    <a class="btn btn-primary" href="#">View</a>
-                    <a class="btn btn-danger" href="#">Delete</a>
-                    <a class="btn btn-warning" href="#">Edit</a>
-                </td>
             </tr>
-
         </tbody>
     </table>
 @endsection
