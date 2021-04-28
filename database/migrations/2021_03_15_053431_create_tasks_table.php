@@ -17,7 +17,7 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->integer('employee_id');
             $table->integer('product_id');
-            $table->double('target_price');
+            $table->double('total_price');
             $table->double('target_quantity');
             $table->date('start_date');
             $table->date('end_date');

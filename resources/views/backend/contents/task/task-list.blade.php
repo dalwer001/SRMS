@@ -4,46 +4,55 @@
         <h1 class="h2">Task</h1>
 
         @if (auth()->user()->role == 'admin')
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add Task
-        </button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add Task
+            </button>
         @endif
 
     </div>
-    <table class="table table-success table-striped">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <table class="table table-secondary table-bordered table-striped">
         <thead>
             <tr>
                 <th scope="col">serial</th>
                 <th scope="col">Employee Name</th>
                 <th scope="col">Product Name</th>
-                <th scope="col">Target Price</th>
-                <th scope="col">Monthly Target quantity</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Target quantity</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">End Date</th>
 
                 @if (auth()->user()->role == 'admin')
-                <th scope="col">Action</th>
+                    <th scope="col">Action</th>
                 @endif
-                
+
             </tr>
         </thead>
-        @foreach ($tasks as $key=>$data)
+        @foreach ($tasks as $key => $data)
             <tbody>
                 <tr>
-                    <th scope="row">{{$key+1}}</th>
-                    <td>{{$data->employee->name}}</td>
-                    <td>{{$data->product->name}}</td>
-                    <td>{{$data->target_price}}</td>
-                    <td>{{$data->target_quantity}}</td>
-                    <td>{{$data->start_date}}</td>
-                    <td>{{$data->end_date}}</td>
+                    <th scope="row">{{ $key + 1 }}</th>
+                    <td>{{ $data->employee->employeeDetail->name }}</td>
+                    <td>{{ $data->product->name }}</td>
+                    <td>{{ $data->total_price }} BDT</td>
+                    <td>{{ $data->target_quantity }}</td>
+                    <td>{{date("Y-M-d",strtotime($data->start_date)  )}}</td>
+                    <td>{{date("Y-M-d",strtotime($data->end_date ) )}}</td>
 
                     @if (auth()->user()->role == 'admin')
-                    <td>
-                        <a class="text-primary mx-2" href=""><i class="far fa-eye"></i></a>
-                        <a class="text-danger mx-2" href=""><i class="far fa-trash-alt"></i></a>
-                        <a class="text-success mx-2" href=""><i class="far fa-edit"></i></a>
-                    </td>
+                        <td>
+                            <a class="text-primary mx-2" href=""><i class="far fa-eye"></i></a>
+                            <a class="text-danger mx-2" href=""><i class="far fa-trash-alt"></i></a>
+                            <a class="text-success mx-2" href=""><i class="far fa-edit"></i></a>
+                        </td>
                     @endif
                 </tr>
             </tbody>
@@ -57,12 +66,11 @@
             <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
-                    
+
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Add New Task</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                   
 
                         <div class="modal-body">
                             <div class="mb-3">
@@ -70,7 +78,7 @@
                                 <select class="form-select" name="employee_id">
                                     <option selected>Open this select menu</option>
                                     @foreach ($employees as $data)
-                                    <option value="{{$data->id}}">{{$data->name}}</option>
+                                        <option value="{{ $data->id }}">{{ $data->employeeDetail->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -80,16 +88,9 @@
                                 <select class="form-select" name="product_id">
                                     <option selected>Open this select menu</option>
                                     @foreach ($products as $data)
-                                    <option value="{{$data->id}}">{{$data->name}}</option>
+                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-
-
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Target Price</label>
-                                <input type="number" name="target_price" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="5000TK">
                             </div>
 
                             <div class="mb-3">

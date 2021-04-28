@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <table class="table table-success table-striped">
+    <table class="table table-success table-bordered table-striped">
         <thead>
             <tr>
                 <th scope="col">Serial</th>
@@ -29,6 +29,7 @@
                 <th scope="col">Employee Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Contact No</th>
+                <th scope="col">Gender</th>
                 <th scope="col">Address</th>
                 <th scope="col">Salary</th>
                 <th scope="col">Birthday Date</th>
@@ -46,6 +47,7 @@
                     <td>{{ $data->employeeDetail->name }}</td>
                     <td>{{ $data->employeeDetail->email }}</td>
                     <td>{{ $data->contact_no }}</td>
+                    <td>{{ $data->gender }}</td>
                     <td>{{ $data->address }}</td>
                     <td>{{ $data->salary }}</td>
                     <td>{{ $data->birth_date }}</td>
@@ -108,7 +110,19 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Gender</label>
+                                <select class="form-select" name="gender">
+                                    <option selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Address</label>
+                                <div>
+                                    <small>*Please give your parmanent address</small>
+                                </div>
                                 <textarea type="text" name="address" class="form-control" id="exampleFormControlInput1"
                                     placeholder="write your address" required></textarea>
                             </div>
@@ -118,16 +132,19 @@
                                 <input type="number" class="form-control" name="salary" id="exampleFormControlInput1"
                                     placeholder="50000TK" required>
                             </div>
+
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Birthday Date</label>
                                 <input type="date" class="form-control" name="birth_date" id="exampleFormControlInput1"
                                     placeholder="Birthday-date" required>
                             </div>
+
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Join Date</label>
                                 <input type="date" class="form-control" name="join_date" id="exampleFormControlInput1"
                                     placeholder="join-Date" required>
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

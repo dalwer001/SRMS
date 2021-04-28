@@ -1,7 +1,7 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar bg-dark collapse background">
     <div class="position-sticky pt-3 ">
         <div class="row">
-            <div class="sidebar-header">
+            <div class="sidebar-header ">
                 <div class="col-md-12 ">
                     @if (auth()->user()->role == 'employee')
                         {
@@ -24,7 +24,8 @@
                 </div>
             </div>
         </div>
-        <ul class="nav flex-column item-hover ">
+        <ul class="nav flex-column item-hover border-top">
+
             @if (auth()->user()->role == 'admin')
                 <li class="nav-item ">
                     <a class="nav-link active text-white" aria-current="page" href="{{ route('dashboard.list') }}">
@@ -52,6 +53,13 @@
                         Employees
                     </a>
                 </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link text-white" href="{{ route('tasks.list') }}">
+                        <i class="fas fa-tasks"></i>
+                        Tasks
+                    </a>
+                </li>
             @endif
 
 
@@ -65,27 +73,27 @@
                     <li> <a class="nav-link  text-white" href="{{ route('manageSales.list') }}">Manage
                             sale</a>
                     </li>
-                    <li> <a class="nav-link text-white" href="{{ route('saleSummary.list') }}">Sale
+                    {{-- <li> <a class="nav-link text-white" href="{{ route('saleSummary.list') }}">Sale
                             Summary</a>
-                    </li>
+                    </li> --}}
 
 
                     @if (auth()->user()->role == 'employee')
-                        {
+                        
                         <li> <a class="nav-link text-white" href="{{ route('newSale.list') }}">New Sale</a> </li>
-                        }
+                        
                     @endif
                 </ul>
             </li>
 
-
+            @if (auth()->user()->role == 'employee')
             <li class="nav-item ">
-                <a class="nav-link text-white" href="{{ route('tasks.list') }}">
+                <a class="nav-link text-white" href="{{ route('employeeTask.list', auth()->user()->employeeProfile['id']) }}">
                     <i class="fas fa-tasks"></i>
                     Tasks
                 </a>
             </li>
-
+            @endif
 
 
 

@@ -36,8 +36,8 @@ Route::group(['prefix' => 'admin'], function () {
 
     //dashboard route...
 
-    Route::group(['middleware'=>'admin-auth'],function(){
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.list');
+    Route::group(['middleware' => 'admin-auth'], function () {
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.list');
 
         // products route...
         Route::get('/products', [ProductController::class, 'products'])->name('products.list');
@@ -57,7 +57,9 @@ Route::group(['prefix' => 'admin'], function () {
 
 
         //task create
-    Route::post('/tasks', [TaskController::class, 'create'])->name('tasks.create');
+        Route::post('/tasks', [TaskController::class, 'create'])->name('tasks.create');
+        Route::get('/tasks', [TaskController::class, 'tasks'])->name("tasks.list");
+
 
 
 
@@ -76,27 +78,25 @@ Route::group(['prefix' => 'admin'], function () {
 //Employee
 Route::group(['prefix' => 'employee'], function () {
 
-    Route::group(['middleware'=>'employee-auth'],function(){
+    Route::group(['middleware' => 'employee-auth'], function () {
 
-    Route::get('/employee-profile',[ProfileController::class,'employeeProfile'])->name('employee.profile');
+        Route::get('/employee-profile', [ProfileController::class, 'employeeProfile'])->name('employee.profile');
 
+        //task
+        Route::get('/employee-task/{id}', [TaskController::class, 'employeeTask'])->name('employeeTask.list');
+        // sales
+        Route::get('/new-sale', [SaleController::class, 'newSale'])->name('newSale.list');
 
-    // sales
-    Route::get('/new-sale', [SaleController::class, 'newSale'])->name('newSale.list');
-
-    //customer route.........
-    Route::post('/customers', [CustomerController::class, 'create'])->name('customers.create');
-    Route::get('/customers/edit/{id}', [CustomerController::class, 'edit'])->name('customers.edit');
-    Route::put('/customers/update/{id}', [CustomerController::class, 'update'])->name('customers.update');
-
+        //customer route.........
+        Route::post('/customers', [CustomerController::class, 'create'])->name('customers.create');
+        Route::get('/customers/edit/{id}', [CustomerController::class, 'edit'])->name('customers.edit');
+        Route::put('/customers/update/{id}', [CustomerController::class, 'update'])->name('customers.update');
     });
 });
 
 
 
 //both  user 
-//task
-Route::get('/tasks', [TaskController::class, 'tasks'])->name("tasks.list")->middleware('auth');
 //sales
 Route::get('/manage-sales', [SaleController::class, 'mangeSales'])->name('manageSales.list')->middleware('auth');
 Route::get('/sale-summary', [SaleController::class, 'saleSummary'])->name('saleSummary.list')->middleware('auth');

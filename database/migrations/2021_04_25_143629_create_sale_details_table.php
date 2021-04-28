@@ -17,7 +17,9 @@ class CreateSaleDetailsTable extends Migration
             $table->id();
             $table->integer('sale_id');
             $table->integer('product_id');
+            $table->double('unit_price');
             $table->integer('quantity');
+            $table->double('subtotal');
             $table->timestamps();
         });
     }

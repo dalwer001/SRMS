@@ -43,6 +43,7 @@ class EmployeeController extends Controller
             'email' => 'email|required|unique:users',
             'contact_no'=>'required|min:11|numeric',
             'address'=>'required',
+            'gender'=>'required',
             'birth_date'=>'required',
             'join_date'=>'required',
             'salary'=>'required'
@@ -60,6 +61,7 @@ class EmployeeController extends Controller
             'user_id'=>$users->id,
             'contact_no' => $request->contact_no,
             'address' => $request->address,
+            'gender' => $request->gender,
             'birth_date' => $request->birth_date,
             'join_date' => $request->join_date,
             'salary' => $request->salary
@@ -90,6 +92,7 @@ class EmployeeController extends Controller
         $employees->name = $request->name;
         $employees->email = $request->email;
         $employees->contact_no = $request->contact_no;
+        $employees->gender = $request->gender;
         $employees->address = $request->address;
         $employees->birth_date = $request->birth_date;
         $employees->join_date = $request->join_date;

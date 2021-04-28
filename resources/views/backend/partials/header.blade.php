@@ -9,12 +9,13 @@
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
             @auth()
+                @if (auth()->user()->role == 'employee')
                 <span style="color:white;" data-feather="user"></span>
                 <a href="{{route('employee.profile')}}" class="text-decoration-none"><span style="color:white; margin-right: 30px;">{{ auth()->user()->name }}</span></a>
+                @endif
                 <a class="btn btn-danger" href="{{ route('logout') }}"> Logout</a>
             @else
-                <a class="btn btn-success" href="{{ route('login.form') }}">Login</a>
-
+                <a class="btn btn-success" href="{{ route('login.form') }}">Login</a> 
             @endauth
 
         </li>

@@ -12,11 +12,12 @@ class Task extends Model
 
     public function employee()
     {
-        return $this->belongsTo(User::class,'employee_id','id');
+        return $this->belongsTo(Employee::class,'employee_id','id');
     }
 
     public function product()
     {
         return $this->belongsTo(Product::class,'product_id','id');
     }
+    
 }

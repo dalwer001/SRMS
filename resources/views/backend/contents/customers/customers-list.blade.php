@@ -114,6 +114,7 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">City</label>
                                 <select class="form-select" name="city" aria-label="Default select example">
                                     <option selected>select City</option>
                                     <option value="Dhaka">Dhaka</option>

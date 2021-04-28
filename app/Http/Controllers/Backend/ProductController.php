@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategories;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -25,6 +26,7 @@ class ProductController extends Controller
         }
         
         $categories = ProductCategories::all();
+
         return view('backend.contents.products.products-list', compact('products', 'categories'));
     }
 
@@ -49,10 +51,12 @@ class ProductController extends Controller
             }
         }
 
+
         $request->validate([
             'name' => 'required',
             'category_id' => 'required',
-            'quantity' => 'required'
+            'quantity' => 'required',
+            'unit_price'=>'required'
 
         ]);
 
@@ -60,7 +64,8 @@ class ProductController extends Controller
             'name' => $request->name,
             'category_id' => $request->category_id,
             'image' => $file_name,
-            'quantity' => $request->quantity
+            'quantity' => $request->quantity ,
+            'unit_price' => $request->unit_price
 
         ]);
         return redirect()->back()->with('success-message', 'Product Created Successfully.');
@@ -89,7 +94,7 @@ class ProductController extends Controller
         $products = Product::find($request->id);
         $products->name = $request->name;
         $products->quantity = $request->quantity;
-
+        $products->unit_price = $request->unit_price;
         $products->save();
         return redirect()->route('products.list');
     }

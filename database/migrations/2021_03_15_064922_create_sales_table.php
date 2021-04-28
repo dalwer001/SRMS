@@ -19,7 +19,7 @@ class CreateSalesTable extends Migration
             $table->integer('customer_id');
             $table->integer('total_amount');
             $table->integer('invoice_no');
-            $table->integer('sales_date');
+            $table->date('sales_date');
             $table->timestamps();
         });
     }

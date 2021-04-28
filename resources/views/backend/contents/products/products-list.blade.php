@@ -39,7 +39,6 @@
 
                 @endforeach
             {{-- @dd($products) --}}
-
             </ul>
         </div>
     
@@ -53,6 +52,7 @@
                 <th scope="col">Product Category</th>
                 <th scope="col">Product Image</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">Unit Price</th>
                 <th scope="col">Action</t>
             </tr>
         </thead>
@@ -66,6 +66,7 @@
                         <img style="width: 100px;" src="{{ url('/files/product/' . $data->image) }}" alt="">
                     </td>
                     <td>{{ $data->quantity }}</td>
+                    <td>{{ $data->unit_price }} BDT</td>
                     <td>
                         <a class="text-primary mx-2" href="#"><i class="far fa-eye"></i></a>
                         <a class="text-danger mx-2" href={{ route('products.delete', $data['id']) }}><i
@@ -120,11 +121,11 @@
                                 <input type="number" name="quantity" class="form-control" id="exampleFormControlInput1"
                                     placeholder="500">
                             </div>
-                            {{-- <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Price</label>
-                                <input type="number" name="price" class="form-control" id="exampleFormControlInput1"
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Unit Price</label>
+                                <input type="double" name="unit_price" class="form-control" id="exampleFormControlInput1"
                                 placeholder="1000Tk">
-                            </div> --}}
+                            </div>
                         </div>
 
                         <div class="modal-footer">
