@@ -3,13 +3,23 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Customer Details</h1>
 
-
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add Customer
-        </button>
-
-
+        @if (auth()->user()->role == 'employee')
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add Customer
+            </button>
+        @endif
     </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <table class="table table-success table-striped">
         <thead>
             <tr>
@@ -24,19 +34,28 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($customers as $key=>$data)
+            @foreach ($customers as $key => $data)
                 <tr>
-                    <th scope="row">{{$key+1}}</th>
-                    <td>{{$data->name}}</td>
-                    <td>{{$data->email}}</td>
+                    <th scope="row">{{ $key + 1 }}</th>
+                    <td>{{ $data->name }}</td>
+                    <td>{{ $data->email }}</td>
                     <td>{{ $data->employee->email }}</td>
-                    <td>{{$data->contact_no}}</td>
-                    <td>{{$data->address}}</td>
-                    <td>{{$data->city}}</td>
+                    <td>{{ $data->contact_no }}</td>
+                    <td>{{ $data->address }}</td>
+                    <td>{{ $data->city}}</td>
                     <td>
+
                         <a class="text-primary mx-2"><i class="far fa-eye"></i></a>
-                        <a class="text-danger mx-2"  href={{route('customers.delete',$data['id'])}}><i class="far fa-trash-alt"></i></a>
-                        <a class="text-success mx-2" href={{route('customers.edit',$data['id'])}}><i class="far fa-edit"></i></a>
+
+
+                        @if (auth()->user()->role == 'admin')
+                            <a class="text-danger mx-2" href={{ route('customers.delete', $data['id']) }}><i
+                                    class="far fa-trash-alt"></i></a>
+                        @endif
+                        @if (auth()->user()->role == 'employee')
+                            <a class="text-success mx-2" href={{ route('customers.edit', $data['id']) }}><i
+                                    class="far fa-edit"></i></a>
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -75,14 +94,10 @@
                                 <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
                                     placeholder="Customer email" required>
                             </div>
-
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Employee Email</label>
                                 <select class="form-select" name="employee_id">
-                                    <option selected>Open this select menu</option>
-                                    @foreach ($employees as $data)
-                                        <option value="{{ $data->id }}">{{ $data->email }}</option>
-                                    @endforeach
+                                    <option value="{{ auth()->user()->id }}">{{ auth()->user()->email }}</option>
                                 </select>
                             </div>
 
@@ -100,8 +115,17 @@
 
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">City</label>
-                                <input type="text" name="city" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="write your address" required>
+                                <select class="form-select" name="city" aria-label="Default select example">
+                                    <option selected>select City</option>
+                                    <option value="Dhaka">Dhaka</option>
+                                    <option value="khulna">khulna</option>
+                                    <option value="Rajshahi">Rajshahi</option>
+                                    <option value="Barisal">Barisal</option>
+                                    <option value="Chittagong">Chittagong</option>
+                                    <option value="Shylet">Shylet</option>
+                                    <option value="Rangpur">Rangpur</option>
+                                    <option value="Mymensingh">Mymensingh</option>
+                                </select>
                             </div>
 
                         </div>

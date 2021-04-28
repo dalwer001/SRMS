@@ -40,4 +40,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function employeeProfile()
+    {
+        return $this->hasOne(Employee::class,'user_id','id');
+    }
 }

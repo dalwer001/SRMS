@@ -13,7 +13,18 @@
   }
 
 .login-bg{
-background-color: rgba(70, 238, 202, 0.473);
+background-image: url(../img/bg-5.jpg);
+background-repeat: no-repeat;
+background-size: cover;
+background-attachment: fixed;
 }
+
+.backgroundForm{
+background-image: url(../img/backgroundlogin.jpg);
+background-repeat: no-repeat;
+background-size: 100% 100%;
+
+}
+
 
 

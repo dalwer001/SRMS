@@ -6,11 +6,44 @@
             Add Products
         </button>
     </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     @if (session()->has('success-message'))
         <div class="alert alert-success">
             {{ session()->get('success-message') }}
         </div>
     @endif
+
+    
+        <div class="dropdown mb-3 d-flex justify-content-end">
+            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Categories List
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                <a class="dropdown-item" href="{{route('products.list')}}">All Product</a>
+
+                @foreach ($categories as $category)
+                
+                <a class="dropdown-item" href="{{route('products.list',['category_id'=>$category->id])}}">{{$category->name}}</a>
+
+                @endforeach
+            {{-- @dd($products) --}}
+            </ul>
+        </div>
+    
+
+
     <table class="table table-success table-striped">
         <thead>
             <tr>
@@ -19,6 +52,7 @@
                 <th scope="col">Product Category</th>
                 <th scope="col">Product Image</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">Unit Price</th>
                 <th scope="col">Action</t>
             </tr>
         </thead>
@@ -32,10 +66,13 @@
                         <img style="width: 100px;" src="{{ url('/files/product/' . $data->image) }}" alt="">
                     </td>
                     <td>{{ $data->quantity }}</td>
+                    <td>{{ $data->unit_price }} BDT</td>
                     <td>
                         <a class="text-primary mx-2" href="#"><i class="far fa-eye"></i></a>
-                        <a class="text-danger mx-2"  href={{ route('products.delete', $data['id']) }}><i class="far fa-trash-alt"></i></a>
-                        <a class="text-success mx-2" href={{ route('products.edit', $data['id']) }}><i class="far fa-edit"></i></a>
+                        <a class="text-danger mx-2" href={{ route('products.delete', $data['id']) }}><i
+                                class="far fa-trash-alt"></i></a>
+                        <a class="text-success mx-2" href={{ route('products.edit', $data['id']) }}><i
+                                class="far fa-edit"></i></a>
                     </td>
                 </tr>
             </tbody>
@@ -59,7 +96,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
                                 <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Product Name" >
+                                    placeholder="Product Name">
                             </div>
 
 
@@ -84,12 +121,11 @@
                                 <input type="number" name="quantity" class="form-control" id="exampleFormControlInput1"
                                     placeholder="500">
                             </div>
-{{--
                             <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Price</label>
-                                <input type="number" name="price" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="1000Tk">
-                            </div> --}}
+                                <label for="exampleFormControlInput1" class="form-label">Unit Price</label>
+                                <input type="double" name="unit_price" class="form-control" id="exampleFormControlInput1"
+                                placeholder="1000Tk">
+                            </div>
                         </div>
 
                         <div class="modal-footer">
@@ -101,7 +137,7 @@
     </div>
     </div>
 
-    <div class="d-flex justify-content-center " >
-    {{$products->links()}}
+    <div class="d-flex justify-content-center ">
+        {{ $products->links()}}
     </div>
 @endsection

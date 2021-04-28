@@ -19,13 +19,22 @@ class CustomerController extends Controller
     //post method
     public function create(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'email|required|unique:customers',
+            'employee_id'=>'required',
+            'contact_no'=>'required|min:11|numeric',
+            'address'=>'required',
+            'city'=>'required'
+        ]);
+
         Customer::create([
             'name' => $request->name,
             'email' => $request->email,
             'employee_id'=>$request->employee_id,
             'contact_no' => $request->contact_no,
             'address' => $request->address,
-            'city' => $request->city,
+            'city' => $request->city
         ]);
         return redirect()->back();
     }
