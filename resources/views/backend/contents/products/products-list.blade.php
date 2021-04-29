@@ -23,7 +23,7 @@
         </div>
     @endif
 
-    
+
         <div class="dropdown mb-3 d-flex justify-content-end">
             <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,14 +34,14 @@
                 <a class="dropdown-item" href="{{route('products.list')}}">All Product</a>
 
                 @foreach ($categories as $category)
-                
+
                 <a class="dropdown-item" href="{{route('products.list',['category_id'=>$category->id])}}">{{$category->name}}</a>
 
                 @endforeach
             {{-- @dd($products) --}}
             </ul>
         </div>
-    
+
 
 
     <table class="table table-success table-striped">
@@ -124,7 +124,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Unit Price</label>
                                 <input type="double" name="unit_price" class="form-control" id="exampleFormControlInput1"
-                                placeholder="1000Tk">
+                                placeholder="1000BDT">
                             </div>
                         </div>
 

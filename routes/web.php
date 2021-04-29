@@ -86,6 +86,7 @@ Route::group(['prefix' => 'employee'], function () {
         Route::get('/employee-task/{id}', [TaskController::class, 'employeeTask'])->name('employeeTask.list');
         // sales
         Route::get('/new-sale', [SaleController::class, 'newSale'])->name('newSale.list');
+        Route::post('/new-sale', [SaleController::class, 'saleProductCreate'])->name('saleProduct.create');
 
         //customer route.........
         Route::post('/customers', [CustomerController::class, 'create'])->name('customers.create');
@@ -96,7 +97,7 @@ Route::group(['prefix' => 'employee'], function () {
 
 
 
-//both  user 
+//both  user
 //sales
 Route::get('/manage-sales', [SaleController::class, 'mangeSales'])->name('manageSales.list')->middleware('auth');
 Route::get('/sale-summary', [SaleController::class, 'saleSummary'])->name('saleSummary.list')->middleware('auth');

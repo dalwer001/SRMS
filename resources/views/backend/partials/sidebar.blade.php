@@ -10,12 +10,12 @@
                                 alt="..." class="img-fluid rounded-circle w-100 h-100">
                         </div>
                         }
-                    @else{
+                    {{-- @else{
                         <div class="avatar m-auto">
                             <img src="{{ url('img/shojib.jpg') }}" alt="..."
                                 class="img-fluid rounded-circle w-100 h-100">
                         </div>
-                        }
+                        } --}}
                     @endif
                 </div>
 
@@ -79,9 +79,9 @@
 
 
                     @if (auth()->user()->role == 'employee')
-                        
+
                         <li> <a class="nav-link text-white" href="{{ route('newSale.list') }}">New Sale</a> </li>
-                        
+
                     @endif
                 </ul>
             </li>
