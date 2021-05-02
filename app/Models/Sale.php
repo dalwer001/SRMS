@@ -10,7 +10,7 @@ class Sale extends Model
     use HasFactory;
     protected $guarded=[];
 
-    // public function saleProduct(){
-    //     return $this->belongsTo(Product::class,'product_id','id');
-    // }
+    public function customer(){
+        return $this->belongsTo(Customer::class,'customer_id','id');
+    }
 }

@@ -8,36 +8,35 @@
             <div class="row mb-3">
                 <label for="inputPassword3" class="col-sm-2 col-form-label">Customer Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputPassword3" readonly>
+                    <input type="text" name="customer_name" class="form-control" id="customer_name">
                 </div>
             </div>
+
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <select class="form-select" name="customer_id">
-                        <option selected>Open this select email</option>
-                        <option value="1">minaj@gmail.com</option>
+                    <select class="form-select" name="customer_id" id="customer_id">
+                        <option selected>select Customer email</option>
+                        @foreach ($customer as $data)
+                            <option value="{{ $data->id }}">{{ $data->email }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
-            <div class="row mb-3">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">Date</label>
-                <div class="col-sm-10">
-                    <input type="date" class="form-control" id="inputPassword3">
-                </div>
-            </div>
+
         </div>
         <div class="col-md-6">
             <div class="row mb-3">
                 <label for="inputPassword3" class="col-sm-2 col-form-label">Contact No.</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputPassword3" readonly>
+                    <input type="text" name="contact_no" class="form-control" id="customer_phone">
                 </div>
             </div>
+
             <div class="row mb-3">
                 <label for="inputPassword3" class="col-sm-2 col-form-label">Invoice No.</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputPassword3" readonly>
+                    <input type="text" name="invoice_no" id="invoice_no" class="form-control">
                 </div>
             </div>
         </div>
@@ -64,7 +63,7 @@
             <tbody class="text-center">
                 <tr>
                     <th scope="row">1</th>
-                    <td>E-cap</td>
+                    <td id="product_name">E-cap</td>
                     <td>500</td>
                     <td>2.5BDT</td>
                     <td colspan="2">1000BDT</td>
@@ -86,7 +85,8 @@
 
 
     <div>
-        <form method="post" action="{{route('saleProduct.create')}}">
+        {{-- method="post" action="{{ route('saleProduct.create') }}" --}}
+        <form>
             @csrf
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -99,10 +99,10 @@
 
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
-                                <select class="form-select" name="product_id">
+                                <select class="form-select" name="product_id" id="product_id">
                                     <option selected>Product Name</option>
                                     @foreach ($task as $data)
-                                    <option value="{{$data->product_id}}">{{$data->product->name}}</option>
+                                        <option value="{{ $data->product_id }}">{{ $data->product->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -115,12 +115,42 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" id='addBtn'>Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+    <ul id="myUL">
 
+    </ul>
 @endsection
+
+@push('customer_js')
+    <script>
+        let customer_id = document.querySelector('#customer_id');
+        let customer_name = document.querySelector('#customer_name');
+        let customer_phone = document.querySelector('#customer_phone');
+        let invoice_no = document.querySelector('#invoice_no');
+        let product_id = document.querySelector('#product_id');
+
+
+        customer_id.addEventListener('change', (e) => {
+            let id = e.target.value;
+
+            const url = "{{ url('get-customer') }}/" + id;
+            fetch(url)
+                .then(res => res.json())
+                .then(res => {
+                    customer_name.value = res.data.name;
+                    customer_phone.value = res.data.contact_no;
+                    invoice_no.value = res.invoice_no;
+                })
+        })
+
+    
+
+
+    </script>
+@endpush

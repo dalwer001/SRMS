@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Backend\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\productController;
@@ -45,6 +46,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/products/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
         Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/update/{id}', [ProductController::class, 'update'])->name('products.update');
+        Route::post('/product/search',[ProductController::class,'search'])->name('product.search');
 
 
         //product-categories
@@ -103,3 +105,6 @@ Route::get('/manage-sales', [SaleController::class, 'mangeSales'])->name('manage
 Route::get('/sale-summary', [SaleController::class, 'saleSummary'])->name('saleSummary.list')->middleware('auth');
 //customers
 Route::get('/customers', [CustomerController::class, 'customers'])->name('customers.list')->middleware('auth');
+
+
+Route::get('/get-customer/{id}', [ApiController::class, 'customerDetails']);

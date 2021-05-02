@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Task;
@@ -24,18 +25,21 @@ class SaleController extends Controller
         $users=auth()->user()->employeeProfile->id;
         //  $products = Product::all();
         $task= Task::where('employee_id',$users)->get();
+        $customer = Customer::all();
+        
         // dd($task);
-        return view('backend.contents.sales.new-sale-list',compact('task'));
+        return view('backend.contents.sales.new-sale-list',compact('task','customer'));
     }
 
         public function saleProductCreate(Request $request)
         {
             Sale::create([
+                'employee_id'=>$request->customer_id,
+                'customer_id' => $request->customer_id,
                 'product_id' => $request->product_id,
                 'quantity' => $request->quantity ,
                 'unit_price' => $request->unit_price,
                 'total_amount' => $request->total_amount
-
             ]);
 
 

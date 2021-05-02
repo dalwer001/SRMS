@@ -22,7 +22,23 @@
             {{ session()->get('success-message') }}
         </div>
     @endif
+{{-- 
+    <div class="row">
+        <div class="col-md-4">
+            <form action="{{route('product.search')}}" method="POST">
+                @csrf
+            <input name="search" type="text" placeholder="Search" class="form-control">
+            <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
 
+    </div> --}}
+
+    {{-- @if(isset($search))
+        <p>
+        <span class="alert alert-success"> you are searching for '{{$search}}' , found ({{count($product)}})</span>
+        </p>
+    @endif --}}
 
         <div class="dropdown mb-3 d-flex justify-content-end">
             <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -63,7 +79,7 @@
                     <td>{{ $data->name }}</td>
                     <td>{{ $data->productCategory->name }}</td>
                     <td>
-                        <img style="width: 100px;" src="{{ url('/files/product/' . $data->image) }}" alt="">
+                        <img style="width: 100px;height:100px" src="{{ url('/files/product/' . $data->image) }}" alt="">
                     </td>
                     <td>{{ $data->quantity }}</td>
                     <td>{{ $data->unit_price }} BDT</td>

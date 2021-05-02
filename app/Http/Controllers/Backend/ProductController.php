@@ -30,6 +30,22 @@ class ProductController extends Controller
         return view('backend.contents.products.products-list', compact('products', 'categories'));
     }
 
+//product search
+    public function search(Request $request)
+    {
+    //     $search=$request->search;
+    //     if($search){
+    //         $product=Product::where('name','like','%'.$search.'%')->paginate(5);
+    //     }else
+    //     {
+    //         $product=Product::with('productCategory')->paginate(5);
+    //     }
+
+    //     // where(name=%search%)
+    //     $title="Search result";
+    //     return view('backend.contents.products.products-list',compact('title','product','search'));
+    }
+
 
 
     //post method
