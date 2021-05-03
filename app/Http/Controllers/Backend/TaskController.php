@@ -36,7 +36,17 @@ class TaskController extends Controller
             $total_price =  $data->unit_price * $request->target_quantity;
             $product_quantity = $data->quantity;
         }
-        // dd($product_quantity);
+
+        $products = Task::where('employee_id',$request->employee_id)->get();
+        foreach($products as $data)
+        {
+            if($data->product_id==$request->product_id)
+            {
+            return redirect()->back()->with('error','This task already given');
+            }
+        }
+
+        // dd($products);
         $request->validate([
             'employee_id' => 'required',
             'product_id' => 'required',

@@ -5,7 +5,7 @@
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon "></span>
     </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
             @auth()
@@ -15,7 +15,7 @@
                 @endif
                 <a class="btn btn-danger" href="{{ route('logout') }}"> Logout</a>
             @else
-                <a class="btn btn-success" href="{{ route('login.form') }}">Login</a> 
+                <a class="btn btn-success" href="{{ route('login.form') }}">Login</a>
             @endauth
 
         </li>

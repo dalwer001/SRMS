@@ -19,11 +19,20 @@
             </ul>
         </div>
     @endif
+
+    @if (session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session()->get('error') }}
+        </div>
+    @endif
+
+
     <table class="table table-secondary table-bordered table-striped">
         <thead>
             <tr>
                 <th scope="col">serial</th>
                 <th scope="col">Employee Name</th>
+                <th scope="col">Employee Email</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Total Price</th>
                 <th scope="col">Target quantity</th>
@@ -41,6 +50,7 @@
                 <tr>
                     <th scope="row">{{ $key + 1 }}</th>
                     <td>{{ $data->employee->employeeDetail->name }}</td>
+                    <td>{{ $data->employee->employeeDetail->email }}</td>
                     <td>{{ $data->product->name }}</td>
                     <td>{{ $data->total_price }} BDT</td>
                     <td>{{ $data->target_quantity }}</td>
@@ -78,7 +88,7 @@
                                 <select class="form-select" name="employee_id">
                                     <option selected>Open this select menu</option>
                                     @foreach ($employees as $data)
-                                        <option value="{{ $data->id }}">{{ $data->employeeDetail->name }}</option>
+                                        <option value="{{ $data->id }}">{{ $data->employeeDetail->email }}</option>
                                     @endforeach
                                 </select>
                             </div>

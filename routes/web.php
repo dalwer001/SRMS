@@ -88,7 +88,10 @@ Route::group(['prefix' => 'employee'], function () {
         Route::get('/employee-task/{id}', [TaskController::class, 'employeeTask'])->name('employeeTask.list');
         // sales
         Route::get('/new-sale', [SaleController::class, 'newSale'])->name('newSale.list');
+        Route::post('/new-sale/productSold', [SaleController::class, 'productSold'])->name('productSold.list');
+
         Route::post('/new-sale', [SaleController::class, 'saleProductCreate'])->name('saleProduct.create');
+        Route::get('/new-sale/delete/{id}', [SaleController::class, 'saleProductDelete'])->name('newSale.delete');
 
         //customer route.........
         Route::post('/customers', [CustomerController::class, 'create'])->name('customers.create');

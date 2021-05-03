@@ -34,12 +34,13 @@
             </tr>
         </thead>
         <tbody>
+
             @foreach ($customers as $key => $data)
                 <tr>
                     <th scope="row">{{ $key + 1 }}</th>
                     <td>{{ $data->name }}</td>
                     <td>{{ $data->email }}</td>
-                    <td>{{ $data->employee->email }}</td>
+                    <td>{{ $data->customerEmployee->employeeDetail->email }}</td>
                     <td>{{ $data->contact_no }}</td>
                     <td>{{ $data->address }}</td>
                     <td>{{ $data->city}}</td>
@@ -97,7 +98,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Employee Email</label>
                                 <select class="form-select" name="employee_id">
-                                    <option value="{{ auth()->user()->id }}">{{ auth()->user()->email }}</option>
+                                    <option value="{{ auth()->user()->employeeProfile->id }}">{{ auth()->user()->email }}</option>
                                 </select>
                             </div>
 

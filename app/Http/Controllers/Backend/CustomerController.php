@@ -9,19 +9,30 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     //get method
-    public function customers()
-    {
+    public function customers(){
+        $users=auth()->user()->employeeProfile->id;
+        // dd($users);
         $employees=Employee::all();
-        $customers = Customer::all();
+        $customers = Customer::where('employee_id',$users)->get();
         return view('backend.contents.customers.customers-list', compact('customers','employees'));
     }
 
     //post method
     public function create(Request $request)
     {
+        $customer = Customer::where('employee_id',auth()->user()->employeeProfile->id)->get();
+        // dd($customer);
+        foreach($customer as $data){
+            if( $data->email == $request->email){
+                $request->validate([
+                    'email' => 'email|required|unique:customers',
+
+                ]);
+            }
+        }
+
         $request->validate([
             'name' => 'required',
-            'email' => 'email|required|unique:customers',
             'employee_id'=>'required',
             'contact_no'=>'required|min:11|numeric',
             'address'=>'required',

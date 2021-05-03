@@ -14,4 +14,8 @@ class Customer extends Model
     {
         return $this->belongsTo(User::class,'employee_id','id');
     }
+    public function customerEmployee()
+    {
+        return $this->belongsTo(Employee::class,'employee_id','id');
+    }
 }

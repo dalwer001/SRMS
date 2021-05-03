@@ -80,7 +80,7 @@
 
                     @if (auth()->user()->role == 'employee')
 
-                        <li> <a class="nav-link text-white" href="{{ route('newSale.list') }}">New Sale</a> </li>
+                        <li> <a class="nav-link text-white" href="{{ route('newSale.list') }}">Create Sale</a> </li>
 
                     @endif
                 </ul>
