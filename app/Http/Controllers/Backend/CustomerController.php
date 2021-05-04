@@ -10,10 +10,17 @@ class CustomerController extends Controller
 {
     //get method
     public function customers(){
-        $users=auth()->user()->employeeProfile->id;
+
         // dd($users);
         $employees=Employee::all();
-        $customers = Customer::where('employee_id',$users)->get();
+        if(auth()->user()->role=='admin')
+        {
+            $customers = Customer::all();
+        }else{
+            $users=auth()->user()->employeeProfile->id;
+            $customers = Customer::where('employee_id',$users)->get();
+        }
+
         return view('backend.contents.customers.customers-list', compact('customers','employees'));
     }
 

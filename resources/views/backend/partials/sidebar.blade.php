@@ -70,8 +70,8 @@
                     Sales
                 </a>
                 <ul class="dropdown-menu background m-0 bg-dark">
-                    <li> <a class="nav-link  text-white" href="{{ route('manageSales.list') }}">Manage
-                            sale</a>
+                    <li> <a class="nav-link  text-white" href="{{ route('saleDetails.list') }}">
+                            Sale Details</a>
                     </li>
                     {{-- <li> <a class="nav-link text-white" href="{{ route('saleSummary.list') }}">Sale
                             Summary</a>

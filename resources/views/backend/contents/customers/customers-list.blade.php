@@ -70,7 +70,7 @@
         <!-- Vertically centered scrollable modal -->
         <!-- Button trigger modal -->
 
-
+@if(auth()->user()->role!='admin')
         <!-- Modal -->
         <form method="post" action="{{ route('customers.create') }}">
             @csrf
@@ -135,6 +135,7 @@
                             <button type="submit" class="btn btn-primary">Ok</button>
                         </div>
         </form>
+        @endif
     </div>
     </div>
     </div>

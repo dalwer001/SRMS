@@ -10,29 +10,33 @@
                 <th scope="col">Invoice no.</th>
                 <th scope="col">Employee Name</th>
                 <th scope="col">Employee Email</th>
-                <th scope="col">Product</th>
                 <th scope="col">Customer Name</th>
                 <th scope="col">Customer Email</th>
-                <th scope="col">Mobile No</th>
-                <th scope="col">Product Quantity</th>
                 <th scope="col">Total Amount</th>
                 <th scope="col">Date</th>
+                <th scope="col">Action</th>
+
             </tr>
         </thead>
         <tbody>
+            @foreach ($sales as $key=>$item)
+            {{-- @dd($item->salesEmp->employeeDetail) --}}
+
             <tr>
-                <th scope="row">1</th>
-                <td>1101</td>
-                <td>Rishad</td>
-                <td>rishad@gmail.com</td>
-                <td>E-cap</td>
-                <td>Arob</td>
-                <td>arob@gmail.com</td>
-                <td>01322556222</td>
-                <td>1000</td>
-                <td>4000TK</td>
-                <td>04-22-2021</td>
+                <th scope="row">{{$key+1}}</th>
+                <td>{{$item->invoice_no}}</td>
+                <td>{{$item->salesEmp->employeeDetail->name}}</td>
+                <td>{{$item->salesEmp->employeeDetail->email}}</td>
+                <td>{{$item->customer->name}}</td>
+                <td>{{$item->customer->email}}</td>
+                <td>{{$item->total_amount}}</td>
+                <td>{{date("Y-M-d",strtotime($item->created_at))}}</td>
+                <td>
+                    <a class="text-primary mx-2" href="{{ route('salesDetailsView.list', $item['id']) }}"><i class="far fa-eye"></i></a>
+                </td>
             </tr>
+            @endforeach
+
 
         </tbody>
     </table>

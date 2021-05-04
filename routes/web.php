@@ -104,7 +104,8 @@ Route::group(['prefix' => 'employee'], function () {
 
 //both  user
 //sales
-Route::get('/manage-sales', [SaleController::class, 'mangeSales'])->name('manageSales.list')->middleware('auth');
+Route::get('/sales-details', [SaleController::class, 'salesDetails'])->name('saleDetails.list')->middleware('auth');
+Route::get('/sales-details/view/{id}', [SaleController::class, 'salesDetailsView'])->name('salesDetailsView.list')->middleware('auth');
 Route::get('/sale-summary', [SaleController::class, 'saleSummary'])->name('saleSummary.list')->middleware('auth');
 //customers
 Route::get('/customers', [CustomerController::class, 'customers'])->name('customers.list')->middleware('auth');

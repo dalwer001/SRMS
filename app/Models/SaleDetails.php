@@ -9,4 +9,8 @@ class SaleDetails extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    public function productDetails()
+    {
+        return $this->belongsTo(Product::class,'product_id','id');
+    }
 }

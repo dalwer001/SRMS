@@ -13,10 +13,17 @@ use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
-    public function mangeSales(){
-
-        return view('backend.contents.sales.manage-sales-list');
+    public function salesDetails(){
+        $sales=Sale::all();
+        return view('backend.contents.sales.salesDetails-list',compact('sales'));
     }
+
+    public function salesDetailsView($id){
+        $sale = Sale::find($id);
+        $saleDetails = SaleDetails::where('sale_id',$id)->get();
+        return view('backend.contents.sales.salesInvoiceDetails-list',compact('sale','saleDetails'));
+    }
+
 
     public function saleSummary()
     {
@@ -59,16 +66,26 @@ class SaleController extends Controller
 
 
 
+            $cart = Cart::where('employee_id',auth()->user()->employeeProfile->id)
+            ->where('product_id',$request->product_id)->first();
 
+
+            if($cart){
+                $cart->update([
+                    'product_quantity'=>$cart->product_quantity + $request->product_quantity
+                ]);
+            }else{
+                Cart::create([
+                    'employee_id'=>auth()->user()->employeeProfile->id,
+                    'product_id' => $request->product_id,
+                    'product_quantity' => $request->product_quantity ,
+                    'unit_price' => $product->unit_price,
+                    'subtotal' => $subtotal
+                ]);
+            }
             // dd($product);
 
-           Cart::create([
-                'employee_id'=>auth()->user()->employeeProfile->id,
-                'product_id' => $request->product_id,
-                'product_quantity' => $request->product_quantity ,
-                'unit_price' => $product->unit_price,
-                'subtotal' => $subtotal
-            ]);
+
             // dd($cart);
 
             $left_quantity = $task->target_quantity - $request->product_quantity;
