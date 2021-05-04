@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,8 +37,13 @@ class UserController extends Controller
             } 
             
             elseif (auth()->user()->role == 'employee') {
+                $status = Employee::where('user_id', auth()->user()->id);
+                $status->update([
+                    'status'=> 'active'
+                ]);
                 return redirect()->route('newSale.list');
             }
+
         }
         return back()->withErrors([
             'email' => 'Invalid Credentials.'
@@ -46,8 +53,14 @@ class UserController extends Controller
     //logout
     public function logout()
     {
+        if(auth()->user()->role == 'employee')
+        {
+            $status = Employee::where('user_id', auth()->user()->id);
+            $status->update([
+                'status'=> 'inactive'
+            ]);
+        }
         Auth::logout();
-
         return redirect()->route('login.form')->with('success', 'Logout Successful.');
     }
 }

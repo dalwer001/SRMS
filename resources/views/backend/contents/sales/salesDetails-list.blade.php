@@ -29,7 +29,7 @@
                 <td>{{$item->salesEmp->employeeDetail->email}}</td>
                 <td>{{$item->customer->name}}</td>
                 <td>{{$item->customer->email}}</td>
-                <td>{{$item->total_amount}}</td>
+                <td>{{$item->total_amount}}BDT</td>
                 <td>{{date("Y-M-d",strtotime($item->created_at))}}</td>
                 <td>
                     <a class="text-primary mx-2" href="{{ route('salesDetailsView.list', $item['id']) }}"><i class="far fa-eye"></i></a>

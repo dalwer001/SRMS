@@ -83,6 +83,8 @@ Route::group(['prefix' => 'employee'], function () {
     Route::group(['middleware' => 'employee-auth'], function () {
 
         Route::get('/employee-profile', [ProfileController::class, 'employeeProfile'])->name('employee.profile');
+        Route::post('/employee-profile/updatepassword/{id}', [ProfileController::class, 'profileUpdate'])->name('employee.profileUpdate');
+
 
         //task
         Route::get('/employee-task/{id}', [TaskController::class, 'employeeTask'])->name('employeeTask.list');

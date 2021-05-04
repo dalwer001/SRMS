@@ -14,7 +14,16 @@ use Illuminate\Http\Request;
 class SaleController extends Controller
 {
     public function salesDetails(){
-        $sales=Sale::all();
+
+        if(auth()->user()->role=='admin')
+        {
+            $sales=Sale::all();
+        }
+        else{
+            $users=auth()->user()->employeeProfile->id;
+            $sales = Sale::where('employee_id',$users)->get();
+        }
+
         return view('backend.contents.sales.salesDetails-list',compact('sales'));
     }
 
@@ -50,6 +59,7 @@ class SaleController extends Controller
         return view('backend.contents.sales.create-sale-list',compact('task','customer','sales','s_total','p_quantity'));
     }
 
+
         public function saleProductCreate(Request $request)
         {
             // $unit_price = Task::where('product_id',$product-$request->product_id)->get();
@@ -67,7 +77,7 @@ class SaleController extends Controller
 
 
             $cart = Cart::where('employee_id',auth()->user()->employeeProfile->id)
-            ->where('product_id',$request->product_id)->first();
+                        ->where('product_id',$request->product_id)->first();
 
 
             if($cart){
