@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\controller;
 use App\Models\Employee;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class EmployeeController extends Controller
     //get method
     public function employees()
     {
-        
+
         $employees = Employee::all();
         return view('backend.contents.employees.employees-list', compact('employees'));
     }
@@ -56,6 +57,15 @@ class EmployeeController extends Controller
             'password' => bcrypt('123456')
         ]);
 
+        //commission calculation
+        $target= Task ::where('id',$request->employee->employee_id);
+        dd($target);
+        foreach($target as $data )
+        {
+            $quantity = $data->target_quantity;
+        }
+        dd($quantity);
+
         Employee::create([
             'image'=>$file_name,
             'user_id'=>$users->id,
@@ -66,6 +76,8 @@ class EmployeeController extends Controller
             'join_date' => $request->join_date,
             'salary' => $request->salary
         ]);
+
+
         return redirect()->back();
     }
 

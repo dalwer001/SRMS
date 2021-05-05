@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductCategories;
 use App\Models\Task;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -46,7 +47,7 @@ class TaskController extends Controller
             }
         }
 
-    
+
 
         // dd($products);
         $request->validate([
@@ -54,10 +55,10 @@ class TaskController extends Controller
             'product_id' => 'required',
             'target_quantity' => 'required',
             'start_date'  =>  'required|after:today',
-            'end_date'    =>  'required|after:start_date'
+
 
         ]);
-
+// dd(Carbon::create($request->start_date)->addMonth());
 
 
         Task::create([
@@ -66,7 +67,7 @@ class TaskController extends Controller
             'target_quantity' => $request->target_quantity,
             'total_price' => $total_price,
             'start_date' => $request->start_date,
-            'end_date' => $request->end_date
+            'end_date' => Carbon::create($request->start_date)->addMonth(),
         ]);
 
         $left_quantity = $product_quantity - $request->target_quantity;
