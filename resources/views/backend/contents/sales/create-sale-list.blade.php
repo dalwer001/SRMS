@@ -4,6 +4,24 @@
         <h1 class="h2">Create Sale</h1>
     </div>
 
+    @if (session()->has('success'))
+        <div class="alert alert-info">
+            {{ session()->get('success') }}
+        </div>
+    @endif
+    
+    @if (session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session()->get('error') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">{{ $error }}</div>
+        @endforeach
+    @endif
+
 
     <form action="{{route('productSold.list')}}" method="post">
         @csrf

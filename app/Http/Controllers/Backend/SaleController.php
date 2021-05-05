@@ -44,7 +44,9 @@ class SaleController extends Controller
     {
         $users = auth()->user()->employeeProfile->id;
         //  $products = Product::all();
-        $task = Task::where('employee_id', $users)->get();
+        $task = Task::where('employee_id', $users)
+        ->where('target_quantity','!=',0)
+        ->get();
         $customer = Customer::where('employee_id', $users)->get();
         $sales = Cart::where('employee_id', $users)->get();
         $s_total = 0;
@@ -101,9 +103,11 @@ class SaleController extends Controller
         // dd($cart);
 
         $left_quantity = $task->target_quantity - $request->product_quantity;
+        $left_price = $task->total_price - $subtotal;
 
         $task->update([
             'target_quantity' => $left_quantity,
+            'total_price'=>$left_price
         ]);
 
 
@@ -120,7 +124,6 @@ class SaleController extends Controller
         //     $commission = $task->target_quantity -
         // }
         // dd($left_quantity);
-
 
         // Task::where('id', $request->product_id)->update([
         //     'target_quantity' => $left_quantity
@@ -141,14 +144,17 @@ class SaleController extends Controller
 
 
         $left_quantity = $task->target_quantity + $products->product_quantity;
+        $left_price = $task->total_price + $products->subtotal;
         $task->update([
             'target_quantity' => $left_quantity,
+            'total_price'=>$left_price
         ]);
 
         $products->delete();
 
         return redirect()->route('newSale.list');
     }
+
 
     public function productSold(Request $request)
     {
@@ -161,34 +167,70 @@ class SaleController extends Controller
         ]);
 
         $cartData = Cart::all();
+        $sq=0;
+        $sub_t=0;
         foreach ($cartData as $data) {
-            SaleDetails::create([
+        $sp= SaleDetails::create([
                 'sale_id' => $sale->id,
                 'product_id' => $data->product_id,
                 'unit_price' => $data->unit_price,
                 'quantity' => $data->product_quantity,
                 'subtotal' => $data->subtotal,
             ]);
+            $sq=$sq+$sp->quantity;
+            $sub_t=$sub_t+$sp->subtotal;
         }
-
+        // dd($sq);
 
         Cart::where('employee_id', $request->employee_id)->delete();
 
-        // $task = Task::where('product_id', $data->product_id)
-        //     ->where('employee_id',  auth()->user()->employeeProfile->id)
-        //     ->first();
 
-        // $saleDate  = Sale::where('employee_id', auth()->user()->employeeProfile->id)->first();
-        // // dd($saleDate);
-        // $salary = Employee::find( auth()->user()->employeeProfile->id);
+        $task = Task::where('employee_id',  auth()->user()->employeeProfile->id)->get();
 
-        // if ($saleDate->created_at <= $task->end_date) {
-        //     if ($task->target_quantity == 0) {
-        //         $commission = $task->total_price * 0.05;
-        //         $total_S= $commission+$salary->salary;
-        //         dd($total_S);
-        //     }
-        // }
+            $task_q= 0;
+            $total_p=0;
+            foreach($task as $data)
+            {
+                $task_q =$task_q+$data->target_quantity; 
+                $total_p = $total_p+$data->total_price;
+                $date= $data->end_date;
+            }
+
+            // dd($task_q - $sq);
+
+        $saleDate  = Sale::where('employee_id', auth()->user()->employeeProfile->id)->first();
+        // dd($saleDate);
+        $salary = Employee::find( auth()->user()->employeeProfile->id);
+
+        if ($saleDate->created_at <= $date) {
+            if ($task_q== 0) {
+                $commission = $total_p * 0.05;
+                $total_S= $commission+$salary->salary;
+                $salary->update([
+                    'salary'=> $total_S,
+                ]);
+            }
+        }
+        else{
+            $left_q = $task_q - $sq;
+            $left_p=$total_p-$sub_t;
+            $total_loss=$left_q*$left_p*0.05;
+            $total_S=$total_loss-$salary->salary;
+            $salary->update([
+                'salary'=> $total_S,
+            ]);
+
+            // dd($left_p);
+
+            foreach($task as $data)
+            {
+                $data->delete();
+            }
+            
+            return redirect()->route('newSale.list')->with('error','you have existed the sales date, your task is update to null');
+        }
+
+
 
 
 
