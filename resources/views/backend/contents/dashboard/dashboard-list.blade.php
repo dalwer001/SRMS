@@ -56,7 +56,7 @@
             <div class="card bg-secondary text-white shadow" style="width: 20rem;height:10rem;">
                 <div class="card-body">
                     <h5 class="text-center"> <small>Todays's Sale</small> </h5>
-                    <h1 class="text-center">200</h1>
+                    <h1 class="text-center">{{$total_sale}}BDT</h1>
                 </div>
             </div>
         </div>

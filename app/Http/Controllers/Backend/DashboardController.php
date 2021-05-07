@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function dashboard(){
-        $Product = Product::all(); 
+        $Product = Product::all();
         $totalNumberofProduct = $Product->count();
         $quantity=0;
         foreach ($Product as  $data) {
@@ -25,13 +25,17 @@ class DashboardController extends Controller
 
         $totalCustomer = Customer::all()->count();
         // $mytime = Carbon::now()->format('Y-m-d h:m:s');
-        // $todaySale = Sale::where('created_at',$mytime)->get();
-        // dd($todaySale);
+        $todaySale = Sale::whereDate('created_at',now()->today())->get();
+        $total_sale=0;
+        foreach($todaySale as $data)
+        {
+            $total_sale += $data->total_amount;
+        }
 
 
-        
-        
+
+
         // dd($quantity);
-        return view('backend.contents.dashboard.dashboard-list',compact('totalNumberofProduct','quantity','totalEmployee','activeEmployee','totalCustomer'));
+        return view('backend.contents.dashboard.dashboard-list',compact('totalNumberofProduct','quantity','totalEmployee','activeEmployee','totalCustomer','total_sale'));
     }
 }
