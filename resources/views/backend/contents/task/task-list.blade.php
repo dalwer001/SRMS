@@ -26,8 +26,14 @@
         </div>
     @endif
 
+    @if (session()->has('error-message'))
+        <div class="alert alert-danger">
+            {{ session()->get('error-message') }}
+        </div>
+    @endif
 
-    <table class="table table-secondary table-bordered table-striped">
+
+    <table class="table table-secondary table-bordered table-striped text-center">
         <thead>
             <tr>
                 <th scope="col">serial</th>
@@ -59,7 +65,6 @@
 
                     @if (auth()->user()->role == 'admin')
                         <td>
-                            <a class="text-primary mx-2" href=""><i class="far fa-eye"></i></a>
                             <a class="text-danger mx-2" href=""><i class="far fa-trash-alt"></i></a>
                             <a class="text-success mx-2" href=""><i class="far fa-edit"></i></a>
                         </td>
@@ -97,11 +102,15 @@
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
                                 <select class="form-select" name="product_id">
                                     <option selected>Open this select menu</option>
+                                    
                                     @foreach ($products as $data)
-                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                        <option value="{{ $data->id }}">{{ $data->name }}-{{$data->quantity}} Qty</option>
                                     @endforeach
                                 </select>
+                                {{-- @dd($data); --}}
+
                             </div>
+
 
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Target Product Quantity</label>

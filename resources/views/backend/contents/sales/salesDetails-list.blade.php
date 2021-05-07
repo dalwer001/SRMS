@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Sale Details</h1>
     </div>
-    <table class="table table-info table-striped">
+    <table class="table table-success table-bordered table-striped">
         <thead>
             <tr>
                 <th scope="col">Serial</th>

@@ -26,7 +26,7 @@
     @endif
 
     <main class="shadow m-5 ">
-        <div class="row  d-flex  " style="margin-top: 20%">
+        <div class="row">
             <div class="col-md-6 col-sm-12 backgroundForm text-warning ">
                 <div class="p-5 m-5 ">
                     <h1>Welcome</h1>

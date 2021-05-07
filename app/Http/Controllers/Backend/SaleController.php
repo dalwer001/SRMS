@@ -109,28 +109,6 @@ class SaleController extends Controller
             'target_quantity' => $left_quantity,
             'total_price'=>$left_price
         ]);
-
-
-        // if($task->target_quantity==0)
-        // {
-        //     $commission = $task->total_price * 0.05;
-        //     $salary = Employee::find(auth()->user()->employeeProfile->id);
-
-        //     $salary->update([
-        //         'salary'=> $salary->salary + $commission,
-        //     ]);
-        // }
-        // else{
-        //     $commission = $task->target_quantity -
-        // }
-        // dd($left_quantity);
-
-        // Task::where('id', $request->product_id)->update([
-        //     'target_quantity' => $left_quantity
-        // ]);
-
-        // dd($left_quantity);
-
         return redirect()->back();
     }
 
@@ -229,14 +207,7 @@ class SaleController extends Controller
             
             return redirect()->route('newSale.list')->with('error','you have existed the sales date, your task is update to null');
         }
-
-
-
-
-
-
-
-
+        
         return redirect()->route('newSale.list');
     }
 }

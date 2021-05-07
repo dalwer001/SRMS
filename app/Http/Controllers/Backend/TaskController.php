@@ -38,14 +38,31 @@ class TaskController extends Controller
             $product_quantity = $data->quantity;
         }
 
-        $products = Task::where('employee_id',$request->employee_id)->get();
-        foreach($products as $data)
-        {
-            if($data->product_id==$request->product_id)
+        $products = Task::where('employee_id', $request->employee_id)->get();
+        // dd($products);
+        foreach ($products as $data) {
+            if($data->product_id == $request->product_id && $data->start_date >= $request->start_date)
             {
-            return redirect()->back()->with('error','This task already given');
+                return redirect()->back()->with('error', 'This date is invalid.');
+            }
+
+            elseif ($data->product_id == $request->product_id && $data->end_date >= $request->start_date) {
+                return redirect()->back()->with('error', 'This task already given or wait for the next month.');
+            }
+
+            else{
+                $products = Task::where('employee_id', $request->employee_id)->update([
+                    'target_quantity' => $request->target_quantity,
+                    'total_price' => $total_price,
+                    'start_date' => $request->start_date,
+                    'end_date' => Carbon::create($request->start_date)->addMonth()
+                ]
+                );
+                return redirect()->back();
             }
         }
+
+
 
 
 
@@ -58,26 +75,28 @@ class TaskController extends Controller
 
 
         ]);
-// dd(Carbon::create($request->start_date)->addMonth());
+        // dd(Carbon::create($request->start_date)->addMonth());
+        if ($product_quantity <= $request->target_quantity) {
+            return redirect()->back()->with('error-message', 'This product have existed quantity');
+        } 
+        else {
+            Task::create([
+                'employee_id' => $request->employee_id,
+                'product_id' => $request->product_id,
+                'target_quantity' => $request->target_quantity,
+                'total_price' => $total_price,
+                'start_date' => $request->start_date,
+                'end_date' => Carbon::create($request->start_date)->addMonth(),
+            ]);
 
+            $left_quantity = $product_quantity - $request->target_quantity;
+            // dd($left_quantity);
 
-        Task::create([
-            'employee_id' => $request->employee_id,
-            'product_id' => $request->product_id,
-            'target_quantity' => $request->target_quantity,
-            'total_price' => $total_price,
-            'start_date' => $request->start_date,
-            'end_date' => Carbon::create($request->start_date)->addMonth(),
-        ]);
+            Product::where('id', $request->product_id)->update([
+                'quantity' => $left_quantity
+            ]);
 
-        $left_quantity = $product_quantity - $request->target_quantity;
-        // dd($left_quantity);
-
-
-        Product::where('id', $request->product_id)->update([
-            'quantity' => $left_quantity
-        ]);
-
-        return redirect()->back();
+            return redirect()->back();
+        }
     }
 }

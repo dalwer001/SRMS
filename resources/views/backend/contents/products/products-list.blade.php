@@ -60,7 +60,7 @@
 
 
 
-    <table class="table table-success table-striped">
+    <table class="table table-success table-bordered table-striped text-center">
         <thead>
             <tr>
                 <th scope="col">serial</th>
@@ -84,7 +84,6 @@
                     <td>{{ $data->quantity }}</td>
                     <td>{{ $data->unit_price }} BDT</td>
                     <td>
-                        <a class="text-primary mx-2" href="#"><i class="far fa-eye"></i></a>
                         <a class="text-danger mx-2" href={{ route('products.delete', $data['id']) }}><i
                                 class="far fa-trash-alt"></i></a>
                         <a class="text-success mx-2" href={{ route('products.edit', $data['id']) }}><i

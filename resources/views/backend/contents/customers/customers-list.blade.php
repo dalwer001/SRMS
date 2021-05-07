@@ -20,7 +20,7 @@
         </div>
     @endif
 
-    <table class="table table-success table-striped">
+    <table class="table table-success table-striped table-bordered text-center">
         <thead>
             <tr>
                 <th scope="col">Serial</th>
@@ -42,13 +42,9 @@
                     <td>{{ $data->email }}</td>
                     <td>{{ $data->customerEmployee->employeeDetail->email }}</td>
                     <td>{{ $data->contact_no }}</td>
-                    <td>{{ $data->address }}</td>
-                    <td>{{ $data->city}}</td>
+                    <td class="text-start">{{ $data->address }}</td>
+                    <td class="text-start">{{ $data->city}}</td>
                     <td>
-
-                        <a class="text-primary mx-2"><i class="far fa-eye"></i></a>
-
-
                         @if (auth()->user()->role == 'admin')
                             <a class="text-danger mx-2" href={{ route('customers.delete', $data['id']) }}><i
                                     class="far fa-trash-alt"></i></a>

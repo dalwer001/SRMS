@@ -17,8 +17,8 @@
         </div>
     @endif
 
-    <table class="table table-success table-striped">
-        <thead>
+    <table class="table table-success table-bordered table-striped ">
+        <thead class="text-center">
             <tr>
                 <th scope="col">Serial</th>
                 <th scope="col">Category Name</th>
@@ -29,11 +29,10 @@
         @foreach ($productCategories as $key=> $data)
             <tbody>
                 <tr>
-                    <th scope="row">{{ $key+1 }}</th>
-                    <td>{{ $data->name }}</td>
+                    <th scope="row" class="text-center">{{ $key+1 }}</th>
+                    <td class="text-center">{{ $data->name }}</td>
                     <td>{{ $data->description }}</td>
-                    <td>
-                        <a class="text-primary mx-2" href="#"><i class="far fa-eye"></i></a>
+                    <td class="text-center">
                         <a class="text-danger mx-2" href={{ route('productCategory.delete', $data['id']) }}><i
                                 class="far fa-trash-alt"></i></a>
                         <a class="text-success mx-2" href="#"><i class="far fa-edit"></i></a>

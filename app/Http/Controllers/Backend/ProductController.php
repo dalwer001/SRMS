@@ -16,34 +16,32 @@ class ProductController extends Controller
     // get method
     public function products(Request $request)
     {
-        
+
         if ($request->input('category_id')) {
-            $products = Product::where('category_id',$request->input('category_id'))->paginate(5);
-        } 
-        
-        else {
+            $products = Product::where('category_id', $request->input('category_id'))->paginate(5);
+        } else {
             $products = Product::paginate(5);
         }
-        
+
         $categories = ProductCategories::all();
 
         return view('backend.contents.products.products-list', compact('products', 'categories'));
     }
 
-//product search
+    //product search
     public function search(Request $request)
     {
-    //     $search=$request->search;
-    //     if($search){
-    //         $product=Product::where('name','like','%'.$search.'%')->paginate(5);
-    //     }else
-    //     {
-    //         $product=Product::with('productCategory')->paginate(5);
-    //     }
+        //     $search=$request->search;
+        //     if($search){
+        //         $product=Product::where('name','like','%'.$search.'%')->paginate(5);
+        //     }else
+        //     {
+        //         $product=Product::with('productCategory')->paginate(5);
+        //     }
 
-    //     // where(name=%search%)
-    //     $title="Search result";
-    //     return view('backend.contents.products.products-list',compact('title','product','search'));
+        //     // where(name=%search%)
+        //     $title="Search result";
+        //     return view('backend.contents.products.products-list',compact('title','product','search'));
     }
 
 
@@ -69,10 +67,10 @@ class ProductController extends Controller
 
 
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:products',
             'category_id' => 'required',
             'quantity' => 'required',
-            'unit_price'=>'required'
+            'unit_price' => 'required'
 
         ]);
 
@@ -80,7 +78,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'category_id' => $request->category_id,
             'image' => $file_name,
-            'quantity' => $request->quantity ,
+            'quantity' => $request->quantity,
             'unit_price' => $request->unit_price
 
         ]);
@@ -107,11 +105,13 @@ class ProductController extends Controller
     // update method
     public function update(Request $request)
     {
+
         $products = Product::find($request->id);
-        $products->name = $request->name;
-        $products->quantity = $request->quantity;
-        $products->unit_price = $request->unit_price;
-        $products->save();
+        $products->update([
+            'name' => $request->name,
+            'quantity' => $request->quantity
+        ]);
+
         return redirect()->route('products.list');
     }
 
@@ -129,9 +129,8 @@ class ProductController extends Controller
     public function category_create(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:productCategories',
             'description' => 'required'
-
         ]);
 
         ProductCategories::create([

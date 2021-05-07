@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <table class="table table-success table-bordered table-striped">
+    <table class="table table-success table-bordered table-striped text-center">
         <thead>
             <tr>
                 <th scope="col">Serial</th>
@@ -48,12 +48,11 @@
                     <td>{{ $data->employeeDetail->email }}</td>
                     <td>{{ $data->contact_no }}</td>
                     <td>{{ $data->gender }}</td>
-                    <td>{{ $data->address }}</td>
+                    <td class="text-start">{{ $data->address }}</td>
                     <td>{{ $data->salary }}</td>
                     <td>{{ $data->birth_date }}</td>
                     <td>{{ $data->join_date }}</td>
                     <td>
-                        <a class="text-primary mx-2"><i class="far fa-eye"></i></a>
                         <a class="text-danger mx-2" href={{ route('employees.delete', $data['id']) }}><i
                                 class="far fa-trash-alt"></i></a>
                         <a class="text-success mx-2" href={{ route('employees.edit', $data['id']) }}><i

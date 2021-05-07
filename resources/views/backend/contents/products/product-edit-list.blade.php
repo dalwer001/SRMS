@@ -5,7 +5,7 @@
     </div>
 
     {{-- modal --}}
-    <div>
+    <div class="p-5">
 
         <form method="POST" action="{{ route('products.update',$products['id'])}}">
             @csrf
@@ -13,7 +13,7 @@
             <div class="mb-3 form-group">
                 <label for="exampleFormControlInput1" class="form-label">Product Name:</label>
                 <input type="text" name="name" class="form-control"
-                    placeholder="Product Name" value="{{$products['name']}}">
+                    placeholder="Product Name" value="{{$products['name']}} " readonly>
             </div>
 
             <div class="mb-3 form-group">

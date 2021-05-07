@@ -57,14 +57,8 @@ class EmployeeController extends Controller
             'password' => bcrypt('123456')
         ]);
 
-        //commission calculation
-        $target= Task ::where('id',$request->employee->employee_id);
-        dd($target);
-        foreach($target as $data )
-        {
-            $quantity = $data->target_quantity;
-        }
-        dd($quantity);
+        //employee add
+        
 
         Employee::create([
             'image'=>$file_name,
@@ -92,7 +86,6 @@ class EmployeeController extends Controller
     // edit method
     public function edit($id)
     {
-
         $employees = Employee::find($id);
         return view('backend.contents.employees.employee-edit-list', compact('employees'));
     }
