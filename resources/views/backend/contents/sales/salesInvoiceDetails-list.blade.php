@@ -4,6 +4,7 @@
 
 
     {{-- @dd($sale->salesEmp->employeeDetail->employeeProfile->contact_no) --}}
+<div id="printableArea">
 
     <div class=" d-flex justify-content-between mb-2 mt-3">
         <h4 class="text-danger">Date: {{date("Y-M-d",strtotime($sale->created_at))}}</h4>
@@ -12,13 +13,13 @@
 
 
     <div class="col-xs-12 col-sm-12 col-md-12 text-left border p-3">
-        
+
             <h3 class="border-bottom text-info">Customer Info</h3>
             <h5>{{ $sale->customer->name }}</h5>
             <p><b>Mobile :</b> +88{{ $sale->customer->contact_no }}</p>
             <p><b>Email :</b> {{ $sale->customer->email }}</p>
             <p><b>Address :</b> {{ $sale->customer->address }}</p>
-        
+
     </div>
 
 
@@ -76,11 +77,11 @@
         <p> <strong>Address: </strong> {{ $sale->salesEmp->employeeDetail->employeeProfile->address }}</p>
 
     </div>
+</div>
 
     <div class=" d-flex justify-centent-end">
-        <button class="btn btn-success mt-2" style="width: 120px">Print</button>
+        <button class="btn btn-success mt-2" style="width: 120px" onclick="printDiv('printableArea')" >Print</button>
     </div>
-
 
 
 

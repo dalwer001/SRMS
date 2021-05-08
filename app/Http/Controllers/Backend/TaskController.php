@@ -78,7 +78,7 @@ class TaskController extends Controller
         // dd(Carbon::create($request->start_date)->addMonth());
         if ($product_quantity <= $request->target_quantity) {
             return redirect()->back()->with('error-message', 'This product have existed quantity');
-        } 
+        }
         else {
             Task::create([
                 'employee_id' => $request->employee_id,

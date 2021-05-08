@@ -58,7 +58,7 @@ class EmployeeController extends Controller
         ]);
 
         //employee add
-        
+
 
         Employee::create([
             'image'=>$file_name,

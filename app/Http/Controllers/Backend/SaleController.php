@@ -169,7 +169,7 @@ class SaleController extends Controller
             $total_p=0;
             foreach($task as $data)
             {
-                $task_q =$task_q+$data->target_quantity; 
+                $task_q =$task_q+$data->target_quantity;
                 $total_p = $total_p+$data->total_price;
                 $date= $data->end_date;
             }
@@ -204,10 +204,10 @@ class SaleController extends Controller
             {
                 $data->delete();
             }
-            
+
             return redirect()->route('newSale.list')->with('error','you have existed the sales date, your task is update to null');
         }
-        
+
         return redirect()->route('newSale.list');
     }
 }

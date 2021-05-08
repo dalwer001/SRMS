@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Throwable;
 
 class CustomerController extends Controller
 {
@@ -61,8 +62,18 @@ class CustomerController extends Controller
     public function delete($id)
     {
         $customers = Customer::find($id);
-        $customers->delete();
-        return redirect()->route('customers.list');
+
+        try{
+            $customers->delete();
+            return redirect()->route('customers.list');
+        }catch(Throwable $e){
+           if($e->getCode() == '23000'){
+            return redirect()->back()->with('error-message','This customer already have sale');
+           }
+           return back();
+        }
+
+
     }
 
     //edit view
