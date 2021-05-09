@@ -8,6 +8,7 @@ use App\Models\ProductCategories;
 use App\Models\ProductCategory;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Throwable;
 
 class ProductController extends Controller
 {
@@ -72,7 +73,6 @@ class ProductController extends Controller
             'category_id' => 'required',
             'quantity' => 'required|min:0',
             'unit_price' => 'required'
-
         ]);
 
 
@@ -94,8 +94,16 @@ class ProductController extends Controller
     public function delete($id)
     {
         $products = Product::find($id);
-        $products->delete();
-        return redirect()->route('products.list');
+        try{
+            $products->delete();
+            return redirect()->route('products.list')->with('success-message','Product deleted successfully.');
+        }
+        catch (Throwable $e) {
+            if ($e->getCode() == '23000') {
+                return redirect()->back()->with('error-message', 'This product already given as a task.');
+            }
+            return back();
+        }
     }
 
     //edit view

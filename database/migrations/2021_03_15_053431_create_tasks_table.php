@@ -15,8 +15,8 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_id');
-            $table->integer('product_id');
+            $table->foreignId('employee_id');
+            $table->foreignId('product_id')->constrained()->restrictOnDelete();
             $table->double('total_price');
             $table->double('target_quantity');
             $table->date('start_date');
