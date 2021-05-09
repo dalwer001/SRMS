@@ -138,7 +138,7 @@
                                 <select class="form-select" name="product_id">
                                     <option selected>Product Name</option>
                                     @foreach ($task as $data)
-                                        <option value="{{ $data->product_id }}">{{ $data->product->name }}</option>
+                                        <option value="{{ $data->product_id }}">{{ $data->product->name }}- {{$data->target_quantity}}Qty</option>
                                     @endforeach
                                 </select>
                             </div>

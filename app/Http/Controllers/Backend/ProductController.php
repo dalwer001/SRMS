@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategories;
+use App\Models\ProductCategory;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -69,10 +70,13 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|unique:products',
             'category_id' => 'required',
-            'quantity' => 'required',
+            'quantity' => 'required|min:0',
             'unit_price' => 'required'
 
         ]);
+
+
+
 
         Product::create([
             'name' => $request->name,
@@ -97,7 +101,6 @@ class ProductController extends Controller
     //edit view
     public function edit($id)
     {
-
         $products = Product::find($id);
         return view('backend.contents.products.product-edit-list', compact('products'));
     }
@@ -105,6 +108,9 @@ class ProductController extends Controller
     // update method
     public function update(Request $request)
     {
+        $request->validate([
+            'quantity' => 'required',
+        ]);
 
         $products = Product::find($request->id);
         $products->update([
@@ -119,8 +125,11 @@ class ProductController extends Controller
     //categories get method
     public function categories()
     {
-        $productCategories = ProductCategories::all();
-        return view('backend.contents.products.product-categories-list', compact('productCategories'));
+        
+        $categories = ProductCategories::all();
+        // dd($productCategories);
+
+        return view('backend.contents.products.product-categories-list', compact('categories'));
     }
 
 
@@ -129,7 +138,7 @@ class ProductController extends Controller
     public function category_create(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:productCategories',
+            'name' => 'required|unique:product_categories',
             'description' => 'required'
         ]);
 
@@ -137,7 +146,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description
         ]);
-        return redirect()->route('products.categories');
+        return redirect()->route('products.categories')->with('message-success','Employee created successfully.');
     }
 
     //

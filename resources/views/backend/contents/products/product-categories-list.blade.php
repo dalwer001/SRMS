@@ -17,6 +17,12 @@
         </div>
     @endif
 
+    @if (session()->has('message-success'))
+        <div class="alert alert-success">
+            {{ session()->get('message-success') }}
+        </div>
+    @endif
+
     <table class="table table-success table-bordered table-striped ">
         <thead class="text-center">
             <tr>
@@ -26,10 +32,10 @@
                 <th scope="col">Action</th>
             </tr>
         </thead>
-        @foreach ($productCategories as $key=> $data)
+        @foreach ($categories as $key => $data)
             <tbody>
                 <tr>
-                    <th scope="row" class="text-center">{{ $key+1 }}</th>
+                    <th scope="row" class="text-center">{{ $key + 1 }}</th>
                     <td class="text-center">{{ $data->name }}</td>
                     <td>{{ $data->description }}</td>
                     <td class="text-center">

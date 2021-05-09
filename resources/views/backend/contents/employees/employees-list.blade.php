@@ -21,6 +21,12 @@
         </div>
     @endif
 
+    @if (session()->has('message-success'))
+        <div class="alert alert-success">
+            {{ session()->get('message-success') }}
+        </div>
+    @endif
+
     <table class="table table-success table-bordered table-striped text-center">
         <thead>
             <tr>
@@ -74,7 +80,7 @@
         <!-- Modal -->
         <form method="post" action="{{ route('employees.create') }}" enctype="multipart/form-data">
             @csrf
-            <div class="modal fade " id="exampleModal" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">

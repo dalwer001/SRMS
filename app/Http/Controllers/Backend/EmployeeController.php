@@ -7,6 +7,8 @@ use App\Models\Employee;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class EmployeeController extends Controller
 {
@@ -39,41 +41,48 @@ class EmployeeController extends Controller
             }
         }
 
-        $request->validate([
-            'name' => 'required',
-            'email' => 'email|required|unique:users',
-            'contact_no'=>'required|min:11|numeric',
-            'address'=>'required',
-            'gender'=>'required',
-            'birth_date'=>'required',
-            'join_date'=>'required',
-            'salary'=>'required'
+        DB::beginTransaction();
 
-        ]);
+        try{
+            $request->validate([
+                'name' => 'required',
+                'email' => 'email|required|unique:users',
+                'contact_no'=>'required|min:11|numeric',
+                'address'=>'required',
+                'gender'=>'required',
+                'birth_date'=>'required',
+                'join_date'=>'required',
+                'salary'=>'required'
+            ]);
+    
+            $users = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt('123456')
+            ]);
+    
+            //employee add
+    
+    
+            Employee::create([
+                'image'=>$file_name,
+                'user_id'=>$users->id,
+                'contact_no' => $request->contact_no,
+                'address' => $request->address,
+                'gender' => $request->gender,
+                'birth_date' => $request->birth_date,
+                'join_date' => $request->join_date,
+                'salary' => $request->salary
+            ]);
 
-        $users = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt('123456')
-        ]);
-
-        //employee add
-
-
-        Employee::create([
-            'image'=>$file_name,
-            'user_id'=>$users->id,
-            'contact_no' => $request->contact_no,
-            'address' => $request->address,
-            'gender' => $request->gender,
-            'birth_date' => $request->birth_date,
-            'join_date' => $request->join_date,
-            'salary' => $request->salary
-        ]);
-
-
-        return redirect()->back();
+            DB::commit();
+            return redirect()->back()->with('message-success','Employee created successfully.');
+        }
+        catch(Throwable $e){
+            DB::rollBack();
+            return redirect()->back();
     }
+}
 
     //delete method
     public function delete($id)
@@ -94,16 +103,16 @@ class EmployeeController extends Controller
     public function update(Request $request)
     {
         $employees = Employee::find($request->id);
-        $employees->name = $request->name;
-        $employees->email = $request->email;
-        $employees->contact_no = $request->contact_no;
-        $employees->gender = $request->gender;
-        $employees->address = $request->address;
-        $employees->birth_date = $request->birth_date;
-        $employees->join_date = $request->join_date;
-        $employees->salary = $request->salary;
-        $employees->password =  bcrypt($request->password);
-        $employees->save();
+        $employees->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'contact_no' => $request->contact_no,
+        'gender' => $request->gender,
+        'address' => $request->address,
+        'birth_date' => $request->birth_date,
+        'salary' => $request->salary,
+        'password' =>  bcrypt($request->password)
+        ]);
         return redirect()->route('employees.list');
     }
 }

@@ -15,3 +15,4 @@ class Product extends Model
         return $this->belongsTo(ProductCategories::class,'category_id','id');
     }
 }
+

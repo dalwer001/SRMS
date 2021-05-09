@@ -32,6 +32,12 @@
         </div>
     @endif
 
+    @if (session()->has('success-message'))
+    <div class="alert alert-success">
+        {{ session()->get('success-message') }}
+    </div>
+@endif
+
 
     <table class="table table-secondary table-bordered table-striped text-center">
         <thead>
