@@ -108,7 +108,7 @@
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
                                 <select class="form-select" name="product_id">
                                     <option selected>Open this select menu</option>
-                                    
+
                                     @foreach ($products as $data)
                                         <option value="{{ $data->id }}">{{ $data->name }}-{{$data->quantity}} Qty</option>
                                     @endforeach

@@ -54,16 +54,16 @@ class EmployeeController extends Controller
                 'join_date'=>'required',
                 'salary'=>'required'
             ]);
-    
+
             $users = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt('123456')
             ]);
-    
+
             //employee add
-    
-    
+
+
             Employee::create([
                 'image'=>$file_name,
                 'user_id'=>$users->id,
@@ -88,8 +88,17 @@ class EmployeeController extends Controller
     public function delete($id)
     {
         $employees = Employee::find($id);
-        $employees->delete();
-        return redirect()->route('employees.list');
+        try{
+            $employees->delete();
+            return redirect()->route('employees.list');
+        }
+        catch (Throwable $e) {
+            if ($e->getCode() == '23000') {
+                return redirect()->back()->with('error-message', 'This employee already have task.');
+            }
+            return back();
+        }
+
     }
 
     // edit method

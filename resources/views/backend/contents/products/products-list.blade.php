@@ -23,11 +23,11 @@
         </div>
     @endif
     @if (session()->has('error-message'))
-        <div class="alert alert-success">
+        <div class="alert alert-danger">
             {{ session()->get('error-message') }}
         </div>
     @endif
-{{-- 
+{{--
     <div class="row">
         <div class="col-md-4">
             <form action="{{route('product.search')}}" method="POST">

@@ -22,6 +22,13 @@
             {{ session()->get('message-success') }}
         </div>
     @endif
+    @if (session()->has('error-message'))
+        <div class="alert alert-danger">
+            {{ session()->get('error-message') }}
+        </div>
+    @endif
+
+
 
     <table class="table table-success table-bordered table-striped ">
         <thead class="text-center">

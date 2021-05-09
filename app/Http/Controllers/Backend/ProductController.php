@@ -133,7 +133,7 @@ class ProductController extends Controller
     //categories get method
     public function categories()
     {
-        
+
         $categories = ProductCategories::all();
         // dd($productCategories);
 
@@ -161,7 +161,16 @@ class ProductController extends Controller
     public function category_delete($id)
     {
         $productCategory = ProductCategories::find($id);
-        $productCategory->delete();
-        return redirect()->route('products.categories');
+        try{
+            $productCategory->delete();
+            return redirect()->route('products.categories');
+        }
+        catch (Throwable $e) {
+            if ($e->getCode() == '23000') {
+                return redirect()->back()->with('error-message','This product category already have products.');
+            }
+            return back();
+        }
+
     }
 }
