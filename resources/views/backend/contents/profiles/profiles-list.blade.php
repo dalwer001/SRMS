@@ -22,8 +22,7 @@
 
     <div class="container">
         <div class="main-body">
-
-
+            <h2 class="fw-bolder border-bottom">{{$title}}</h2>
             <!-- /Breadcrumb -->
 
             <div class="row gutters-sm mt-3">
@@ -42,17 +41,22 @@
                         </div>
                     </div>
                     <div class="bg-light mt-3 p-3 d-flex justify-content-center">
-                        <a class="btn btn-info m-1" href="#">Update Profile</a>
+                        <a class="btn btn-info m-1" href="#">Profile picture update</a>
 
                         <button class="btn btn-warning m-1" href="" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Change Password</button>
                     </div>
+                
                 </div>
 
                 <div class="col-md-8">
                     <div class="card mb-3">
-                        <div class="card-body">
+                        <div class="card-body bg-light shadow">
                             <div class="row">
+                                <div class="bg-success">
+                                    <h2 class="fw-bold fs-3">Personal Details</h2>
+                                </div>
+                                <hr>
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
@@ -129,6 +133,25 @@
             </div>
         </div>
     </div>
+    <div class="p-5">
+        <table class="table table-success table-bordered table-striped">
+            <thead class="text-center">
+                <tr>
+                    
+                    <th scope="col">Date</th>
+                    <th scope="col">Comission</th>
+                </tr>
+            </thead>
+            {{-- @foreach ($categories as $key => $data) --}}
+            <tbody>
+                <tr>
+                
+                    <td class="text-center">date</td>
+                    <td class="text-center"> 250BDT </td>
+                </tr>
+            </tbody>
+            {{-- @endforeach --}}
+        </table>
     </div>
 
     {{-- modal --}}

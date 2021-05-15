@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\controller;
+use App\Models\Commission;
 use App\Models\Employee;
 use App\Models\Task;
 use App\Models\User;
@@ -15,7 +16,7 @@ class EmployeeController extends Controller
     //get method
     public function employees()
     {
-
+        
         $employees = Employee::all();
         return view('backend.contents.employees.employees-list', compact('employees'));
     }
@@ -123,5 +124,13 @@ class EmployeeController extends Controller
         'password' =>  bcrypt($request->password)
         ]);
         return redirect()->route('employees.list');
+    }
+
+    public function view($id)
+    {
+        $employees = Employee::find($id);
+
+        $sales = Commission::where('employee_id', $employees->id)->get();
+        return view('backend.contents.employees.employee-view-list', compact('employees','sales'));
     }
 }

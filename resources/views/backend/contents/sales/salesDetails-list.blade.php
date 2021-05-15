@@ -3,6 +3,24 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Sale Details</h1>
     </div>
+
+    {{-- <div class="row">
+            <form action="{{route('saleDetails.search')}}" method="get">
+                    <div class="col-md-6">
+                        <div class="row mb-3">
+                            <div class="col-sm-10">
+                            <input id="from_date" type="date" class="form-control" name="from_date" pleacholder="search by date">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-success">Search</button>
+                            </div>
+                        </div> 
+                    </div>
+                </form>
+        </div> --}}
+
+
+
     <table class="table table-success table-bordered table-striped">
         <thead>
             <tr>
@@ -41,5 +59,8 @@
 
         </tbody>
     </table>
+    <div class="d-flex justify-content-center ">
+        {{ $sales->links()}}
+    </div>
 @endsection
 

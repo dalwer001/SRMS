@@ -86,12 +86,14 @@ class CustomerController extends Controller
     public function update(Request $request)
     {
         $customers = Customer::find($request->id);
-        $customers->name = $request->name;
-        $customers->email = $request->email;
-        $customers->contact_no = $request->contact_no;
-        $customers->address = $request->address;
-        $customers->city = $request->city;
-        $customers->save();
+
+        $customers->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'contact_no' => $request->contact_no,
+        'address' => $request->address,
+        'city' => $request->city
+        ]);
         return redirect()->route('customers.list');
     }
 }

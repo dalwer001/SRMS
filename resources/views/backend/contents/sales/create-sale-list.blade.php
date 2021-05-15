@@ -4,15 +4,15 @@
         <h1 class="h2">Create Sale</h1>
     </div>
 
-    @if (session()->has('success'))
+    @if (session()->has('success-message'))
         <div class="alert alert-info">
-            {{ session()->get('success') }}
+            {{ session()->get('success-message') }}
         </div>
     @endif
     
-    @if (session()->has('error'))
+    @if (session()->has('error-message'))
         <div class="alert alert-danger">
-            {{ session()->get('error') }}
+            {{ session()->get('error-message') }}
         </div>
     @endif
 
@@ -60,7 +60,7 @@
             <div class="row mb-3">
                 <label for="inputPassword3" class="col-sm-2 col-form-label">Invoice No.</label>
                 <div class="col-sm-10">
-                    <input type="text" name="invoice_no" id="invoice_no" class="form-control" >
+                    <input type="text" name="invoice_no" id="invoice_no" class="form-control" readonly>
                 </div>
             </div>
         </div>

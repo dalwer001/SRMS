@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\productController;
 use App\Http\Controllers\Backend\EmployeeController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\SaleController;
 use App\Http\Controllers\Backend\TaskController;
 use App\Http\Controllers\Backend\UserController;
@@ -71,6 +72,13 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/employees/delete/{id}', [EmployeeController::class, 'delete'])->name('employees.delete');
         Route::get('/employees/edit/{id}', [EmployeeController::class, 'edit'])->name('employees.edit');
         Route::put('/employees/update/{id}', [EmployeeController::class, 'update'])->name('employees.update');
+        Route::get('/employees/viewDetails/{id}', [EmployeeController::class, 'view'])->name('employees.view');
+        
+
+
+        //report days 
+        Route::get('/reports', [ReportController::class, 'report'])->name('sales.report');
+
     });
 });
 
@@ -108,9 +116,8 @@ Route::group(['prefix' => 'employee'], function () {
 //sales
 Route::get('/sales-details', [SaleController::class, 'salesDetails'])->name('saleDetails.list')->middleware('auth');
 Route::get('/sales-details/view/{id}', [SaleController::class, 'salesDetailsView'])->name('salesDetailsView.list')->middleware('auth');
-Route::get('/sale-summary', [SaleController::class, 'saleSummary'])->name('saleSummary.list')->middleware('auth');
+// Route::get('/sales-details/view',[SaleController::class,'search'])->name('saleDetails.search');
 //customers
 Route::get('/customers', [CustomerController::class, 'customers'])->name('customers.list')->middleware('auth');
-
 
 Route::get('/get-customer/{id}', [ApiController::class, 'customerDetails']);

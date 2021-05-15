@@ -17,7 +17,7 @@ class CreateSalesTable extends Migration
             $table->id();
             $table->foreignId('employee_id');
             $table->foreignId('customer_id')->constrained()->restrictOnDelete();
-            $table->integer('total_amount');
+            $table->double('total_amount');
             $table->integer('invoice_no');
             $table->timestamps();
         });

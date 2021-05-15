@@ -14,7 +14,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12 text-left border p-3">
 
-            <h3 class="border-bottom text-info">Customer Info</h3>
+            <h3 class="border-bottom text-primary">Customer Info</h3>
             <h5>{{ $sale->customer->name }}</h5>
             <p><b>Mobile :</b> +88{{ $sale->customer->contact_no }}</p>
             <p><b>Email :</b> {{ $sale->customer->email }}</p>
@@ -70,7 +70,7 @@
 
     <div class="col-xs-6 col-sm-12 col-md-6  border p-3">
 
-        <h3 class="border-bottom text-info">Sales By</h3>
+        <h3 class="border-bottom text-primary">Sales By</h3>
         <h5> <strong>Name:</strong> {{ $sale->salesEmp->employeeDetail->name }}</h5>
         <p> <strong>Mobile No:</strong> +88{{ $sale->salesEmp->employeeDetail->employeeProfile->contact_no }}</p>
         <p> <strong> Email: </strong>{{ $sale->salesEmp->employeeDetail->email }}</p>

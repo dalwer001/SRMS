@@ -71,7 +71,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|unique:products',
             'category_id' => 'required',
-            'quantity' => 'required|min:0',
+            'quantity' => 'required|min:1',
             'unit_price' => 'required'
         ]);
 
@@ -96,7 +96,7 @@ class ProductController extends Controller
         $products = Product::find($id);
         try{
             $products->delete();
-            return redirect()->route('products.list')->with('success-message','Product deleted successfully.');
+            return redirect()->route('products.list')->with('error-message','Product deleted successfully.');
         }
         catch (Throwable $e) {
             if ($e->getCode() == '23000') {
@@ -123,7 +123,8 @@ class ProductController extends Controller
         $products = Product::find($request->id);
         $products->update([
             'name' => $request->name,
-            'quantity' => $request->quantity
+            'quantity' => $request->quantity,
+            'unit_price'=>$request->unit_price
         ]);
 
         return redirect()->route('products.list');

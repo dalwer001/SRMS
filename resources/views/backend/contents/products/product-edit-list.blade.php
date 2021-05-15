@@ -21,10 +21,10 @@
                 <input type="number" name="quantity" class="form-control"  placeholder="500" value="{{$products['quantity']}}">
             </div>
 
-            {{-- <div class="mb-3 form-group">
+            <div class="mb-3 form-group">
                 <label for="exampleFormControlInput1" class="form-label">Price</label>
-                <input type="number" name="price" class="form-control"  placeholder="1000Tk" value="{{$products['price']}}">
-            </div> --}}
+                <input type="double" name="unit_price" class="form-control"  placeholder="5BDT" value="{{$products['unit_price']}}">
+            </div>
     </div>
 
     <div>
