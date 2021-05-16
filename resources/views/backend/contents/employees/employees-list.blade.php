@@ -12,26 +12,26 @@
     </div>
 
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    {{ $error }}
-                @endforeach
-            </ul>
-        </div>
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endforeach
     @endif
 
-    @if (session()->has('message-success'))
-        <div class="alert alert-success">
-            {{ session()->get('message-success') }}
+    @if (session()->has('success-message'))
+        <div class="alert alert-success d-flex justify-content-between">
+            {{ session()->get('success-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     @if (session()->has('error-message'))
-    <div class="alert alert-danger">
-        {{ session()->get('error-message') }}
-    </div>
-@endif
+        <div class="alert alert-danger d-flex justify-content-between">
+            {{ session()->get('error-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
 
     <table class="table table-success table-bordered table-striped text-center">
@@ -66,7 +66,8 @@
                     <td>{{ $data->birth_date }}</td>
                     <td>{{ $data->join_date }}</td>
                     <td>
-                        <a class="text-primary mx-2" href="{{route('employees.view',$data['id'])}}"><i class="far fa-eye"></i></a>
+                        <a class="text-primary mx-2" href="{{ route('employees.view', $data['id']) }}"><i
+                                class="far fa-eye"></i></a>
                         <a class="text-danger mx-2" href={{ route('employees.delete', $data['id']) }}><i
                                 class="far fa-trash-alt"></i></a>
                         <a class="text-success mx-2" href={{ route('employees.edit', $data['id']) }}><i
@@ -148,6 +149,9 @@
 
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Birthday Date</label>
+                                <div>
+                                    <small>*18 year's required</small>
+                                </div>
                                 <input type="date" class="form-control" name="birth_date" id="exampleFormControlInput1"
                                     placeholder="Birthday-date" required>
                             </div>

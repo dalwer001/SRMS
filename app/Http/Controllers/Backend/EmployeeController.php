@@ -51,7 +51,7 @@ class EmployeeController extends Controller
                 'contact_no'=>'required|min:11|numeric',
                 'address'=>'required',
                 'gender'=>'required',
-                'birth_date'=>'required',
+                'birth_date'=>'required|date|before_or_equal:'.\Carbon\Carbon::now()->subYears(18)->format('Y-m-d'),
                 'join_date'=>'required',
                 'salary'=>'required'
             ]);
@@ -77,11 +77,11 @@ class EmployeeController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('message-success','Employee created successfully.');
+            return redirect()->back()->with('success-message','Employee created successfully.');
         }
         catch(Throwable $e){
             DB::rollBack();
-            return redirect()->back();
+            return redirect()->back()->with('error-message', 'You missed something');
     }
 }
 

@@ -61,6 +61,6 @@ class UserController extends Controller
             ]);
         }
         Auth::logout();
-        return redirect()->route('login.form')->with('success', 'Logout Successful.');
+        return redirect()->route('login.form')->with('success-message', 'Logout Successful.');
     }
 }

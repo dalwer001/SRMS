@@ -155,7 +155,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description
         ]);
-        return redirect()->route('products.categories')->with('message-success','Employee created successfully.');
+        return redirect()->route('products.categories')->with('success-message','Employee created successfully.');
     }
 
     //

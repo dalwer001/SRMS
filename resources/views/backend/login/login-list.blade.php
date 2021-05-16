@@ -14,14 +14,17 @@
 
 
 <body class="container login-bg " style=>
-    @if (session()->has('success'))
-        <div class="alert alert-success">
-            {{ session()->get('success') }}
+    @if (session()->has('success-message'))
+        <div class="alert alert-success d-flex justify-content-between">
+            {{ session()->get('success-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if ($errors->any())
         @foreach ($errors->all() as $error)
-            <div class="alert alert-danger">{{ $error }}</div>
+            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endforeach
     @endif
 

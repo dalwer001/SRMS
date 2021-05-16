@@ -7,13 +7,20 @@
     {{-- modal --}}
     <div class="p-5">
 
-        <form method="POST" action="{{ route('products.update',$products['id'])}}">
+        <form method="POST" action="{{ route('products.update',$products['id'])}}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3 form-group">
                 <label for="exampleFormControlInput1" class="form-label">Product Name:</label>
                 <input type="text" name="name" class="form-control"
                     placeholder="Product Name" value="{{$products['name']}} " readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Image</label>
+                <hr>
+                <img style="width: 150px;" src="{{url('/files/product/'.$products->image)}}" alt="">
+                <input name="product_image" type="file" class="form-control" value="{{ $products['product_image'] }}" src="" id="">
             </div>
 
             <div class="mb-3 form-group">

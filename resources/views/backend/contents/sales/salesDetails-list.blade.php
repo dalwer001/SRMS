@@ -39,7 +39,6 @@
         <tbody>
             @foreach ($sales as $key=>$item)
             {{-- @dd($item->salesEmp->employeeDetail) --}}
-
             <tr>
                 <th scope="row">{{$key+1}}</th>
                 <td>{{$item->invoice_no}}</td>
@@ -50,13 +49,11 @@
                 <td>{{$item->total_amount}}BDT</td>
                 <td>{{date("Y-M-d",strtotime($item->created_at))}}</td>
                 <td>
-                    <a class="text-primary mx-2" href=""><i class="far fa-trash-alt"></i></a>
+                    <a class="text-primary mx-2" href=""><i class="far fa-trash-alt "></i></a>
                     <a class="text-primary mx-2" href="{{ route('salesDetailsView.list', $item['id']) }}"><i class="far fa-eye"></i></a>
                 </td>
             </tr>
             @endforeach
-
-
         </tbody>
     </table>
     <div class="d-flex justify-content-center ">

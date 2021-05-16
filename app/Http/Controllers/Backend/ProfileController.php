@@ -48,6 +48,6 @@ class ProfileController extends Controller
 
         // $users->password = $request->bcrypt($request->password);
         // $users->save();
-        return redirect()->back()->with('success', 'Password updated successfully.');
+        return redirect()->back()->with('success-message', 'Password updated successfully.');
     }
 }

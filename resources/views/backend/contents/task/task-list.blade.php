@@ -11,32 +11,28 @@
 
     </div>
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    {{ $error }}
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session()->has('error'))
-        <div class="alert alert-danger">
-            {{ session()->get('error') }}
-        </div>
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endforeach
     @endif
 
     @if (session()->has('error-message'))
-        <div class="alert alert-danger">
+        <div class="alert alert-danger d-flex justify-content-between">
             {{ session()->get('error-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     @if (session()->has('success-message'))
-    <div class="alert alert-success">
-        {{ session()->get('success-message') }}
-    </div>
-@endif
+        <div class="alert alert-success d-flex justify-content-between">
+            {{ session()->get('success-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+
 
 
     <table class="table table-secondary table-bordered table-striped text-center">
@@ -66,8 +62,8 @@
                     <td>{{ $data->product->name }}</td>
                     <td>{{ $data->total_price }} BDT</td>
                     <td>{{ $data->target_quantity }}</td>
-                    <td>{{date("Y-M-d",strtotime($data->start_date)  )}}</td>
-                    <td>{{date("Y-M-d",strtotime($data->end_date ) )}}</td>
+                    <td>{{ date('Y-M-d', strtotime($data->start_date)) }}</td>
+                    <td>{{ date('Y-M-d', strtotime($data->end_date)) }}</td>
 
                     @if (auth()->user()->role == 'admin')
                         <td>
@@ -110,7 +106,8 @@
                                     <option selected>Open this select menu</option>
 
                                     @foreach ($products as $data)
-                                        <option value="{{ $data->id }}">{{ $data->name }}-{{$data->quantity}} Qty</option>
+                                        <option value="{{ $data->id }}">{{ $data->name }}-{{ $data->quantity }} Qty
+                                        </option>
                                     @endforeach
                                 </select>
                                 {{-- @dd($data); --}}

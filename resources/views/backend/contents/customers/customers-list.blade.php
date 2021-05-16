@@ -11,18 +11,24 @@
     </div>
 
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endforeach
     @endif
 
     @if (session()->has('error-message'))
-        <div class="alert alert-danger">
+        <div class="alert alert-danger d-flex justify-content-between">
             {{ session()->get('error-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session()->has('success-message'))
+        <div class="alert alert-success d-flex justify-content-between">
+            {{ session()->get('success-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 

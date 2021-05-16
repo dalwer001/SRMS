@@ -21,11 +21,11 @@ class SaleController extends Controller
     {
 
         if (auth()->user()->role == 'admin') {
-            $sales = Sale::paginate(10);
+            $sales = Sale::paginate(20);
         } 
         else{
             $users = auth()->user()->employeeProfile->id;
-            $sales = Sale::where('employee_id', $users)->paginate(10);
+            $sales = Sale::where('employee_id', $users)->paginate(20);
         }
 
         return view('backend.contents.sales.salesDetails-list', compact('sales'));
@@ -113,7 +113,6 @@ class SaleController extends Controller
 
         // dd($cart);
 
-      
         if ($cart) {
             $cart->update([
                 'product_quantity' => $cart->product_quantity + $request->product_quantity

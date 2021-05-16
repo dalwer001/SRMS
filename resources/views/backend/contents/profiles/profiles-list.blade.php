@@ -3,26 +3,30 @@
     <link href="/css/profile.css" rel="stylesheet">
 
 
-    @if (session()->has('success'))
-        <div class="alert alert-success">
-            {{ session()->get('success') }}
+    @if (session()->has('success-message'))
+        <div class="alert alert-success d-flex justify-content-between">
+            {{ session()->get('success-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    @if (session()->has('error'))
-        <div class="alert alert-danger">
-            {{ session()->get('error') }}
+    @if (session()->has('error-message'))
+        <div class="alert alert-danger d-flex justify-content-between">
+            {{ session()->get('error-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 
     @if ($errors->any())
         @foreach ($errors->all() as $error)
-            <div class="alert alert-danger">{{ $error }}</div>
+            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endforeach
     @endif
 
     <div class="container">
         <div class="main-body">
-            <h2 class="fw-bolder border-bottom">{{$title}}</h2>
+            <h2 class="fw-bolder border-bottom">{{ $title }}</h2>
             <!-- /Breadcrumb -->
 
             <div class="row gutters-sm mt-3">
@@ -46,7 +50,7 @@
                         <button class="btn btn-warning m-1" href="" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Change Password</button>
                     </div>
-                
+
                 </div>
 
                 <div class="col-md-8">
@@ -137,7 +141,7 @@
         <table class="table table-success table-bordered table-striped">
             <thead class="text-center">
                 <tr>
-                    
+
                     <th scope="col">Date</th>
                     <th scope="col">Comission</th>
                 </tr>
@@ -145,7 +149,7 @@
             {{-- @foreach ($categories as $key => $data) --}}
             <tbody>
                 <tr>
-                
+
                     <td class="text-center">date</td>
                     <td class="text-center"> 250BDT </td>
                 </tr>

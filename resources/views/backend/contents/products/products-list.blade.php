@@ -8,27 +8,26 @@
     </div>
 
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    {{ $error }}
-                @endforeach
-            </ul>
-        </div>
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endforeach
     @endif
 
     @if (session()->has('success-message'))
-        <div class="alert alert-success">
+        <div class="alert alert-success d-flex justify-content-between">
             {{ session()->get('success-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if (session()->has('error-message'))
-        <div class="alert alert-danger">
+        <div class="alert alert-danger d-flex justify-content-between">
             {{ session()->get('error-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-{{--
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-4">
             <form action="{{route('product.search')}}" method="POST">
                 @csrf
@@ -39,29 +38,30 @@
 
     </div> --}}
 
-    {{-- @if(isset($search))
+    {{-- @if (isset($search))
         <p>
         <span class="alert alert-success"> you are searching for '{{$search}}' , found ({{count($product)}})</span>
         </p>
     @endif --}}
 
-        <div class="dropdown mb-3 d-flex justify-content-end">
-            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Categories List
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <div class="dropdown mb-3 d-flex justify-content-end">
+        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Categories List
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                <a class="dropdown-item" href="{{route('products.list')}}">All Product</a>
+            <a class="dropdown-item" href="{{ route('products.list') }}">All Product</a>
 
-                @foreach ($categories as $category)
+            @foreach ($categories as $category)
 
-                <a class="dropdown-item" href="{{route('products.list',['category_id'=>$category->id])}}">{{$category->name}}</a>
+                <a class="dropdown-item"
+                    href="{{ route('products.list', ['category_id' => $category->id]) }}">{{ $category->name }}</a>
 
-                @endforeach
+            @endforeach
             {{-- @dd($products) --}}
-            </ul>
-        </div>
+        </ul>
+    </div>
 
 
 
@@ -89,8 +89,8 @@
                     <td>{{ $data->quantity }}</td>
                     <td>{{ $data->unit_price }} BDT</td>
                     <td>
-                        <a class="text-danger mx-2" href={{ route('products.delete', $data['id']) }}><i
-                                class="far fa-trash-alt"></i></a>
+                        <a class="text-danger mx-2" onclick="return confirm('Are you sure?')"
+                            href={{ route('products.delete', $data['id']) }}><i class="far fa-trash-alt"></i></a>
                         <a class="text-success mx-2" href={{ route('products.edit', $data['id']) }}><i
                                 class="far fa-edit"></i></a>
                     </td>
@@ -144,7 +144,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Unit Price</label>
                                 <input type="double" name="unit_price" class="form-control" id="exampleFormControlInput1"
-                                placeholder="1000BDT">
+                                    placeholder="1000BDT">
                             </div>
                         </div>
 
@@ -158,6 +158,6 @@
     </div>
 
     <div class="d-flex justify-content-center ">
-        {{ $products->links()}}
+        {{ $products->links() }}
     </div>
 @endsection

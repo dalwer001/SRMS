@@ -45,11 +45,11 @@ class TaskController extends Controller
 
             if($data->product_id == $request->product_id && $data->start_date > $request->start_date)
             {
-                return redirect()->back()->with('error', 'This date is invalid because given date is less than task start date.');
+                return redirect()->back()->with('error-message', 'This date is invalid because given date is less than task start date.');
             }
 
             if ($data->product_id == $request->product_id && $data->end_date >= $request->start_date ) {
-                return redirect()->back()->with('error', 'This task already exist and wait for the next month 1.');
+                return redirect()->back()->with('error-message', 'This task already exist and wait for the next month 1.');
             }
 
             if($product_quantity<$request->target_quantity)

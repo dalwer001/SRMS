@@ -16,6 +16,6 @@ function printDiv(divName) {
 }
 
 </script>
- @stack('customer_js')
+@stack('customer_js')
 
 
