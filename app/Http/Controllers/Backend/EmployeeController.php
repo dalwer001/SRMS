@@ -43,7 +43,6 @@ class EmployeeController extends Controller
         }
 
         DB::beginTransaction();
-
         try{
             $request->validate([
                 'name' => 'required',
@@ -106,13 +105,38 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employees = Employee::find($id);
-        return view('backend.contents.employees.employee-edit-list', compact('employees'));
+        $users = User::find($id);
+        return view('backend.contents.employees.employee-edit-list', compact('employees','users'));
     }
 
 
     public function update(Request $request)
     {
         $employees = Employee::find($request->id);
+
+
+        if ($request->hasFile('employee_image')) {
+
+            $image_path = public_path().'/files/employee/'.$employees->image;
+
+            if ($employees->image) {
+                unlink($image_path);
+            }
+
+                $file_name='';
+
+                $file = $request -> file('product_image');
+                if ($file -> isValid()) {
+                    $file_name = date('Ymdhms').'.'.$file -> getClientOriginalExtension();
+                    $file -> storeAs('product', $file_name);
+                }
+
+            $employees->image->update([
+                'image' => $file_name
+            ]);
+
+
+        }
         $employees->update([
         'name' => $request->name,
         'email' => $request->email,
@@ -123,7 +147,12 @@ class EmployeeController extends Controller
         'salary' => $request->salary,
         'password' =>  bcrypt($request->password)
         ]);
-        return redirect()->route('employees.list');
+
+        User::find($employees->user_id)->update([
+            'name' => $request->name,
+            'email' => $request->email
+        ]);
+        return redirect()->route('employees.list')->with('success-message','Employee update successfully');
     }
 
     public function view($id)

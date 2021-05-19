@@ -1,0 +1,21 @@
+.products{
+    background: rgba(11, 172, 145, 0.856);
+}
+.quantity{
+    background: rgb(185, 119, 119);
+}
+
+.employee{
+    background: #96c996a9;
+}
+
+.active-employee{
+    background: rgba(95, 114, 179, 0.609);
+}
+.customer{
+    background: rgba(102, 51, 153, 0.678);
+}
+
+.sale{
+    background: rgba(103, 119, 129, 0.378);
+}

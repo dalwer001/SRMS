@@ -62,8 +62,11 @@ Route::group(['prefix' => 'admin'], function () {
         //task create
         Route::post('/tasks', [TaskController::class, 'create'])->name('tasks.create');
         Route::get('/tasks', [TaskController::class, 'tasks'])->name("tasks.list");
+        Route::get('/tasks/delete/{id}', [TaskController::class, 'delete'])->name("tasks.delete");
 
 
+//sales delete
+        Route::get('/sales-details/delete/{id}', [SaleController::class, 'delete'])->name('salesDetails.delete');
 
 
         //employee route........
@@ -93,7 +96,6 @@ Route::group(['prefix' => 'employee'], function () {
         Route::get('/employee-profile', [ProfileController::class, 'employeeProfile'])->name('employee.profile');
         Route::post('/employee-profile/updatepassword/{id}', [ProfileController::class, 'profileUpdate'])->name('employee.profileUpdate');
 
-
         //task
         Route::get('/employee-task/{id}', [TaskController::class, 'employeeTask'])->name('employeeTask.list');
         // sales
@@ -109,7 +111,6 @@ Route::group(['prefix' => 'employee'], function () {
         Route::put('/customers/update/{id}', [CustomerController::class, 'update'])->name('customers.update');
     });
 });
-
 
 
 //both  user

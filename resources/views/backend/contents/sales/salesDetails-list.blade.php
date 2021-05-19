@@ -20,6 +20,27 @@
         </div> --}}
 
 
+        @if (session()->has('success-message'))
+        <div class="alert alert-success d-flex justify-content-between">
+            {{ session()->get('success-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session()->has('error-message'))
+        <div class="alert alert-danger d-flex justify-content-between">
+            {{ session()->get('error-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endforeach
+    @endif
 
     <table class="table table-success table-bordered table-striped">
         <thead>
@@ -49,7 +70,9 @@
                 <td>{{$item->total_amount}}BDT</td>
                 <td>{{date("Y-M-d",strtotime($item->created_at))}}</td>
                 <td>
-                    <a class="text-primary mx-2" href=""><i class="far fa-trash-alt "></i></a>
+                    @if(auth()->user()->role=='admin')
+                    <a class="text-primary mx-2" onclick="return confirm('Are you sure?')" href="{{route('salesDetails.delete',$item['id'])}}"><i class="far fa-trash-alt "></i></a>
+                    @endif
                     <a class="text-primary mx-2" href="{{ route('salesDetailsView.list', $item['id']) }}"><i class="far fa-eye"></i></a>
                 </td>
             </tr>

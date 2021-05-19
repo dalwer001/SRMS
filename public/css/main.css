@@ -11,3 +11,16 @@
       font-size: 3.5rem;
     }
   }
+
+  .main-background{
+    background: #EFEFEF;
+  }
+
+  .table-header{
+    background-color:#A1A6CE ;
+  }
+
+  .add-btn{
+    background: #8c92c5ca;
+    color: rgb(255, 255, 255);
+  }

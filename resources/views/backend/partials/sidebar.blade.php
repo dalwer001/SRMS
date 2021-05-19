@@ -1,28 +1,33 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar bg-dark collapse background">
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar bg-dark collapse background shadow">
     <div class="position-sticky pt-3 ">
-        <div class="row">
-            <div class="sidebar-header ">
-                <div class="col-md-12 ">
+        <div class="row p-3">
+            {{-- <div class="sidebar-header "> --}}
+                <div class="col-md-6 ">
                     @if (auth()->user()->role == 'employee')
-                        {
+                        
                         <div class="avatar m-auto">
                             <img src="{{ url('/files/employee/' . auth()->user()->employeeProfile->image) }}"
                                 alt="..." class="img-fluid rounded-circle w-100 h-100">
                         </div>
-                        }
-                    {{-- @else{
+                        
+                    @else
                         <div class="avatar m-auto">
                             <img src="{{ url('img/shojib.jpg') }}" alt="..."
                                 class="img-fluid rounded-circle w-100 h-100">
                         </div>
-                        } --}}
+                        
                     @endif
                 </div>
 
-                <div class="col-md-12 text-center">
-                    <h1 class="h5 text-white ">{{ auth()->user()->name }}</h1>
+                <div class="col-md-6  m-0 pt-3 ">
+                    <div>
+                    <h1 class="h5 text-white d-flex jutify-ceontent-center">{{ auth()->user()->name }}</h1>
+                    </div> 
+                    <div>
+                    <p class="text-light"><i class="fas fa-circle text-success"></i> online</p>
+                    </div>
                 </div>
-            </div>
+            {{-- </div> --}}
         </div>
         <ul class="nav flex-column item-hover border-top">
 
@@ -36,27 +41,27 @@
 
                 <li class="nav-item ">
                     <a class="nav-link text-white" href="{{ route('products.categories') }}">
-                        <i class="far fa-file-alt"></i>
+                        <i class="far fa-file-alt text-warning"></i>
                         Products Categories
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link text-white" href="{{ route('products.list') }}">
-                        <i class="far fa-file-alt"></i>
+                        <i class="far fa-file-alt text-warning"></i>
                         Products
                     </a>
 
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link text-white" href="{{ route('employees.list') }}">
-                        <i class="far fa-user"></i>
+                        <i class="far fa-user text-info"></i>
                         Employees
                     </a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link text-white" href="{{ route('tasks.list') }}">
-                        <i class="fas fa-tasks"></i>
+                    <a class="nav-link text-white " href="{{ route('tasks.list') }}">
+                        <i class="fas fa-tasks text-danger"></i>
                         Tasks
                     </a>
                 </li>
@@ -66,7 +71,7 @@
             <li class="nav-item  dropend">
                 <a class="nav-link text-white dropdown-toggle btn-group" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    <i class="fa fa-balance-scale"></i>
+                    <i class="fa fa-balance-scale text-primary"></i>
                     Sales
                 </a>
                 <ul class="dropdown-menu background m-0 bg-dark">
@@ -89,7 +94,7 @@
             @if (auth()->user()->role == 'employee')
             <li class="nav-item ">
                 <a class="nav-link text-white" href="{{ route('employeeTask.list', auth()->user()->employeeProfile['id']) }}">
-                    <i class="fas fa-tasks"></i>
+                    <i class="fas fa-tasks text-danger"></i>
                     Tasks
                 </a>
             </li>
@@ -100,7 +105,7 @@
 
             <li class="nav-item ">
                 <a class="nav-link text-white" href="{{ route('customers.list') }}">
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-users text-secondary"></i>
                     Customer
                 </a>
             </li>
@@ -108,7 +113,7 @@
             @if (auth()->user()->role == 'admin')
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{route('sales.report')}}">
-                        <i class="fas fa-chart-bar"></i>
+                        <i class="fas fa-chart-bar text-success"></i>
                         Reports
                     </a>
                 </li>

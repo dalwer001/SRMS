@@ -8,7 +8,6 @@
             Add Employees
         </button>
 
-
     </div>
 
     @if ($errors->any())
@@ -68,9 +67,9 @@
                     <td>
                         <a class="text-primary mx-2" href="{{ route('employees.view', $data['id']) }}"><i
                                 class="far fa-eye"></i></a>
-                        <a class="text-danger mx-2" href={{ route('employees.delete', $data['id']) }}><i
+                        <a class="text-danger mx-2"  href={{ route('employees.delete', $data['id']) }}><i
                                 class="far fa-trash-alt"></i></a>
-                        <a class="text-success mx-2" href={{ route('employees.edit', $data['id']) }}><i
+                        <a class="text-success mx-2"  href={{ route('employees.edit', $data['id']) }}><i
                                 class="far fa-edit"></i></a>
                     </td>
                 </tr>
@@ -93,7 +92,7 @@
                 <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Create New Employee</h5>
+                            <h5 class="modal-title " id="exampleModalLabel">Create New Employee</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
@@ -152,7 +151,7 @@
                                 <div>
                                     <small>*18 year's required</small>
                                 </div>
-                                <input type="date" class="form-control" name="birth_date" id="exampleFormControlInput1"
+                                <input type="date" min="01-01-2003" class="form-control" name="birth_date" id="exampleFormControlInput1"
                                     placeholder="Birthday-date" required>
                             </div>
 

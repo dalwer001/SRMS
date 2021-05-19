@@ -76,8 +76,6 @@ class ProductController extends Controller
         ]);
 
 
-
-
         Product::create([
             'name' => $request->name,
             'category_id' => $request->category_id,
@@ -121,13 +119,36 @@ class ProductController extends Controller
         ]);
 
         $products = Product::find($request->id);
+
+        if ($request->hasFile('product_image')) {
+
+            $image_path = public_path().'/files/product/'.$products->image;
+
+            if ($products->image) {
+                unlink($image_path);
+            }
+
+                $file_name='';
+
+                $file = $request -> file('product_image');
+                if ($file -> isValid()) {
+                    $file_name = date('Ymdhms').'.'.$file -> getClientOriginalExtension();
+                    $file -> storeAs('product', $file_name);
+                }
+
+            $products->update([
+                'image' => $file_name
+            ]);
+
+
+        }
         $products->update([
             'name' => $request->name,
             'quantity' => $request->quantity,
             'unit_price'=>$request->unit_price
         ]);
 
-        return redirect()->route('products.list');
+        return redirect()->route('products.list')->with('success-message','Product updated successfully');
     }
 
 
@@ -155,6 +176,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'description' => $request->description
         ]);
+
         return redirect()->route('products.categories')->with('success-message','Employee created successfully.');
     }
 

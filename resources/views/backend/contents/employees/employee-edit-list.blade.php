@@ -11,9 +11,16 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Employee Name:</label>
+                <label for="exampleFormControlInput1" class="form-label fw-bolder">Employee Name</label>
                 <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
-                    placeholder="Employee Name" value="{{ $employees['name'] }}">
+                    placeholder="Employee Name" value="{{ $users['name'] }}">
+            </div>
+
+            <div class="form-group">
+                <label class="fw-bolder">Image</label>
+                <br>
+                <img style="width: 150px;" class="mb-2" src="{{url('/files/employee/'.$employees->image)}}" alt="">
+                <input name="product_image" type="file" class="form-control" value="{{ $employees['employee_image'] }}" src="" id="">
             </div>
 
             {{-- <div class="mb-3">
@@ -22,19 +29,19 @@
             </div> --}}
 
             <div class=" mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <label for="exampleFormControlInput1" class="form-label fw-bolder">Email address</label>
                 <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
-                    placeholder="Employee email" value="{{ $employees['email'] }}">
+                    placeholder="Employee email" value="{{ $users['email'] }}">
             </div>
 
             <div class=" mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Contact Number</label>
+                <label for="exampleFormControlInput1" class="form-label fw-bolder">Contact Number</label>
                 <input type="text" name="contact_no" class="form-control" id="exampleFormControlInput1"
                     placeholder="01785496362" value="{{ $employees['contact_no'] }}">
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Gender</label>
+                <label for="exampleFormControlInput1" class="form-label fw-bolder">Gender</label>
                 <select class="form-select" name="gender">
                     <option selected>Select Gender</option>
                     <option value="{{ $employees['gender'] }}">Male</option>
@@ -43,31 +50,31 @@
             </div>
 
             <div class=" mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Address</label>
+                <label for="exampleFormControlInput1" class="form-label fw-bolder">Address</label>
                 <input type="text" name="address" class="form-control" id="exampleFormControlInput1"
                     placeholder="Enter Your Address" value="{{ $employees['address'] }}">
             </div>
 
             <div class=" mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Salary</label>
+                <label for="exampleFormControlInput1" class="form-label fw-bolder">Salary</label>
                 <input type="number" class="form-control" name="salary" id="exampleFormControlInput1" placeholder="50000TK"
                     value="{{ $employees['salary'] }}">
             </div>
 
             <div class=" mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Birthday Date</label>
+                <label for="exampleFormControlInput1" class="form-label fw-bolder">Birthday Date</label>
                 <input type="date" class="form-control" name="birth_date" id="exampleFormControlInput1"
                     placeholder="Birthday-date" value="{{ $employees['birth_date'] }}">
             </div>
 
             <div class=" mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Join Date</label>
+                <label for="exampleFormControlInput1" class="form-label fw-bolder">Join Date</label>
                 <input type="date" class="form-control" name="join_date" id="exampleFormControlInput1"
                     placeholder="join-Date" value="{{ $employees['join_date'] }}">
             </div>
         </div>
     <div>
-        <button type=" submit" class="btn btn-primary">update</button>
+        <button type=" submit" class="btn btn-primary" onclick="return confirm('Are you sure?')">update</button>
     </div>
     </form>
     </div>

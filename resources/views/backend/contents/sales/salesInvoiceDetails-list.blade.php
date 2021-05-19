@@ -54,7 +54,7 @@
             <tfoot>
                 <tr>
                     <td colspan="4">
-                        <strong>Total Amount = </strong>
+                        <strong class="d-flex justify-content-end">Total Amount = </strong>
                     </td>
                     <td>
                         <p>

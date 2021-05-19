@@ -144,7 +144,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Unit Price</label>
                                 <input type="double" name="unit_price" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="1000BDT">
+                                    placeholder="5BDT">
                             </div>
                         </div>
 

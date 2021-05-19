@@ -10,6 +10,7 @@ use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Throwable;
 
 class TaskController extends Controller
 {
@@ -43,23 +44,24 @@ class TaskController extends Controller
         foreach ($products as $data) {
             // dd($data->end_date!=Carbon::create($request->start_date)->addMonth());
 
-            if($data->product_id == $request->product_id && $data->start_date > $request->start_date)
-            {
+            if ($data->product_id == $request->product_id && $data->start_date > $request->start_date) {
                 return redirect()->back()->with('error-message', 'This date is invalid because given date is less than task start date.');
             }
 
-            if ($data->product_id == $request->product_id && $data->end_date >= $request->start_date ) {
+            if ($data->product_id == $request->product_id && $data->end_date >= $request->start_date) {
                 return redirect()->back()->with('error-message', 'This task already exist and wait for the next month 1.');
             }
 
-            if($product_quantity<$request->target_quantity)
-            {
+            if ($product_quantity < $request->target_quantity) {
                 return redirect()->back()->with('error-message', 'Not enough product in store');
+            }
+            if ($request->target_quantity < 0) {
+                return redirect()->back()->with('error-message', 'Give wrong value');
             }
 
             // dd($data->target_quantity);
             //     if($data->product_id == $request->product_id && $data->end_date <= $request->start_date && $data->target_quantity==0 ){
-                
+
             //         $products = Task::where('employee_id', $request->employee_id)
             //         ->where('product_id',$request->product_id)
             //         ->update([
@@ -70,12 +72,12 @@ class TaskController extends Controller
             //         ]);
             //         $left_quantity = $product_quantity - $request->target_quantity;
             //         // dd($left_quantity);
-        
+
             //         Product::where('id', $request->product_id)->update([
             //             'quantity' => $left_quantity
             //         ]);
             //         return redirect()->back()->with('error-message','This product have already task');
-        
+
             // }
         }
 
@@ -88,27 +90,20 @@ class TaskController extends Controller
             'employee_id' => 'required',
             'product_id' => 'required',
             'target_quantity' => 'required',
-            'start_date'  =>  'required|after:today',
+            'start_date'  =>  'required|after:today_or_equal',
         ]);
 
-    
+
         // dd(Carbon::create($request->start_date)->addMonth());
         if ($product_quantity < $request->target_quantity) {
             return redirect()->back()->with('error-message', 'Not enough product in store');
-        }
-        elseif($products && $data->start_date>$request->start_date && $data->start_date < $request->start_date)
-        {
+        } elseif ($products && $data->start_date > $request->start_date && $data->start_date < $request->start_date) {
             return redirect()->back()->with('error-message', 'This task already given and wait for the next month 2');
-        }
-
-        
-        
-        elseif($products  && $data->employee_id == $request->employee_id &&$data->start_date != $request->start_date && $request->start_date<Carbon::create($data->start_date)->addMonth())
-        {
+        } elseif ($products  && $data->employee_id == $request->employee_id && $data->start_date != $request->start_date && $request->start_date < Carbon::create($data->start_date)->addMonth()) {
             return redirect()->back()->with('error-message', 'This task already given and wait for the next month 3');
         }
         // dd($data);
-    else {
+        else {
             Task::create([
                 'employee_id' => $request->employee_id,
                 'product_id' => $request->product_id,
@@ -125,11 +120,32 @@ class TaskController extends Controller
                 'quantity' => $left_quantity
             ]);
 
-            return redirect()->back()->with('success-message','Task created successfully');
+            return redirect()->back()->with('success-message', 'Task created successfully');
         }
         // else{
         //     return redirect()->back()->with('error-message',' ');
         // }
-        
+
+    }
+
+    public function delete($id)
+    {
+        $task = Task::find($id);
+
+        try {
+            $products = Product::where('id', $task->product_id)->first();
+            $left_quantity = $task->target_quantity + $products->quantity;
+            $products->update([
+                'quantity' => $left_quantity,
+            ]);
+            $task->delete();
+            return redirect()->route('tasks.list')->with('error-message', 'Task deleted successfully.');
+        } 
+        catch (Throwable $e) {
+            if ($e->getCode() == '23000') {
+                return redirect()->back()->with('error-message', 'This task already has sales');
+            }
+            return back();
+        }
     }
 }

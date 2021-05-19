@@ -14,6 +14,7 @@ use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Throwable;
 
 class SaleController extends Controller
 {
@@ -77,7 +78,6 @@ class SaleController extends Controller
         $task = Task::where('product_id', $request->product_id)
             ->where('employee_id',  auth()->user()->employeeProfile->id)
             ->where('start_date','<',Carbon::now())
-            // ->where('end_date','>',Carbon::now())
             ->first();
             // dd($task);
             // foreach($task as $data)
@@ -300,5 +300,19 @@ class SaleController extends Controller
         //     return redirect()->route('saleDetails.list');
         // }
         // return view('backend.contents.sales.salesDetails-list', compact('sales'));
+    }
+
+    public function delete($id){
+        $sales = Sale::find($id);
+        try{
+            $sales->delete();
+            return redirect()->route('saleDetails.list')->with('error-message','Sale deleted successfully.');
+        }
+        catch (Throwable $e) {
+            if ($e->getCode() == '23000') {
+                return redirect()->back()->with('error-message', 'This sales already have task.');
+            }
+            return back();
+        }
     }
 }

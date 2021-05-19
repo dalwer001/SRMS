@@ -64,13 +64,10 @@
                     <td>{{ $data->target_quantity }}</td>
                     <td>{{ date('Y-M-d', strtotime($data->start_date)) }}</td>
                     <td>{{ date('Y-M-d', strtotime($data->end_date)) }}</td>
-
-                    @if (auth()->user()->role == 'admin')
                         <td>
-                            <a class="text-danger mx-2" href=""><i class="far fa-trash-alt"></i></a>
+                            <a class="text-danger mx-2" onclick="return confirm('Are you sure?')" href="{{ route('tasks.delete', $data['id']) }}"><i class="far fa-trash-alt"></i></a>
                             <a class="text-success mx-2" href=""><i class="far fa-edit"></i></a>
                         </td>
-                    @endif
                 </tr>
             </tbody>
         @endforeach

@@ -58,7 +58,7 @@
                     <td class="text-start">{{ $data->city }}</td>
                     <td>
                         @if (auth()->user()->role == 'admin')
-                            <a class="text-danger mx-2" href={{ route('customers.delete', $data['id']) }}><i
+                            <a class="text-danger mx-2" onclick="return confirm('Are you sure?')" href={{ route('customers.delete', $data['id']) }}><i
                                     class="far fa-trash-alt"></i></a>
                         @endif
                         @if (auth()->user()->role == 'employee')

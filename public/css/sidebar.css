@@ -1,30 +1,33 @@
 .item-hover a {
+    margin-top: 5px;
+    margin-bottom: 5px;
     text-decoration: none;
     transition: .25s all ease-in-out;
 }
 
 .item-hover li a:hover {
     padding: 8px;
-    background: rgb(214, 73, 92);
+    background: rgb(179, 175, 221);
     /* border-top-left-radius:15px ; */
-    text-align: center;
+    /* text-align: center; */
 }
-
+/* url(../img/doctors.jpg); */
 .background {
-    background-image: url(../img/doctors.jpg);
+    background-image:linear-gradient(45deg, rgba(3, 9, 22, 0.602) 0%,rgba(162, 120, 182, 0.685) 100%);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+
 }
 
 .avatar {
-    width: 150px;
-    height: 150px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
     background: none;
     padding: 4px;
-    border: 3px solid #282b2f;
+    border: 3px solid #929cc5;
     
 }
 
@@ -55,4 +58,8 @@
   font-weight: 700;
   line-height: 1.2;
   color: inherit;
+}
+
+.sidebar-shadow{
+    box-shadow:3px 3px 5px 6px #ccc;
 }
