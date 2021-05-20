@@ -99,7 +99,7 @@
                                     select status
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    @if ($data->status == 'active')
+                                    @if ($data->status == 'Active')
                                         <li><a class="dropdown-item"
                                                 href="{{ route('status.update', ['id' => $data->id, 'status' => 'Inactive']) }}">Inactive</a>
                                         </li>

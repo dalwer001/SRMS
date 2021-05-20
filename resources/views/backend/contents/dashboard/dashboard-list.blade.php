@@ -66,7 +66,7 @@
         <div class="col-md-4 my-3">
             <div class="card sale text-white shadow" style="width: 20rem;height:10rem;">
                 <div class="card-body">
-                    <h5 class="text-center"> <small>Todays's Sale</small> </h5>
+                    <h5 class="text-center"> <small>Today's Sale</small> </h5>
                     <h1 class="text-center">{{ $total_sale }} <span class="fs-2">BDT</span></h1>
                 </div>
             </div>
@@ -77,6 +77,24 @@
                 <div class="card-body">
                     <h5 class="text-center"> <small>Total Sale</small> </h5>
                     <h1 class="text-center">{{ $grandTotalSale  }} <span class="fs-2">BDT</span></h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 my-3">
+            <div class="card active-product text-white shadow" style="width: 20rem;height:10rem;">
+                <div class="card-body">
+                    <h5 class="text-center"> <small>Active Product</small> </h5>
+                    <h1 class="text-center">{{ $activeProduct }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 my-3">
+            <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
+                <div class="card-body">
+                    <h5 class="text-center"> <small>Total Active Product Quantity</small> </h5>
+                    <h1 class="text-center">{{ $totalActiveProduct  }}</h1>
                 </div>
             </div>
         </div>

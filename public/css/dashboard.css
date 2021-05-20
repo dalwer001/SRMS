@@ -23,3 +23,12 @@
 .totalsale {
     background: rgba(187, 108, 44, 0.685);
 }
+
+.active-product{
+    background: rgba(96, 167, 29, 0.507);
+}
+
+.active-quantity{
+    background: rgba(49, 17, 17, 0.452);
+
+}

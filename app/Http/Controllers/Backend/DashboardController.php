@@ -20,6 +20,15 @@ class DashboardController extends Controller
             $quantity+=$data->quantity;
         }
 
+        $ProductActive = Product::where('status','Active')->get();
+        $activeProduct = $ProductActive->count();
+        $totalActiveProduct=0;
+        foreach ($ProductActive  as  $data) {
+            $totalActiveProduct+=$data->quantity;
+        }
+        
+        
+
         $totalEmployee = Employee::all()->count();
         $activeEmployee =Employee::where('status','active')->count();
 
@@ -43,6 +52,6 @@ class DashboardController extends Controller
 
 
         // dd($quantity);
-        return view('backend.contents.dashboard.dashboard-list',compact('totalNumberofProduct','quantity','totalEmployee','activeEmployee','totalCustomer','total_sale','grandTotalSale'));
+        return view('backend.contents.dashboard.dashboard-list',compact('totalNumberofProduct','quantity','totalEmployee','activeProduct','activeEmployee','totalCustomer','total_sale','grandTotalSale','totalActiveProduct',));
     }
 }
