@@ -2,15 +2,13 @@
 @section('content')
 {{-- @dd($employee); --}}
 
-    
-        <div class="col-md-6  mt-5 mb-5 px-2 py-5 border">
-            <h5 class="text-primary">Name: <small class="text-dark ">{{auth()->user()->name}}</small></h5>
-            <h5 class="text-primary">Email: <small class="text-dark ">{{auth()->user()->email}}</small></h5>
-        </div>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2 title">{{auth()->user()->name}} Tasks</h1>
+</div>
 
-
-    <table class="table table-success table-striped table-bordered shadow">
-        <thead>
+<div class="px-5">
+    <table class="table table-bordered text-center">
+        <thead class="text-center table-header">
             <tr>
                 <th scope="col">serial</th>
                 <th scope="col">Product Name</th>
@@ -22,7 +20,7 @@
             </tr>
         </thead>
         @foreach ($employee as $key => $data)
-            <tbody>
+            <tbody class="bg-light">
                 <tr>
                     <th scope="row">{{ $key + 1 }}</th>
                     <td>{{ $data->product->name }}</td>
@@ -35,4 +33,5 @@
         @endforeach
 
     </table>
+</div>
 @endsection

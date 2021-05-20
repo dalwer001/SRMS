@@ -26,7 +26,7 @@
 
     <div class="container">
         <div class="main-body">
-            <h2 class="fw-bolder border-bottom">{{ $title }}</h2>
+            <h2 class="h2 border-bottom title mt-3">{{ $title }}</h2>
             <!-- /Breadcrumb -->
 
             <div class="row gutters-sm mt-3">
@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img src="{{ url('/files/employee/' . $employees->image) }}" alt="Admin"
-                                    class="rounded-circle" width="150">
+                                    class="rounded-circle" style="width:150px;height:150px">
                                 <div class="mt-3">
                                     <h4>{{ $users->name }}</h4>
                                     <p class="text-muted font-size-sm">{{ $employees->address }},
@@ -45,9 +45,7 @@
                         </div>
                     </div>
                     <div class="bg-light mt-3 p-3 d-flex justify-content-center">
-                        <a class="btn btn-info m-1" href="#">Profile picture update</a>
-
-                        <button class="btn btn-warning m-1" href="" data-bs-toggle="modal"
+                        <button class="btn change-password m-1 fw-bolder" href="" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Change Password</button>
                     </div>
 
@@ -55,9 +53,9 @@
 
                 <div class="col-md-8">
                     <div class="card mb-3">
-                        <div class="card-body bg-light shadow">
+                        <div class="card-body bg-light ">
                             <div class="row">
-                                <div class="bg-success">
+                                <div class="table-header p-2">
                                     <h2 class="fw-bold fs-3">Personal Details</h2>
                                 </div>
                                 <hr>
@@ -136,27 +134,28 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="p-5">
-        <table class="table table-success table-bordered table-striped">
-            <thead class="text-center">
-                <tr>
 
-                    <th scope="col">Date</th>
-                    <th scope="col">Comission</th>
-                </tr>
-            </thead>
-            {{-- @foreach ($categories as $key => $data) --}}
-            <tbody>
-                <tr>
+        <div class="p-5">
+            <table class="table  table-bordered ">
+                <thead class="text-center table-header">
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Comission</th>
+                    </tr>
+                </thead>
+                @foreach ($commission as $key => $data)
+                <tbody class="bg-light">
+                    <tr>
+                        <td class="text-center">{{date("Y-M-d",strtotime($data->task->start_date) )}} - {{date("Y-M-d",strtotime($data->task->end_date))}}</td>
+                        <td class="text-center"> {{$data->commission}}</td>
+                    </tr>
+                </tbody>
+                @endforeach
+            </table>
+        </div>
 
-                    <td class="text-center">date</td>
-                    <td class="text-center"> 250BDT </td>
-                </tr>
-            </tbody>
-            {{-- @endforeach --}}
-        </table>
     </div>
+  
 
     {{-- modal --}}
 
@@ -164,34 +163,35 @@
         @csrf
         <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog  bg-danger">
-                <div class="modal-content">
-
-                    <h2 class="m-3">Change Password</h2>
+            <div class="modal-dialog ">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Change Password</h5>
+                    </div>  
 
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Enter Current Password:</label>
-                            <input type="password" required name="current_password" class="form-control" placeholder="**"
+                            <input type="password" required name="current_password" class="form-control" placeholder="*****"
                                 id="">
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Enter New Password:</label>
-                            <input type="password" required name="new_password" class="form-control" placeholder="**" id="">
+                            <input type="password" required name="new_password" class="form-control" placeholder="*****" id="">
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Confirm Password:</label>
-                            <input type="password" required name="confirm_password" class="form-control" placeholder="*"
+                            <input type="password" required name="confirm_password" class="form-control" placeholder="****"
                                 id="">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="button" class="btn modal-cancel text-white fw-bolder" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn modal-submit text-white fw-bolder">Confirm</button>
                     </div>
                 </div>
             </div>

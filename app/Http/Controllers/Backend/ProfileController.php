@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Commission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,8 @@ class ProfileController extends Controller
         $title = 'User Profile';
         $users = auth()->user();
         $employees = $users->employeeProfile;
-        return view('backend.contents.profiles.profiles-list', compact('title', 'users', 'employees'));
+        $commission = Commission::where('employee_id',$employees->id)->get();
+        return view('backend.contents.profiles.profiles-list', compact('title', 'users', 'employees','commission'));
     }
 
 

@@ -1,13 +1,12 @@
 @extends('backend.main')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Employee Details</h1>
+        <h1 class="h2 title">Employees </h1>
 
         {{-- <button class="btn btn-success" >ADD</button> --}}
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn add-btn"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Add Employees
         </button>
-
     </div>
 
     @if ($errors->any())
@@ -33,8 +32,9 @@
     @endif
 
 
-    <table class="table table-success table-bordered table-striped text-center">
-        <thead>
+    <div class="px-5">
+        <table class="table table-bordered text-center">
+            <thead class="text-center table-header">
             <tr>
                 <th scope="col">Serial</th>
                 <th scope="col">Employee Image</th>
@@ -49,7 +49,7 @@
                 <th scope="col">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-light">
             @foreach ($employees as $key => $data)
                 <tr>
                     <th scope="row">{{ $key + 1 }}</th>
@@ -65,17 +65,18 @@
                     <td>{{ $data->birth_date }}</td>
                     <td>{{ $data->join_date }}</td>
                     <td>
-                        <a class="text-primary mx-2" href="{{ route('employees.view', $data['id']) }}"><i
+                        <a class="text-primary  fs-5 mx-2" href="{{ route('employees.view', $data['id']) }}"><i
                                 class="far fa-eye"></i></a>
-                        <a class="text-danger mx-2"  href={{ route('employees.delete', $data['id']) }}><i
+                        <a class="text-danger fs-5 mx-2"  href={{ route('employees.delete', $data['id']) }}><i
                                 class="far fa-trash-alt"></i></a>
-                        <a class="text-success mx-2"  href={{ route('employees.edit', $data['id']) }}><i
+                        <a class="text-success  fs-5 mx-2"  href={{ route('employees.edit', $data['id']) }}><i
                                 class="far fa-edit"></i></a>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+</div>
 
     <div>
         <!-- Vertically centered modal -->
@@ -88,7 +89,7 @@
         <!-- Modal -->
         <form method="post" action="{{ route('employees.create') }}" enctype="multipart/form-data">
             @csrf
-            <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -125,7 +126,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Gender</label>
                                 <select class="form-select" name="gender">
-                                    <option selected>Select Gender</option>
+                                    <option value="">Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
@@ -163,14 +164,9 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Ok</button>
+                            <button type="button" class="btn modal-cancel text-white fw-bolder" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn modal-submit text-white fw-bolder">Ok</button>
                         </div>
         </form>
-
-
-
-    </div>
-    </div>
     </div>
 @endsection

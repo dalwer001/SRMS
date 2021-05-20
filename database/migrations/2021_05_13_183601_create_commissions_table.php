@@ -15,8 +15,8 @@ class CreateCommissionsTable extends Migration
     {
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
-            $table->integer('task_id');
-            $table->integer('employee_id');
+            $table->foreignId('task_id')->constrained()->restrictOnDelete();
+            $table->foreignId('employee_id')->constrained()->restrictOnDelete();
             $table->double('commission')->default(0.0);
             $table->timestamps();
         });

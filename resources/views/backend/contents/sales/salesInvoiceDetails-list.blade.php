@@ -7,14 +7,14 @@
 <div id="printableArea">
 
     <div class=" d-flex justify-content-between mb-2 mt-3">
-        <h4 class="text-danger">Date: {{date("Y-M-d",strtotime($sale->created_at))}}</h4>
-        <h3 class="text-primary">INVOICE #{{ $sale->invoice_no }}</h3>
+        <h4 class="text-primary">Date: {{date("Y-M-d",strtotime($sale->created_at))}}</h4>
+        <h3 class="invoice">INVOICE #{{ $sale->invoice_no }}</h3>
     </div>
 
 
-    <div class="col-xs-12 col-sm-12 col-md-12 text-left border p-3">
+    <div class="col-xs-12 col-sm-12 col-md-12 text-left bg-light border p-3">
 
-            <h3 class="border-bottom text-primary">Customer Info</h3>
+            <h3 class="border-bottom  title">Customer Info</h3>
             <h5>{{ $sale->customer->name }}</h5>
             <p><b>Mobile :</b> +88{{ $sale->customer->contact_no }}</p>
             <p><b>Email :</b> {{ $sale->customer->email }}</p>
@@ -27,9 +27,9 @@
 
 
 
-    <div class="mb-3 py-3">
-        <table class="table table-bordered mb-2 border-success">
-            <thead>
+    <div class=" py-3">
+        <table class="table table-bordered mb-2 mt-2 text-center">
+            <thead class="text-center table-header">
                 <tr>
                     <th>Serial</th>
                     <th>Product Name</th>
@@ -39,7 +39,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="table-light">
                 @foreach ($saleDetails as $key => $item)
                     <tr>
                         <td>{{ $key + 1 }}</td>
@@ -68,10 +68,10 @@
     </div>
 
 
-    <div class="col-xs-6 col-sm-12 col-md-6  border p-3">
+    <div class="col-xs-6 col-sm-12 col-md-12 bg-light  border p-3">
 
-        <h3 class="border-bottom text-primary">Sales By</h3>
-        <h5> <strong>Name:</strong> {{ $sale->salesEmp->employeeDetail->name }}</h5>
+        <h3 class="border-bottom  title">Sales By</h3>
+        <h5> {{ $sale->salesEmp->employeeDetail->name }}</h5>
         <p> <strong>Mobile No:</strong> +88{{ $sale->salesEmp->employeeDetail->employeeProfile->contact_no }}</p>
         <p> <strong> Email: </strong>{{ $sale->salesEmp->employeeDetail->email }}</p>
         <p> <strong>Address: </strong> {{ $sale->salesEmp->employeeDetail->employeeProfile->address }}</p>
@@ -80,7 +80,7 @@
 </div>
 
     <div class=" d-flex justify-centent-end">
-        <button class="btn btn-success mt-2" style="width: 120px" onclick="printDiv('printableArea')" >Print</button>
+        <button class="btn mt-2 modal-submit fw-bolder text-light " style="width: 120px" onclick="printDiv('printableArea')" >Print</button>
     </div>
 
 

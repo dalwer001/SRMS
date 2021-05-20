@@ -16,7 +16,7 @@ class CreateSaleDetailsTable extends Migration
         Schema::create('sale_details', function (Blueprint $table) {
             $table->id();
             $table->integer('sale_id');
-            $table->integer('product_id');
+            $table->foreignId('product_id')->constrained()->restrictOnDelete();
             $table->double('unit_price');
             $table->integer('quantity');
             $table->double('subtotal');

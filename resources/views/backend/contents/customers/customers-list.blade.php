@@ -1,10 +1,10 @@
 @extends('backend.main')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Customer Details</h1>
+        <h1 class="h2 title">Customer</h1>
 
         @if (auth()->user()->role == 'employee')
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn add-btn fw-bolder" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Add Customer
             </button>
         @endif
@@ -32,8 +32,9 @@
         </div>
     @endif
 
-    <table class="table table-success table-striped table-bordered text-center">
-        <thead>
+<div class="px-5">
+    <table class="table table-bordered text-center">
+        <thead class="text-center table-header">
             <tr>
                 <th scope="col">Serial</th>
                 <th scope="col">Customer Name</th>
@@ -45,7 +46,7 @@
                 <th scope="col">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-light">
 
             @foreach ($customers as $key => $data)
                 <tr>
@@ -58,7 +59,7 @@
                     <td class="text-start">{{ $data->city }}</td>
                     <td>
                         @if (auth()->user()->role == 'admin')
-                            <a class="text-danger mx-2" onclick="return confirm('Are you sure?')" href={{ route('customers.delete', $data['id']) }}><i
+                            <a class="text-danger fs-5 mx-2" onclick="return confirm('Are you sure?')" href={{ route('customers.delete', $data['id']) }}><i
                                     class="far fa-trash-alt"></i></a>
                         @endif
                         @if (auth()->user()->role == 'employee')
@@ -71,6 +72,7 @@
         </tbody>
     </table>
 
+</div>
     <div>
         <!-- Vertically centered modal -->
 
@@ -82,7 +84,7 @@
             <!-- Modal -->
             <form method="post" action="{{ route('customers.create') }}">
                 @csrf
-                <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
@@ -141,12 +143,11 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Ok</button>
+                                <button type="button" class="btn btn modal-cancel text-white fw-bolder" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn modal-submit text-white fw-bolder">Ok</button>
                             </div>
             </form>
         @endif
     </div>
-    </div>
-    </div>
+   
 @endsection

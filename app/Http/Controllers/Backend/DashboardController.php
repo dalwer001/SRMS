@@ -32,10 +32,17 @@ class DashboardController extends Controller
             $total_sale += $data->total_amount;
         }
 
+        $grandTotal = Sale::all();
+        $grandTotalSale=0;
+        foreach($grandTotal as $data)
+        {
+            $grandTotalSale += $data->total_amount;
+        }
+
 
 
 
         // dd($quantity);
-        return view('backend.contents.dashboard.dashboard-list',compact('totalNumberofProduct','quantity','totalEmployee','activeEmployee','totalCustomer','total_sale'));
+        return view('backend.contents.dashboard.dashboard-list',compact('totalNumberofProduct','quantity','totalEmployee','activeEmployee','totalCustomer','total_sale','grandTotalSale'));
     }
 }

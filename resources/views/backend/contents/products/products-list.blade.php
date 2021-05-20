@@ -1,8 +1,8 @@
 @extends('backend.main')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Products Details</h1>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <h1 class="h2 title">Products </h1>
+        <button type="button" class="btn add-btn fw-bolder" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Add Products
         </button>
     </div>
@@ -44,7 +44,7 @@
         </p>
     @endif --}}
 
-    <div class="dropdown mb-3 d-flex justify-content-end">
+    <div class="dropdown mb-3 d-flex justify-content-start">
         <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
             aria-expanded="false">
             Categories List
@@ -64,9 +64,9 @@
     </div>
 
 
-
-    <table class="table table-success table-bordered table-striped text-center">
-        <thead>
+<div class="px-5">
+    <table class="table table-bordered text-center">
+        <thead class="text-center table-header">
             <tr>
                 <th scope="col">serial</th>
                 <th scope="col">Product Name</th>
@@ -78,32 +78,32 @@
             </tr>
         </thead>
         @foreach ($products as $key => $data)
-            <tbody>
+            <tbody class="table-light">
                 <tr>
                     <th scope="row">{{ $key + 1 }}</th>
                     <td>{{ $data->name }}</td>
                     <td>{{ $data->productCategory->name }}</td>
                     <td>
-                        <img style="width: 100px;height:100px" src="{{ url('/files/product/' . $data->image) }}" alt="">
+                        <img style="width: 80px;height:80px" src="{{ url('/files/product/' . $data->image) }}" alt="">
                     </td>
                     <td>{{ $data->quantity }}</td>
                     <td>{{ $data->unit_price }} BDT</td>
                     <td>
-                        <a class="text-danger mx-2" onclick="return confirm('Are you sure?')"
+                        <a class="text-danger fs-5 mx-2" onclick="return confirm('Are you sure?')"
                             href={{ route('products.delete', $data['id']) }}><i class="far fa-trash-alt"></i></a>
-                        <a class="text-success mx-2" href={{ route('products.edit', $data['id']) }}><i
+                        <a class="text-success fs-5 mx-2" href={{ route('products.edit', $data['id']) }}><i
                                 class="far fa-edit"></i></a>
                     </td>
                 </tr>
             </tbody>
         @endforeach
     </table>
-
+</div>
     {{-- modal --}}
     <div>
         <form method="post" action="{{ route('products.create') }}" enctype="multipart/form-data">
             @csrf
-            <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -116,14 +116,14 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
                                 <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Product Name">
+                                    placeholder="Product Name" required>
                             </div>
 
 
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Category</label>
                                 <select class="form-select" name="category_id">
-                                    <option selected>Open this select menu</option>
+                                    <option value="">Open this select menu</option>
                                     @foreach ($categories as $data)
                                         <option value="{{ $data->id }}">{{ $data->name }}</option>
                                     @endforeach
@@ -139,18 +139,18 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Quantity</label>
                                 <input type="number" name="quantity" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="500">
+                                    placeholder="500" required>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Unit Price</label>
                                 <input type="double" name="unit_price" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="5BDT">
+                                    placeholder="5BDT" required>
                             </div>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Ok</button>
+                            <button type="button" class="btn modal-cancel text-white fw-bolder" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn modal-submit text-white fw-bolder">Ok</button>
                         </div>
         </form>
     </div>

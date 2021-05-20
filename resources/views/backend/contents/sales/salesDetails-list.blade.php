@@ -1,7 +1,7 @@
 @extends('backend.main')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Sale Details</h1>
+        <h1 class="h2 title">Sale Details</h1>
     </div>
 
     {{-- <div class="row">
@@ -42,8 +42,9 @@
         @endforeach
     @endif
 
-    <table class="table table-success table-bordered table-striped">
-        <thead>
+    <div class="px-5">
+    <table class="table  table-bordered text-center">
+        <thead class="text-center table-header">
             <tr>
                 <th scope="col">Serial</th>
                 <th scope="col">Invoice no.</th>
@@ -57,7 +58,7 @@
 
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-light">
             @foreach ($sales as $key=>$item)
             {{-- @dd($item->salesEmp->employeeDetail) --}}
             <tr>
@@ -71,14 +72,15 @@
                 <td>{{date("Y-M-d",strtotime($item->created_at))}}</td>
                 <td>
                     @if(auth()->user()->role=='admin')
-                    <a class="text-primary mx-2" onclick="return confirm('Are you sure?')" href="{{route('salesDetails.delete',$item['id'])}}"><i class="far fa-trash-alt "></i></a>
+                    <a class="text-danger fs-5 mx-2" onclick="return confirm('Are you sure?')" href="{{route('salesDetails.delete',$item['id'])}}"><i class="far fa-trash-alt "></i></a>
                     @endif
-                    <a class="text-primary mx-2" href="{{ route('salesDetailsView.list', $item['id']) }}"><i class="far fa-eye"></i></a>
+                    <a class="text-primary fs-5 mx-2" href="{{ route('salesDetailsView.list', $item['id']) }}"><i class="far fa-eye"></i></a>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+</div>
     <div class="d-flex justify-content-center ">
         {{ $sales->links()}}
     </div>

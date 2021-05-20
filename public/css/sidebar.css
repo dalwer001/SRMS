@@ -57,9 +57,31 @@
   font-family: inherit;
   font-weight: 700;
   line-height: 1.2;
-  color: inherit;
 }
 
 .sidebar-shadow{
     box-shadow:3px 3px 5px 6px #ccc;
 }
+
+
+.accordion-button{
+    padding: 8px;
+    transition: .25s all ease-in-out;
+    background: #2A2639;
+    border: none;
+  }
+.accordion-button:hover{
+    padding: 8px;
+    background: rgb(179, 175, 221);
+}
+
+  .accordion-body{
+    padding: 8px;
+    background: #2A2639;
+  }
+
+  .accordion-body:hover{
+    padding: 8px;
+    background: rgb(179, 175, 221);
+  }
+

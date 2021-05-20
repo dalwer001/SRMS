@@ -49,7 +49,7 @@ class TaskController extends Controller
             }
 
             if ($data->product_id == $request->product_id && $data->end_date >= $request->start_date) {
-                return redirect()->back()->with('error-message', 'This task already exist and wait for the next month 1.');
+                return redirect()->back()->with('error-message', 'This task already exist and wait for the next month.');
             }
 
             if ($product_quantity < $request->target_quantity) {
@@ -89,8 +89,8 @@ class TaskController extends Controller
         $request->validate([
             'employee_id' => 'required',
             'product_id' => 'required',
-            'target_quantity' => 'required',
-            'start_date'  =>  'required|after:today_or_equal',
+            'target_quantity' => 'required|gt:0',
+            'start_date'  =>  'required|after:yesterday',
         ]);
 
 
@@ -98,9 +98,9 @@ class TaskController extends Controller
         if ($product_quantity < $request->target_quantity) {
             return redirect()->back()->with('error-message', 'Not enough product in store');
         } elseif ($products && $data->start_date > $request->start_date && $data->start_date < $request->start_date) {
-            return redirect()->back()->with('error-message', 'This task already given and wait for the next month 2');
+            return redirect()->back()->with('error-message', 'This task already given and wait for the next month');
         } elseif ($products  && $data->employee_id == $request->employee_id && $data->start_date != $request->start_date && $request->start_date < Carbon::create($data->start_date)->addMonth()) {
-            return redirect()->back()->with('error-message', 'This task already given and wait for the next month 3');
+            return redirect()->back()->with('error-message', 'This task already given and wait for the next month');
         }
         // dd($data);
         else {

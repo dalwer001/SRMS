@@ -24,3 +24,20 @@
     background: #8c92c5ca;
     color: rgb(255, 255, 255);
   }
+
+  .title{
+    color: #4d4dafda;
+  }
+
+  .invoice{
+    color: #6e2bdada;
+
+  }
+
+  .change-password{
+    background: #7f80b6b4;
+    color: rgb(255, 255, 255);
+  }
+  .change-password:hover{
+    background: #7aaca5b4;
+  }

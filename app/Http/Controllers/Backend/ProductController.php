@@ -71,8 +71,8 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|unique:products',
             'category_id' => 'required',
-            'quantity' => 'required|min:1',
-            'unit_price' => 'required'
+            'quantity' => 'required|gt:0',
+            'unit_price' => 'required|gt:0'
         ]);
 
 
@@ -98,7 +98,7 @@ class ProductController extends Controller
         }
         catch (Throwable $e) {
             if ($e->getCode() == '23000') {
-                return redirect()->back()->with('error-message', 'This product already given as a task.');
+                return redirect()->back()->with('error-message', 'This product already given as a task or have sale.');
             }
             return back();
         }
@@ -114,11 +114,17 @@ class ProductController extends Controller
     // update method
     public function update(Request $request)
     {
-        $request->validate([
-            'quantity' => 'required',
-        ]);
+        // $request->validate([
+        //     'quantity' => 'required',
+        // ]);
 
         $products = Product::find($request->id);
+
+        $request->validate([
+            
+            'quantity' => 'required|gt:0',
+            'unit_price' => 'required|gt:0'
+        ]);
 
         if ($request->hasFile('product_image')) {
 
@@ -194,6 +200,25 @@ class ProductController extends Controller
             }
             return back();
         }
+    }
+
+      //category edit
+    public function category_edit($id)
+    {
+        $productCategory = ProductCategories::find($id);
+        return view('backend.contents.products.product-categories-edit-list', compact('productCategory'));
+    }
+
+    public function category_update(Request $request){
+
+        $productCategory = ProductCategories::find($request->id);
+
+        $productCategory->update([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+
+        return redirect()->route('products.categories')->with('success-message','Product Category updated successfully');
 
     }
 }

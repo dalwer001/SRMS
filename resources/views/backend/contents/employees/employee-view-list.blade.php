@@ -20,13 +20,17 @@
         @endforeach
     @endif
 
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="title">{{ $employees->employeeDetail->name }} Information </h1>
+        <a href="{{route('employees.list')}}" class="btn btn-success mt-2">Back</a>
+    </div>
+
     <div class="container">
         <div class="main-body">
             <!-- /Breadcrumb -->
-            <a href="{{route('employees.list')}}" class="btn btn-success mt-2">Back</a>
             <div class="row gutters-sm mt-3">
-                <div class="col-md-4 mb-3 ">
-                    <div class="card" style="height:31rem;">
+                <div class="col-md-12 mb-3 ">
+                    <div class="card" style="height:25rem;">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img src="{{ url('/files/employee/' . $employees->image) }}" alt="Admin"
@@ -41,11 +45,11 @@
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-body bg-light shadow">
+                        <div class="card-body bg-light ">
                             <div class="row">
-                                <div class="bg-success">
+                                <div class="add-btn">
                                     <h2 class="fw-bold fs-3">Personal Details</h2>
                                 </div>
                                 <hr>
@@ -126,9 +130,9 @@
         </div>
     </div>
 
-    <div class="p-5 container">
-        <table class="table table-success table-bordered table-striped">
-            <thead class="text-center">
+    <div class=" py-3 container">
+        <table class="table  table-bordered">
+            <thead class="text-center table-header">
                 <tr>
                     <th scope="col">Date</th>
                     <th scope="col">Comission</th>
@@ -136,12 +140,10 @@
             </thead>
             
             @foreach ($sales as $key => $data)
-            <tbody>
+            <tbody class="table-light">
                 <tr>
-                
                     <td class="text-center">{{date("Y-M-d",strtotime($data->task->start_date) )}} - {{date("Y-M-d",strtotime($data->task->end_date))}}</td>
                     <td class="text-center">{{$data->commission}}</td>
-                    
                 </tr>
             </tbody>
             @endforeach

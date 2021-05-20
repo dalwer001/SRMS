@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')->constrained('product_categories')->restrictOnDelete();
             $table->double('quantity');
             $table->double('unit_price');
+            $table->string('status')->default('inactive');
             $table->timestamps();
         });
     }

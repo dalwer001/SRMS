@@ -1,8 +1,8 @@
 @extends('backend.main')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Products Categories</h1>
-        <button type="button" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <h1 class="h2 title">Products Categories</h1>
+        <button type="button" class="btn add-btn fw-bolder"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             Add Products Categories
         </button>
     </div>
@@ -29,8 +29,8 @@
     @endif
 
 
-<div class="p-5">
-    <table class="table table-bordered shadow ">
+<div class="px-5">
+    <table class="table table-bordered ">
         <thead class="text-center table-header">
         <tr>
                 <th scope="col" >Serial</th>
@@ -46,9 +46,9 @@
                     <td class="text-center">{{ $data->name }}</td>
                     <td>{{ $data->description }}</td>
                     <td class="text-center">
-                        <a class="text-danger mx-2" href={{ route('productCategory.delete', $data['id']) }}><i
+                        <a class="text-danger fs-5  mx-2" onclick="return confirm('Are you sure?')" href={{ route('productCategory.delete', $data['id']) }}><i
                                 class="far fa-trash-alt"></i></a>
-                        <a class="text-success mx-2" href="#"><i class="far fa-edit"></i></a>
+                        <a class="text-success  fs-5 mx-2" href="{{route('productCategory.edit',$data['id'])}}"><i class="far fa-edit"></i></a>
                     </td>
                 </tr>
             </tbody>
@@ -60,7 +60,7 @@
     <div>
         <form method="post" action="{{ route('productCategory.create') }}">
             @csrf
-            <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header modal-header">
@@ -71,7 +71,7 @@
 
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label fw-bolder">Categories Name</label>
+                                <label for="exampleFormControlInput1" class="form-label fw-bolder">Category Name</label>
                                 <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
                                     placeholder="Product Category Name">
                             </div>
@@ -79,7 +79,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label fw-bolder">Description</label>
                                 <textarea type="text" name="description" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Write description"></textarea>
+                                    placeholder="Write description..."></textarea>
                             </div>
                         </div>
 

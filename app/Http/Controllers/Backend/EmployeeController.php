@@ -51,7 +51,7 @@ class EmployeeController extends Controller
                 'address'=>'required',
                 'gender'=>'required',
                 'birth_date'=>'required|date|before_or_equal:'.\Carbon\Carbon::now()->subYears(18)->format('Y-m-d'),
-                'join_date'=>'required',
+                'join_date'=>'required|after:yesterday',
                 'salary'=>'required'
             ]);
 
@@ -105,7 +105,7 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employees = Employee::find($id);
-        $users = User::find($id);
+        $users = User::where('id',$employees->user_id)->first();
         return view('backend.contents.employees.employee-edit-list', compact('employees','users'));
     }
 
@@ -137,17 +137,15 @@ class EmployeeController extends Controller
 
 
         }
+        // dd($employees->user_id);
+        
         $employees->update([
-        'name' => $request->name,
-        'email' => $request->email,
         'contact_no' => $request->contact_no,
         'gender' => $request->gender,
         'address' => $request->address,
         'birth_date' => $request->birth_date,
         'salary' => $request->salary,
-        'password' =>  bcrypt($request->password)
         ]);
-
         User::find($employees->user_id)->update([
             'name' => $request->name,
             'email' => $request->email
@@ -158,7 +156,6 @@ class EmployeeController extends Controller
     public function view($id)
     {
         $employees = Employee::find($id);
-
         $sales = Commission::where('employee_id', $employees->id)->get();
         return view('backend.contents.employees.employee-view-list', compact('employees','sales'));
     }

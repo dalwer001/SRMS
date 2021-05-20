@@ -1,10 +1,10 @@
 @extends('backend.main')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Task</h1>
+        <h1 class="h2 title">Tasks</h1>
 
         @if (auth()->user()->role == 'admin')
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn add-btn fw-bolder" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Add Task
             </button>
         @endif
@@ -34,9 +34,9 @@
 
 
 
-
-    <table class="table table-secondary table-bordered table-striped text-center">
-        <thead>
+<div class="px-5">
+    <table class="table table-bordered text-center">
+        <thead class="text-center table-header">
             <tr>
                 <th scope="col">serial</th>
                 <th scope="col">Employee Name</th>
@@ -54,7 +54,7 @@
             </tr>
         </thead>
         @foreach ($tasks as $key => $data)
-            <tbody>
+            <tbody class="bg-light">
                 <tr>
                     <th scope="row">{{ $key + 1 }}</th>
                     <td>{{ $data->employee->employeeDetail->name }}</td>
@@ -65,19 +65,18 @@
                     <td>{{ date('Y-M-d', strtotime($data->start_date)) }}</td>
                     <td>{{ date('Y-M-d', strtotime($data->end_date)) }}</td>
                         <td>
-                            <a class="text-danger mx-2" onclick="return confirm('Are you sure?')" href="{{ route('tasks.delete', $data['id']) }}"><i class="far fa-trash-alt"></i></a>
-                            <a class="text-success mx-2" href=""><i class="far fa-edit"></i></a>
+                            <a class="text-danger fs-5 mx-2" onclick="return confirm('Are you sure?')" href="{{ route('tasks.delete', $data['id']) }}"><i class="far fa-trash-alt"></i></a>
                         </td>
                 </tr>
             </tbody>
         @endforeach
 
     </table>
-
+</div>
     <div>
         <form method="post" action="{{ route('tasks.create') }}" enctype="multipart/form-data">
             @csrf
-            <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
 
@@ -90,7 +89,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Employee Name</label>
                                 <select class="form-select" name="employee_id">
-                                    <option selected>Open this select menu</option>
+                                    <option value="">Open this select menu</option>
                                     @foreach ($employees as $data)
                                         <option value="{{ $data->id }}">{{ $data->employeeDetail->email }}</option>
                                     @endforeach
@@ -100,7 +99,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
                                 <select class="form-select" name="product_id">
-                                    <option selected>Open this select menu</option>
+                                    <option value="">Open this select menu</option>
 
                                     @foreach ($products as $data)
                                         <option value="{{ $data->id }}">{{ $data->name }}-{{ $data->quantity }} Qty
@@ -128,8 +127,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Ok</button>
+                            <button type="button" class="btn modal-cancel text-white fw-bolder" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn modal-submit text-white fw-bolder">Ok</button>
                         </div>
         </form>
     </div>

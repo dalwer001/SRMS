@@ -70,9 +70,15 @@ class SaleController extends Controller
     {
         // $unit_price = Task::where('product_id',$product-$request->product_id)->get();
         // dd($unit_price);
+        $request->validate([
+            'product_id' => 'required',
+            'product_quantity' => 'required|gt:0'
+        ]);
+
+
 
         $product = Product::find($request->product_id);
-
+     
         $subtotal = $request->product_quantity * $product->unit_price;
 
         $task = Task::where('product_id', $request->product_id)
@@ -118,10 +124,7 @@ class SaleController extends Controller
                 'product_quantity' => $cart->product_quantity + $request->product_quantity
             ]);
         } else {
-            $request->validate([
-                'product_quantity' => 'required',
-                'product_id' => 'required'
-            ]);
+           
 
             Cart::create([
                 'employee_id' => auth()->user()->employeeProfile->id,
@@ -170,11 +173,15 @@ class SaleController extends Controller
 
     public function productSold(Request $request)
     {
+        if($request->total_amount == 0)
+        {
+            return redirect()->back()->with('error-message', 'No product added.');
+        }
 
         $request->validate([
             'employee_id' => 'required',
             'invoice_no' => 'required',
-            'customer_id' => 'required'
+            'customer_id' => 'required',
         ]);
 
         $sale = Sale::create([

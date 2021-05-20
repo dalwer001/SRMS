@@ -29,12 +29,12 @@
                 </div>
             {{-- </div> --}}
         </div>
-        <ul class="nav flex-column item-hover border-top">
+        <ul class="nav flex-column item-hover border-top" id='nav'>
 
             @if (auth()->user()->role == 'admin')
                 <li class="nav-item ">
                     <a class="nav-link active text-white" aria-current="page" href="{{ route('dashboard.list') }}">
-                        <span data-feather="home"></span>
+                        <i class="fas fa-home text-white"></i>
                         Dashboard
                     </a>
                 </li>
@@ -122,3 +122,31 @@
         </ul>
     </div>
 </nav>
+
+
+{{-- <div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+        
+        <button class="accordion-button collapsed text-light fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            <i class="fa fa-balance-scale text-primary"></i>
+             Sales
+        </button>
+        
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body background">
+                <div>
+
+                    <a class=" text-white" href="{{ route('saleDetails.list') }}">
+                        Sale Details</a>
+
+                </div>
+                @if (auth()->user()->role == 'employee')
+                    <div>
+                        <a class=" text-white" href="{{ route('newSale.list') }}">Create Sale</a>
+                    </div>
+                @endif
+
+            </div>
+        </div>
+    </div>
+</div> --}}

@@ -1,7 +1,7 @@
 @extends('backend.main')
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Report</h1>
+        <h1 class="h2 title">Report</h1>
     </div>
 
     @if (session()->has('success-message'))
@@ -25,15 +25,15 @@
             </div>
         @endforeach
     @endif
-
+<div class="bg-light p-3">
     <form action="{{ route('sales.report') }}" method="GET">
 
         <div class="row mb-3">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="row mb-3">
-                            <label for="from" class="col-sm-2 col-form-label fw-bolder">Date from</label>
+                            <label for="from" class="col-sm-2 col-form-label fw-bolder">Date from:</label>
                             <div class="col-sm-10">
                                 <input id="from" type="date" class="form-control" name="from_date">
                             </div>
@@ -50,18 +50,18 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <button type="submit" class="btn btn-success">Search</button>
-                <button onclick="printDiv('printableArea')" class="btn btn-primary"><span
+            <div class="col-md-2">
+                <button type="submit" class=" btn  modal-cancel text-white fw-bolder">Search</button>
+                <button onclick="printDiv('printableArea')" class="btn modal-submit text-white fw-bolder"><span
                         data-feather="printer"></span>print</button>
             </div>
         </div>
     </form>
-
+</div>
     <div id="printableArea">
-        <h2 class="fw-bolder text-center text-primary mb-3">Sales Report</h2>
+        <h2 class="fw-bolder text-center mb-3 title">Sales Report</h2>
         <table class="table table-bordered  text-center">
-            <thead>
+            <thead class="text-center table-header">
                 <tr>
                     <th scope="col">Serial</th>
                     <th scope="col">Employee Name</th>
@@ -75,9 +75,10 @@
                     <th scope="col">Date</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="table-light">
                 @if (count($sales) > 0)
                     @foreach ($sales as $key => $item)
+                    {{-- @dd($item->productDetails->name ) --}}
                         <tr>
                             <th scope="row">{{ $key + 1 }}</th>
                             <td>{{ $item->sale->salesEmp->employeeDetail->name }}</td>
