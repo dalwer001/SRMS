@@ -17,7 +17,7 @@ class TaskController extends Controller
     public function tasks()
     {
         $employees = Employee::all();
-        $products = Product::all();
+        $products = Product::where('status','active')->get();
         $tasks = Task::all();
         return view('backend.contents.task.task-list', compact('tasks', 'employees', 'products'));
     }
@@ -55,6 +55,7 @@ class TaskController extends Controller
             if ($product_quantity < $request->target_quantity) {
                 return redirect()->back()->with('error-message', 'Not enough product in store');
             }
+
             if ($request->target_quantity < 0) {
                 return redirect()->back()->with('error-message', 'Give wrong value');
             }

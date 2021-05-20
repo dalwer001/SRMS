@@ -31,6 +31,22 @@
         </div>
     @endif
 
+    {{-- <div class="row">
+        <div class="col-md-4">
+            <form action="{{route('employees.search')}}" method="POST">
+                @csrf
+            <input name="search" type="text" placeholder="Search" class="form-control">
+            <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+
+    @if (isset($search))
+        <p>
+        <span class="alert alert-success"> you are searching for '{{$search}}' , found ({{count($employees->employeeProfile->name)}})</span>
+        </p>
+    @endif --}}
+
 
     <div class="px-5">
         <table class="table table-bordered text-center">
@@ -168,5 +184,8 @@
                             <button type="submit" class="btn modal-submit text-white fw-bolder">Ok</button>
                         </div>
         </form>
+    </div>
+    <div class="d-flex justify-content-center ">
+        {{ $employees->links() }}
     </div>
 @endsection

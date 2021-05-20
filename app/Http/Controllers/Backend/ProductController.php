@@ -20,9 +20,9 @@ class ProductController extends Controller
     {
 
         if ($request->input('category_id')) {
-            $products = Product::where('category_id', $request->input('category_id'))->paginate(5);
+            $products = Product::where('category_id', $request->input('category_id'))->paginate(10);
         } else {
-            $products = Product::paginate(5);
+            $products = Product::paginate(10);
         }
 
         $categories = ProductCategories::all();
@@ -162,7 +162,7 @@ class ProductController extends Controller
     public function categories()
     {
 
-        $categories = ProductCategories::all();
+        $categories = ProductCategories::paginate(10);
         // dd($productCategories);
 
         return view('backend.contents.products.product-categories-list', compact('categories'));
@@ -220,5 +220,32 @@ class ProductController extends Controller
 
         return redirect()->route('products.categories')->with('success-message','Product Category updated successfully');
 
+    }
+
+    public function productCategorySearch(Request $request)
+    {
+        // dd($request->all());
+
+            $search=$request->search;
+            
+            if($search){
+                $categories=ProductCategories::where('name','like','%'.$search.'%')->paginate(10);
+            }else
+            {
+                $categories=ProductCategories::paginate(10);
+            }
+
+            
+            // where(name=%search%)
+            $title="Search result";
+            return view('backend.contents.products.product-categories-list',compact('title','categories','search'));
+    }
+
+
+    public function statusUpdate($id,$status){
+        $products= Product::find($id);
+        $products->update(['status'=>$status]);
+
+        return redirect()->back()->with('success-message', $products->name .' is '. $status.'.');
     }
 }

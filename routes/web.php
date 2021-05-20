@@ -48,6 +48,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/products/update/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::post('/product/search',[ProductController::class,'search'])->name('product.search');
+        Route::get('/product/{id}/{status}', [ProductController::class, 'statusUpdate'])->name('status.update');
+
 
 
         //product-categories
@@ -56,6 +58,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/productCategory/delete/{id}', [ProductController::class, 'category_delete'])->name('productCategory.delete');
         Route::get('/productCategory/edit/{id}', [ProductController::class, 'category_edit'])->name('productCategory.edit');
         Route::put('/productCategory/update/{id}', [ProductController::class, 'category_update'])->name('productCategory.update');
+        Route::post('/productCategory/search',[ProductController::class,'productCategorySearch'])->name('productCategory.search');
+
 
         //customers
         Route::get('/customers/delete/{id}', [CustomerController::class, 'delete'])->name('customers.delete');
@@ -78,6 +82,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/employees/edit/{id}', [EmployeeController::class, 'edit'])->name('employees.edit');
         Route::put('/employees/update/{id}', [EmployeeController::class, 'update'])->name('employees.update');
         Route::get('/employees/viewDetails/{id}', [EmployeeController::class, 'view'])->name('employees.view');
+        Route::post('/employees/search',[EmployeeController::class,'search'])->name('employees.search');
         
 
 
@@ -122,5 +127,6 @@ Route::get('/sales-details/view/{id}', [SaleController::class, 'salesDetailsView
 // Route::get('/sales-details/view',[SaleController::class,'search'])->name('saleDetails.search');
 //customers
 Route::get('/customers', [CustomerController::class, 'customers'])->name('customers.list')->middleware('auth');
+Route::post('/customers/search', [CustomerController::class, 'search'])->name('customers.search')->middleware('auth');
 
 Route::get('/get-customer/{id}', [ApiController::class, 'customerDetails']);

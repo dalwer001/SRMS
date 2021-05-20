@@ -17,10 +17,10 @@ class CustomerController extends Controller
         // dd($users);
         $employees = Employee::all();
         if (auth()->user()->role == 'admin') {
-            $customers = Customer::all();
+            $customers = Customer::paginate(10);
         } else {
             $users = auth()->user()->employeeProfile->id;
-            $customers = Customer::where('employee_id', $users)->get();
+            $customers = Customer::where('employee_id', $users)->paginate(10);
         }
 
         return view('backend.contents.customers.customers-list', compact('customers', 'employees'));
@@ -95,5 +95,22 @@ class CustomerController extends Controller
         'city' => $request->city
         ]);
         return redirect()->route('customers.list');
+    }
+
+    public function search(Request $request)
+    {
+        $search=$request->search;
+            
+        if($search){
+            $customers=Customer::where('name','like','%'.$search.'%')->paginate(10);
+        }else
+        {
+            $customers=Customer::paginate(10);
+        }
+
+        
+        // where(name=%search%)
+        $title="Search result";
+        return view('backend.contents.customers.customers-list',compact('title','customers','search'));
     }
 }

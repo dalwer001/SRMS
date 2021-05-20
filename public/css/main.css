@@ -41,3 +41,12 @@
   .change-password:hover{
     background: #7aaca5b4;
   }
+
+  .search-button{
+    background: #374592b4;
+
+  }
+  .search-button:hover{
+    background: #87d3b6b4;
+
+  }

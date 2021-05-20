@@ -17,7 +17,7 @@ class EmployeeController extends Controller
     public function employees()
     {
         
-        $employees = Employee::all();
+        $employees = Employee::paginate(10);
         return view('backend.contents.employees.employees-list', compact('employees'));
     }
 
@@ -158,5 +158,21 @@ class EmployeeController extends Controller
         $employees = Employee::find($id);
         $sales = Commission::where('employee_id', $employees->id)->get();
         return view('backend.contents.employees.employee-view-list', compact('employees','sales'));
+    }
+
+
+    public function search(Request $request)
+    {
+            $search=$request->search;
+            if($search){
+                $employees=User::where('name','like','%'.$search.'%')->paginate(10);
+            }else
+            {
+                $employees=User::paginate(10);
+            }
+
+            // where(name=%search%)
+            $title="Search result";
+            return view('backend.contents.employees.employees-list',compact('title','employees','search'));
     }
 }

@@ -64,46 +64,69 @@
     </div>
 
 
-<div class="px-5">
-    <table class="table table-bordered text-center">
-        <thead class="text-center table-header">
-            <tr>
-                <th scope="col">serial</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Product Category</th>
-                <th scope="col">Product Image</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Unit Price</th>
-                <th scope="col">Action</t>
-            </tr>
-        </thead>
-        @foreach ($products as $key => $data)
-            <tbody class="table-light">
+    <div class="px-5">
+        <table class="table table-bordered text-center">
+            <thead class="text-center table-header">
                 <tr>
-                    <th scope="row">{{ $key + 1 }}</th>
-                    <td>{{ $data->name }}</td>
-                    <td>{{ $data->productCategory->name }}</td>
-                    <td>
-                        <img style="width: 80px;height:80px" src="{{ url('/files/product/' . $data->image) }}" alt="">
-                    </td>
-                    <td>{{ $data->quantity }}</td>
-                    <td>{{ $data->unit_price }} BDT</td>
-                    <td>
-                        <a class="text-danger fs-5 mx-2" onclick="return confirm('Are you sure?')"
-                            href={{ route('products.delete', $data['id']) }}><i class="far fa-trash-alt"></i></a>
-                        <a class="text-success fs-5 mx-2" href={{ route('products.edit', $data['id']) }}><i
-                                class="far fa-edit"></i></a>
-                    </td>
+                    <th scope="col">serial</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Category</th>
+                    <th scope="col">Product Image</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Unit Price</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</t>
                 </tr>
-            </tbody>
-        @endforeach
-    </table>
-</div>
+            </thead>
+            @foreach ($products as $key => $data)
+                <tbody class="table-light">
+                    <tr>
+                        <th scope="row">{{ $key + 1 }}</th>
+                        <td>{{ $data->name }}</td>
+                        <td>{{ $data->productCategory->name }}</td>
+                        <td>
+                            <img style="width: 80px;height:80px" src="{{ url('/files/product/' . $data->image) }}" alt="">
+                        </td>
+                        <td>{{ $data->quantity }}</td>
+                        <td>{{ $data->unit_price }} BDT</td>
+                        <td>
+                            {{ $data->status }}
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    select status
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    @if ($data->status == 'active')
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('status.update', ['id' => $data->id, 'status' => 'Inactive']) }}">Inactive</a>
+                                        </li>
+                                    @else
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('status.update', ['id' => $data->id, 'status' => 'Active']) }}">Active</a>
+                                        </li>
+                                    @endif
+                                </ul>
+                                <a class="text-danger fs-5 mx-2" onclick="return confirm('Are you sure?')"
+                                    href={{ route('products.delete', $data['id']) }}><i class="far fa-trash-alt"></i></a>
+                                <a class="text-success fs-5 mx-2" href={{ route('products.edit', $data['id']) }}><i
+                                        class="far fa-edit"></i></a>
+                            </div>
+
+                        </td>
+                    </tr>
+                </tbody>
+            @endforeach
+        </table>
+    </div>
     {{-- modal --}}
     <div>
         <form method="post" action="{{ route('products.create') }}" enctype="multipart/form-data">
             @csrf
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -149,7 +172,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn modal-cancel text-white fw-bolder" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn modal-cancel text-white fw-bolder"
+                                data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn modal-submit text-white fw-bolder">Ok</button>
                         </div>
         </form>

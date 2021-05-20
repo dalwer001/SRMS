@@ -32,47 +32,77 @@
         </div>
     @endif
 
-<div class="px-5">
-    <table class="table table-bordered text-center">
-        <thead class="text-center table-header">
-            <tr>
-                <th scope="col">Serial</th>
-                <th scope="col">Customer Name</th>
-                <th scope="col">Customer Email</th>
-                <th scope="col">Employee Email</th>
-                <th scope="col">Contact No</th>
-                <th scope="col">Address</th>
-                <th scope="col">City</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody class="table-light">
 
-            @foreach ($customers as $key => $data)
+
+
+
+    <div class="px-5">
+
+        <div class="row py-3">
+            <div class="col-md-4">
+                <form action="{{ route('customers.search') }}" method="POST">
+                    @csrf
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-6">
+                            <input name="search" type="text" placeholder="Search" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn text-light btn-sm search-button">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <table class="table table-bordered text-center">
+            <thead class="text-center table-header">
                 <tr>
-                    <th scope="row">{{ $key + 1 }}</th>
-                    <td>{{ $data->name }}</td>
-                    <td>{{ $data->email }}</td>
-                    <td>{{ $data->customerEmployee->employeeDetail->email }}</td>
-                    <td>{{ $data->contact_no }}</td>
-                    <td class="text-start">{{ $data->address }}</td>
-                    <td class="text-start">{{ $data->city }}</td>
-                    <td>
-                        @if (auth()->user()->role == 'admin')
-                            <a class="text-danger fs-5 mx-2" onclick="return confirm('Are you sure?')" href={{ route('customers.delete', $data['id']) }}><i
-                                    class="far fa-trash-alt"></i></a>
-                        @endif
-                        @if (auth()->user()->role == 'employee')
-                            <a class="text-success mx-2" href={{ route('customers.edit', $data['id']) }}><i
-                                    class="far fa-edit"></i></a>
-                        @endif
-                    </td>
+                    <th scope="col">Serial</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Customer Email</th>
+                    <th scope="col">Employee Email</th>
+                    <th scope="col">Contact No</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Action</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody class="table-light">
 
-</div>
+                @foreach ($customers as $key => $data)
+                    <tr>
+                        <th scope="row">{{ $key + 1 }}</th>
+                        <td>{{ $data->name }}</td>
+                        <td>{{ $data->email }}</td>
+                        <td>{{ $data->customerEmployee->employeeDetail->email }}</td>
+                        <td>{{ $data->contact_no }}</td>
+                        <td class="text-start">{{ $data->address }}</td>
+                        <td class="text-start">{{ $data->city }}</td>
+                        <td>
+                            @if (auth()->user()->role == 'admin')
+                                <a class="text-danger fs-5 mx-2" onclick="return confirm('Are you sure?')"
+                                    href={{ route('customers.delete', $data['id']) }}><i
+                                        class="far fa-trash-alt"></i></a>
+                            @endif
+                            @if (auth()->user()->role == 'employee')
+                                <a class="text-success mx-2" href={{ route('customers.edit', $data['id']) }}><i
+                                        class="far fa-edit"></i></a>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+            @if (isset($search))
+                <p class="text-secondary">
+                    <span>searching for '{{ $search }}' found '{{ count($customers) }}' results</span>
+                </p>
+            @endif
+    </div>
+
+
+
     <div>
         <!-- Vertically centered modal -->
 
@@ -84,7 +114,8 @@
             <!-- Modal -->
             <form method="post" action="{{ route('customers.create') }}">
                 @csrf
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
@@ -143,11 +174,14 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn modal-cancel text-white fw-bolder" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn modal-cancel text-white fw-bolder"
+                                    data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn modal-submit text-white fw-bolder">Ok</button>
                             </div>
             </form>
         @endif
     </div>
-   
+    <div class="d-flex justify-content-center ">
+        {{ $customers->links() }}
+    </div>
 @endsection

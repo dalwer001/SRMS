@@ -28,8 +28,29 @@
     </div>
     @endif
 
+ 
+
 
 <div class="px-5">
+    <div class="py-3">
+    <div class="row">
+        <div class="col-md-4">
+            <form action="{{route('productCategory.search')}}" method="POST">
+                @csrf
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-6">
+                        <input name="search" type="text" placeholder="Search" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn text-light btn-sm search-button">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+   
     <table class="table table-bordered ">
         <thead class="text-center table-header">
         <tr>
@@ -54,6 +75,11 @@
             </tbody>
         @endforeach
     </table>
+    @if (isset($search))
+    <p class="text-seconadry">
+    <span>searching for '{{$search}}' found '{{count($categories)}}' results</span>
+    </p>
+    @endif 
 </div>
 
     {{-- modal --}}
@@ -89,6 +115,7 @@
                         </div>
         </form>
     </div>
-    </div>
+    <div class="d-flex justify-content-center ">
+        {{ $categories->links() }}
     </div>
 @endsection
