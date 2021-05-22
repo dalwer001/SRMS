@@ -51,7 +51,7 @@
             </div>
 
             <div class="col-md-2">
-                <button type="submit" class=" btn  modal-cancel text-white fw-bolder">Search</button>
+                <button type="submit" class=" btn  modal-cancel text-white fw-bolder mb-2">Search</button>
                 <button onclick="printDiv('printableArea')" class="btn modal-submit text-white fw-bolder"><span
                         data-feather="printer"></span>print</button>
             </div>

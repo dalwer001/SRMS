@@ -4,8 +4,8 @@
         <h1 class="h2 title">Employees </h1>
 
         {{-- <button class="btn btn-success" >ADD</button> --}}
-        <button type="button" class="btn add-btn"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Add Employees
+        <button type="button" class="btn add-btn fw-bolder"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <i class="fas fa-plus-square add-icon"></i> Employees
         </button>
     </div>
 

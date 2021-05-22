@@ -4,25 +4,25 @@
             {{-- <div class="sidebar-header "> --}}
                 <div class="col-md-6 ">
                     @if (auth()->user()->role == 'employee')
-                        
+
                         <div class="avatar m-auto">
                             <img src="{{ url('/files/employee/' . auth()->user()->employeeProfile->image) }}"
                                 alt="..." class="img-fluid rounded-circle w-100 h-100">
                         </div>
-                        
+
                     @else
                         <div class="avatar m-auto">
                             <img src="{{ url('img/shojib.jpg') }}" alt="..."
                                 class="img-fluid rounded-circle w-100 h-100">
                         </div>
-                        
+
                     @endif
                 </div>
 
                 <div class="col-md-6  m-0 pt-3 ">
                     <div>
                     <h1 class="h5 text-white d-flex jutify-ceontent-center">{{ auth()->user()->name }}</h1>
-                    </div> 
+                    </div>
                     <div>
                     <p class="text-light"><i class="fas fa-circle text-success"></i> online</p>
                     </div>
@@ -126,12 +126,12 @@
 
 {{-- <div class="accordion accordion-flush" id="accordionFlushExample">
     <div class="accordion-item">
-        
+
         <button class="accordion-button collapsed text-light fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
             <i class="fa fa-balance-scale text-primary"></i>
              Sales
         </button>
-        
+
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body background">
                 <div>

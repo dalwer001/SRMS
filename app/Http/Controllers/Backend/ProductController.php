@@ -70,6 +70,7 @@ class ProductController extends Controller
 
         $request->validate([
             'name' => 'required|unique:products',
+            'generic' => 'required|unique:products',
             'category_id' => 'required',
             'quantity' => 'required|gt:0',
             'unit_price' => 'required|gt:0'
@@ -78,6 +79,7 @@ class ProductController extends Controller
 
         Product::create([
             'name' => $request->name,
+            'generic' => $request->generic,
             'category_id' => $request->category_id,
             'image' => $file_name,
             'quantity' => $request->quantity,
@@ -121,7 +123,7 @@ class ProductController extends Controller
         $products = Product::find($request->id);
 
         $request->validate([
-            
+
             'quantity' => 'required|gt:0',
             'unit_price' => 'required|gt:0'
         ]);
@@ -227,7 +229,7 @@ class ProductController extends Controller
         // dd($request->all());
 
             $search=$request->search;
-            
+
             if($search){
                 $categories=ProductCategories::where('name','like','%'.$search.'%')->paginate(10);
             }else
@@ -235,7 +237,7 @@ class ProductController extends Controller
                 $categories=ProductCategories::paginate(10);
             }
 
-            
+
             // where(name=%search%)
             $title="Search result";
             return view('backend.contents.products.product-categories-list',compact('title','categories','search'));

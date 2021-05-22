@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
         {{-- add product for sale --}}
     <div class="bg-light p-3 border">
         <div class="d-flex justify-content-start my-3">
@@ -79,7 +79,7 @@
         </div>
 
         <div class="col-md-12 mt-2">
-            <table class="table table-bordered text-center">
+            <table class="table table-bordered">
                 <thead class="text-center table-header">
                     <tr>
                         <th scope="col">serial</th>
@@ -131,7 +131,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                            <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus-square add-icon"></i> Product</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -146,7 +146,7 @@
                                 <select class="form-select" name="product_id">
                                     <option value=''>Product Name</option>
                                     @foreach ($task as $data)
-                                        <option value="{{ $data->product_id }}">{{ $data->product->name }}-
+                                        <option value="{{ $data->product_id }}">{{ $data->product->name }}-{{ $data->product->generic }}
                                             {{ $data->target_quantity }}Qty</option>
                                     @endforeach
                                 </select>

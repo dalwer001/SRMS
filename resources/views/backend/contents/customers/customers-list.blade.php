@@ -5,7 +5,7 @@
 
         @if (auth()->user()->role == 'employee')
             <button type="button" class="btn add-btn fw-bolder" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Add Customer
+                <i class="fas fa-plus-square add-icon"></i> Customer
             </button>
         @endif
     </div>

@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2 title">Products </h1>
         <button type="button" class="btn add-btn fw-bolder" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Add Products
+            <i class="fas fa-plus-square add-icon"></i> Products
         </button>
     </div>
 
@@ -44,32 +44,37 @@
         </p>
     @endif --}}
 
-    <div class="dropdown mb-3 d-flex justify-content-start">
-        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Categories List
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-            <a class="dropdown-item" href="{{ route('products.list') }}">All Product</a>
-
-            @foreach ($categories as $category)
-
-                <a class="dropdown-item"
-                    href="{{ route('products.list', ['category_id' => $category->id]) }}">{{ $category->name }}</a>
-
-            @endforeach
-            {{-- @dd($products) --}}
-        </ul>
-    </div>
 
 
     <div class="px-5">
+        <div class="row ">
+            <div class="dropdown mb-3 d-flex justify-content-start">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Categories List
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                    <a class="dropdown-item" href="{{ route('products.list') }}">All Product</a>
+
+                    @foreach ($categories as $category)
+
+                        <a class="dropdown-item"
+                            href="{{ route('products.list', ['category_id' => $category->id]) }}">{{ $category->name }}</a>
+
+                    @endforeach
+                    {{-- @dd($products) --}}
+                </ul>
+            </div>
+        </div>
+
         <table class="table table-bordered text-center">
             <thead class="text-center table-header">
                 <tr>
                     <th scope="col">serial</th>
                     <th scope="col">Product Name</th>
+                    <th scope="col">Generic Name</th>
                     <th scope="col">Product Category</th>
                     <th scope="col">Product Image</th>
                     <th scope="col">Quantity</th>
@@ -83,6 +88,7 @@
                     <tr>
                         <th scope="row">{{ $key + 1 }}</th>
                         <td>{{ $data->name }}</td>
+                        <td>{{ $data->generic }}</td>
                         <td>{{ $data->productCategory->name }}</td>
                         <td>
                             <img style="width: 80px;height:80px" src="{{ url('/files/product/' . $data->image) }}" alt="">
@@ -141,6 +147,12 @@
                                 <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
                                     placeholder="Product Name" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Generic Name</label>
+                                <input type="text" name="generic" class="form-control" id="exampleFormControlInput1"
+                                    placeholder="Generic Name" required>
+                            </div>
+
 
 
                             <div class="mb-3">

@@ -5,7 +5,7 @@
 
         @if (auth()->user()->role == 'admin')
             <button type="button" class="btn add-btn fw-bolder" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Add Task
+                <i class="fas fa-plus-square add-icon"></i> Task
             </button>
         @endif
 
@@ -102,7 +102,7 @@
                                     <option value="">Open this select menu</option>
 
                                     @foreach ($products as $data)
-                                        <option value="{{ $data->id }}">{{ $data->name }}-{{ $data->quantity }} Qty
+                                        <option value="{{ $data->id }}">{{ $data->name }}-{{ $data->generic }}-{{ $data->quantity }} Qty
                                         </option>
                                     @endforeach
                                 </select>

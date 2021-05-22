@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2 title">Products Categories</h1>
         <button type="button" class="btn add-btn fw-bolder"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Add Products Categories
+            <i class="fas fa-plus-square add-icon"></i> Products Categories
         </button>
     </div>
 
@@ -28,7 +28,7 @@
     </div>
     @endif
 
- 
+
 
 
 <div class="px-5">
@@ -50,7 +50,7 @@
     </div>
 
 </div>
-   
+
     <table class="table table-bordered ">
         <thead class="text-center table-header">
         <tr>
@@ -79,7 +79,7 @@
     <p class="text-seconadry">
     <span>searching for '{{$search}}' found '{{count($categories)}}' results</span>
     </p>
-    @endif 
+    @endif
 </div>
 
     {{-- modal --}}

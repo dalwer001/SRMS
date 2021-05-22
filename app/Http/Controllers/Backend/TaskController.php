@@ -141,7 +141,7 @@ class TaskController extends Controller
             ]);
             $task->delete();
             return redirect()->route('tasks.list')->with('error-message', 'Task deleted successfully.');
-        } 
+        }
         catch (Throwable $e) {
             if ($e->getCode() == '23000') {
                 return redirect()->back()->with('error-message', 'This task already has sales');
