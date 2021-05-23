@@ -31,10 +31,10 @@
         </div>
     @endif
 
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-md-4">
-            <form action="{{route('employees.search')}}" method="POST">
-                @csrf
+            <form action="{{route('employees.list')}}" method="get">
+
             <input name="search" type="text" placeholder="Search" class="form-control">
             <button type="submit" class="btn btn-primary">Search</button>
             </form>
@@ -45,7 +45,7 @@
         <p>
         <span class="alert alert-success"> you are searching for '{{$search}}' , found ({{count($employees->employeeProfile->name)}})</span>
         </p>
-    @endif --}}
+    @endif
 
 
     <div class="px-5">

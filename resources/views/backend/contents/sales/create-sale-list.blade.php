@@ -99,7 +99,7 @@
                             <td>{{ $item->p_name->name }}</td>
                             <td>{{ $item->product_quantity }}</td>
                             <td>{{ $item->unit_price }}</td>
-                            <td colspan="2">{{ $item->subtotal }}</td>
+                            <td colspan="2">{{ $item->subtotal }} BDT</td>
                             <td colspan="2">
                                 <a href={{ route('newSale.delete', $item['id']) }}><i class="far fa-trash-alt text-danger fs-5"></i></a>
                             </td>
@@ -110,7 +110,7 @@
                 <tfoot>
                     <td colspan="2"></td>
                     <td colspan="2" class="fw-bold">Total sold Product Quantity= {{ $p_quantity }} </td>
-                    <td colspan="3" class="fw-bold"> Total Amount= {{ $s_total }}</td>
+                    <td colspan="3" class="fw-bold"> Total Amount= {{ $s_total }} BDT</td>
                 </tfoot>
             </table>
             <div class="d-flex justify-content-end">

@@ -14,10 +14,24 @@ use Throwable;
 class EmployeeController extends Controller
 {
     //get method
-    public function employees()
+    public function employees(Request $request)
     {
-        
-        $employees = Employee::paginate(10);
+
+        $search = $request->input('search');
+
+        if($request->has('search')){
+            $employees = Employee::whereHas('employeeDetail',function($query) use($search){
+
+                $query->where('name','like',"%{$search}%");
+
+            })->paginate(10);
+        }else{
+            $employees = Employee::paginate(10);
+        }
+
+
+
+
         return view('backend.contents.employees.employees-list', compact('employees'));
     }
 
@@ -138,7 +152,7 @@ class EmployeeController extends Controller
 
         }
         // dd($employees->user_id);
-        
+
         $employees->update([
         'contact_no' => $request->contact_no,
         'gender' => $request->gender,
@@ -164,6 +178,7 @@ class EmployeeController extends Controller
     public function search(Request $request)
     {
             $search=$request->search;
+            dd($search);
             if($search){
                 $employees=User::where('name','like','%'.$search.'%')->paginate(10);
             }else
