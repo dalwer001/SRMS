@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\taskCompleteConfirmation;
 use App\Models\Cart;
 use App\Models\Commission;
 use App\Models\Customer;
@@ -14,6 +15,7 @@ use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Throwable;
 
 class SaleController extends Controller
@@ -261,10 +263,10 @@ class SaleController extends Controller
             if ($task_q == 0) {
                 $total_commission = $total_p * 0.025;
 
-                Commission::create([
-                    'task_id' => $task_id,
-                    'employee_id' => auth()->user()->employeeProfile->id,
-                    'commission' => $total_commission
+            $commission = Commission::create([
+                    'task_id'=>$task_id,
+                    'employee_id'=>auth()->user()->employeeProfile->id,
+                    'commission'=>$total_commission
                 ]);
 
                 // $total_S = $commission + $salary->salary;
@@ -277,6 +279,7 @@ class SaleController extends Controller
                 // }
             }
         }
+        Mail::to('admin@gmail.com')->send(new taskCompleteConfirmation($commission));
         // else {
         //     $left_q = $task_q - $sq;
         //     $left_p = $total_p - $sub_t;
@@ -309,8 +312,13 @@ class SaleController extends Controller
 
 
 
+<<<<<<< HEAD
     public function delete($id)
     {
+=======
+
+    public function delete($id){
+>>>>>>> ab72de47c007a6a0606698657b243d9ba2cc9e2c
         $sales = Sale::find($id);
         try {
             $sales->delete();

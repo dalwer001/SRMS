@@ -175,6 +175,7 @@ class EmployeeController extends Controller
     }
 
 
+<<<<<<< HEAD
     // public function search(Request $request)
     // {
     //         $search=$request->search;
@@ -190,4 +191,7 @@ class EmployeeController extends Controller
     //         $title="Search result";
     //         return view('backend.contents.employees.employees-list',compact('title','employees','search'));
     // }
+=======
+
+>>>>>>> ab72de47c007a6a0606698657b243d9ba2cc9e2c
 }
