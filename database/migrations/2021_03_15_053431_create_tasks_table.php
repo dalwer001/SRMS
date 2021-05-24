@@ -21,6 +21,7 @@ class CreateTasksTable extends Migration
             $table->double('target_quantity');
             $table->date('start_date');
             $table->date('end_date');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

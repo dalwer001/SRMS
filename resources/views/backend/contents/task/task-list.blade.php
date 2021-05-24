@@ -61,6 +61,7 @@
                 <th scope="col">Target quantity</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">End Date</th>
+                <th scope="col">Status</th>
 
                 @if (auth()->user()->role == 'admin')
                     <th scope="col">Action</th>
@@ -79,6 +80,7 @@
                     <td>{{ $data->target_quantity }}</td>
                     <td>{{ date('Y-M-d', strtotime($data->start_date)) }}</td>
                     <td>{{ date('Y-M-d', strtotime($data->end_date)) }}</td>
+                    <td>{{$data->status}}</td>
                         <td>
                             <a class="text-danger fs-5 mx-2" onclick="return confirm('Are you sure?')" href="{{ route('tasks.delete', $data['id']) }}"><i class="far fa-trash-alt"></i></a>
                         </td>

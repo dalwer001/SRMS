@@ -125,6 +125,7 @@ class TaskController extends Controller
                 'total_price' => $total_price,
                 'start_date' => $request->start_date,
                 'end_date' => Carbon::create($request->start_date)->addMonth(),
+
             ]);
 
             $left_quantity = $product_quantity - $request->target_quantity;
