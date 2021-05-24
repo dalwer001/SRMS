@@ -32,13 +32,26 @@ class SaleController extends Controller
 
         $search = $request->input('search');
 
-        if ($request->has('search')) {
-            $sales = Sale::whereHas('customer', function ($query) use ($search) {
-
-                $query->where('name', 'like', "%{$search}%");
-            })->paginate(10);
-        } else {
-            $sales = Sale::paginate(10);
+        if(auth()->user()->role == 'admin')
+        {
+            if ($request->has('search')) {
+                $sales = Sale::whereHas('salesEmp.employeeDetail', function ($query) use ($search) {
+    
+                    $query->where('name', 'like', "%{$search}%");
+                })->paginate(10);
+            } else {
+                $sales = Sale::paginate(10);
+            }
+        }
+        else{
+            if ($request->has('search')) {
+                $sales = Sale::whereHas('customer', function ($query) use ($search) {
+    
+                    $query->where('name', 'like', "%{$search}%");
+                })->paginate(10);
+            } else {
+                $sales = Sale::paginate(10);
+            }
         }
 
         return view('backend.contents.sales.salesDetails-list', compact('sales', 'search'));
@@ -114,7 +127,8 @@ class SaleController extends Controller
 
             $task->update([
                 'target_quantity' => 0,
-                'total_price' => 0
+                'total_price' => 0,
+                'status'=>'incomplete'
             ]);
             // dd($product_return);
 

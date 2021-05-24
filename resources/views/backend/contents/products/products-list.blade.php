@@ -28,24 +28,6 @@
         </div>
     @endif
 
-    <div class="row">
-        <div class="col-md-4">
-            <form action="{{route('products.list')}}" method="GET">
-                @csrf
-            <input name="search" type="text" placeholder="Search" class="form-control">
-            <button type="submit" class="btn btn-primary">Search</button>
-            </form>
-        </div>
-
-    </div>
-
-    @if (isset($search))
-        <p>
-        <span class="alert alert-success"> you are searching for '{{$search}}' , found ({{count($products)}})</span>
-        </p>
-    @endif
-
-
 
 
     <div class="px-5">
@@ -67,6 +49,22 @@
                     @endforeach
                     {{-- @dd($products) --}}
                 </ul>
+            </div>
+        </div>
+
+        <div class="row py-3">
+            <div class="col-md-4">
+                <form action="{{ route('products.list') }}" method="GET">
+                    @csrf
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-6">
+                            <input name="search" type="text" placeholder="Search" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn text-light btn-sm search-button">Search</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -127,6 +125,11 @@
                 </tbody>
             @endforeach
         </table>
+        @if (isset($search))
+        <p class="text-secondary">
+        <span >searching for '{{$search}}', found '{{count($products)}}' results</span>
+        </p>
+        @endif
     </div>
     {{-- modal --}}
     <div>
@@ -140,8 +143,7 @@
                             <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
-
+                        
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
@@ -191,8 +193,7 @@
                         </div>
         </form>
     </div>
-    </div>
-    </div>
+
 
     <div class="d-flex justify-content-center ">
         {{ $products->links() }}

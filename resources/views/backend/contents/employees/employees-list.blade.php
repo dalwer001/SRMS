@@ -31,24 +31,23 @@
         </div>
     @endif
 
-    <div class="row">
-        <div class="col-md-4">
-            <form action="{{route('employees.list')}}" method="get">
-
-            <input name="search" type="text" placeholder="Search" class="form-control">
-            <button type="submit" class="btn btn-primary">Search</button>
-            </form>
-        </div>
-    </div>
-
-    @if (isset($search))
-        <p>
-        <span class="alert alert-success"> you are searching for '{{$search}}' , found ({{count($employees->employeeProfile->name)}})</span>
-        </p>
-    @endif
-
-
     <div class="px-5">
+        <div class="row py-3">
+            <div class="col-md-4">
+                <form action="{{ route('employees.list') }}" method="GET">
+                    @csrf
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-6">
+                            <input name="search" type="text" placeholder="Search" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn text-light btn-sm search-button">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <table class="table table-bordered text-center">
             <thead class="text-center table-header">
             <tr>
@@ -92,6 +91,11 @@
             @endforeach
         </tbody>
     </table>
+    @if (isset($search))
+    <p>
+    <span class="text-secondary">searching for '{{$search}}' , found '{{count($employees->employeeProfile->name)}}' results</span>
+    </p>
+@endif
 </div>
 
     <div>

@@ -4,22 +4,6 @@
         <h1 class="h2 title">Sale Details</h1>
     </div>
 
-    <div class="row">
-            <form action="{{route('saleDetails.list')}}" method="GET">
-                    <div class="col-md-6">
-                        <div class="row mb-3">
-                            <div class="col-sm-10">
-                            <input id="search" type="text" class="form-control" name="search" pleacholder="search by name">
-                            </div>
-                            <div class="col-md-2">
-                                <button type="submit" class="btn btn-success">Search</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-        </div>
-
-
         @if (session()->has('success-message'))
         <div class="alert alert-success d-flex justify-content-between">
             {{ session()->get('success-message') }}
@@ -43,6 +27,23 @@
     @endif
 
     <div class="px-5">
+
+        <div class="row py-3">
+            <div class="col-md-4">
+                <form action="{{ route('saleDetails.list') }}" method="GET">
+                    @csrf
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-6">
+                            <input name="search" type="text" placeholder="Search" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn text-light btn-sm search-button">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     <table class="table  table-bordered text-center">
         <thead class="text-center table-header">
             <tr>
@@ -84,7 +85,7 @@
     <p>
     <span class="text-secondary">searching for '{{$search}}' , found '{{count($sales)}}' result.</span>
     </p>
-@endif
+    @endif
 </div>
     <div class="d-flex justify-content-center ">
         {{ $sales->links()}}
