@@ -175,23 +175,4 @@ class EmployeeController extends Controller
     }
 
 
-<<<<<<< HEAD
-    // public function search(Request $request)
-    // {
-    //         $search=$request->search;
-    //         // dd($search);
-    //         if($search){
-    //             $employees=User::where('name','like','%'.$search.'%')->paginate(10);
-    //         }else
-    //         {
-    //             $employees=User::paginate(10);
-    //         }
-
-    //         // where(name=%search%)
-    //         $title="Search result";
-    //         return view('backend.contents.employees.employees-list',compact('title','employees','search'));
-    // }
-=======
-
->>>>>>> ab72de47c007a6a0606698657b243d9ba2cc9e2c
 }
