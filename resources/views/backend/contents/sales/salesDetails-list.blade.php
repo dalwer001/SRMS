@@ -4,20 +4,20 @@
         <h1 class="h2 title">Sale Details</h1>
     </div>
 
-    {{-- <div class="row">
-            <form action="{{route('saleDetails.search')}}" method="get">
+    <div class="row">
+            <form action="{{route('saleDetails.list')}}" method="GET">
                     <div class="col-md-6">
                         <div class="row mb-3">
                             <div class="col-sm-10">
-                            <input id="from_date" type="date" class="form-control" name="from_date" pleacholder="search by date">
+                            <input id="search" type="text" class="form-control" name="search" pleacholder="search by name">
                             </div>
                             <div class="col-md-2">
                                 <button type="submit" class="btn btn-success">Search</button>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </form>
-        </div> --}}
+        </div>
 
 
         @if (session()->has('success-message'))
@@ -80,6 +80,11 @@
             @endforeach
         </tbody>
     </table>
+    @if (isset($search))
+    <p>
+    <span class="text-secondary">searching for '{{$search}}' , found '{{count($sales)}}' result.</span>
+    </p>
+@endif
 </div>
     <div class="d-flex justify-content-center ">
         {{ $sales->links()}}

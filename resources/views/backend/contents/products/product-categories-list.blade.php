@@ -35,7 +35,7 @@
     <div class="py-3">
     <div class="row">
         <div class="col-md-4">
-            <form action="{{route('productCategory.search')}}" method="POST">
+            <form action="{{route('products.categories')}}" method="GET">
                 @csrf
                 <div class="row d-flex align-items-center">
                     <div class="col-md-6">

@@ -11,7 +11,7 @@ use Throwable;
 class CustomerController extends Controller
 {
     //get method
-    public function customers()
+    public function customers(Request $request)
     {
 
         // dd($users);
@@ -21,6 +21,14 @@ class CustomerController extends Controller
         } else {
             $users = auth()->user()->employeeProfile->id;
             $customers = Customer::where('employee_id', $users)->paginate(10);
+        }
+
+        $search = $request->input('search');
+
+        if($request->has('search')){
+            $customers = Customer::where('name','like',"%{$search}%")->paginate(10);
+        }else{
+            $customers = customer::paginate(10);
         }
 
         return view('backend.contents.customers.customers-list', compact('customers', 'employees'));
@@ -97,20 +105,20 @@ class CustomerController extends Controller
         return redirect()->route('customers.list');
     }
 
-    public function search(Request $request)
-    {
-        $search=$request->search;
-            
-        if($search){
-            $customers=Customer::where('name','like','%'.$search.'%')->paginate(10);
-        }else
-        {
-            $customers=Customer::paginate(10);
-        }
+    // public function search(Request $request)
+    // {
+    //     $search=$request->search;
 
-        
-        // where(name=%search%)
-        $title="Search result";
-        return view('backend.contents.customers.customers-list',compact('title','customers','search'));
-    }
+    //     if($search){
+    //         $customers=Customer::where('name','like','%'.$search.'%')->paginate(10);
+    //     }else
+    //     {
+    //         $customers=Customer::paginate(10);
+    //     }
+
+
+    //     // where(name=%search%)
+    //     $title="Search result";
+    //     return view('backend.contents.customers.customers-list',compact('title','customers','search'));
+    // }
 }

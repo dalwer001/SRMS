@@ -18,18 +18,28 @@ use Throwable;
 
 class SaleController extends Controller
 {
-    public function salesDetails()
+    public function salesDetails(Request $request)
     {
 
         if (auth()->user()->role == 'admin') {
             $sales = Sale::paginate(20);
-        } 
-        else{
+        } else {
             $users = auth()->user()->employeeProfile->id;
             $sales = Sale::where('employee_id', $users)->paginate(20);
         }
 
-        return view('backend.contents.sales.salesDetails-list', compact('sales'));
+        $search = $request->input('search');
+
+        if ($request->has('search')) {
+            $sales = Sale::whereHas('customer', function ($query) use ($search) {
+
+                $query->where('name', 'like', "%{$search}%");
+            })->paginate(10);
+        } else {
+            $sales = Sale::paginate(10);
+        }
+
+        return view('backend.contents.sales.salesDetails-list', compact('sales', 'search'));
     }
 
     public function salesDetailsView($id)
@@ -78,40 +88,40 @@ class SaleController extends Controller
 
 
         $product = Product::find($request->product_id);
-     
+
         $subtotal = $request->product_quantity * $product->unit_price;
 
         $task = Task::where('product_id', $request->product_id)
             ->where('employee_id',  auth()->user()->employeeProfile->id)
-            ->where('start_date','<',Carbon::now())
+            ->where('start_date', '<', Carbon::now())
             ->first();
-            // dd($task);
-            // foreach($task as $data)
-            // {
-                // dd($data[1]);
-                if ($task->end_date < Carbon::now()) {
+        // dd($task);
+        // foreach($task as $data)
+        // {
+        // dd($data[1]);
+        if ($task->end_date < Carbon::now()) {
 
-                    $product = Product::where('id', $task->product_id)->first();
-        
-        
-                    $product_return = $product->quantity + $task->target_quantity;
-        
-                    $product->update([
-                        'quantity' => $product_return,
-                    ]);
-        
-                    $task->update([
-                        'target_quantity' => 0,
-                        'total_price' => 0
-                    ]);
-                    // dd($product_return);
-        
-                    // $task->delete();
-        
-                    return redirect()->back()->with('error-message', $product->name . ' product task already date over');
-                }
-        
-            
+            $product = Product::where('id', $task->product_id)->first();
+
+
+            $product_return = $product->quantity + $task->target_quantity;
+
+            $product->update([
+                'quantity' => $product_return,
+            ]);
+
+            $task->update([
+                'target_quantity' => 0,
+                'total_price' => 0
+            ]);
+            // dd($product_return);
+
+            // $task->delete();
+
+            return redirect()->back()->with('error-message', $product->name . ' product task already date over');
+        }
+
+
         // dd($quantity);
 
         $cart = Cart::where('employee_id', auth()->user()->employeeProfile->id)
@@ -124,7 +134,7 @@ class SaleController extends Controller
                 'product_quantity' => $cart->product_quantity + $request->product_quantity
             ]);
         } else {
-           
+
 
             Cart::create([
                 'employee_id' => auth()->user()->employeeProfile->id,
@@ -173,8 +183,7 @@ class SaleController extends Controller
 
     public function productSold(Request $request)
     {
-        if($request->total_amount == 0)
-        {
+        if ($request->total_amount == 0) {
             return redirect()->back()->with('error-message', 'No product added.');
         }
 
@@ -212,24 +221,26 @@ class SaleController extends Controller
 
 
         $task = Task::where('employee_id',  auth()->user()->employeeProfile->id)
-                        ->where('end_date','>',Carbon::now())
-                        ->first();
+            ->where('end_date', '>', Carbon::now())
+            ->first();
         $startDate = $task->start_date;
         $endDate = $task->end_date;
         $sale = Sale::where('employee_id',  auth()->user()->employeeProfile->id)
-                ->whereBetween('created_at', [$startDate, $endDate])
-                ->get();
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->get();
 
         // dd($sale);
         // dd($task->id);
         $task_q = 0;
 
         //all task;
-        $task_quantity = $task = Task::where('employee_id',  auth()->user()->employeeProfile->id)->get();
+        $task_quantity = $task = Task::where('employee_id',  auth()->user()->employeeProfile->id)
+            ->where('end_date', '>=', Carbon::now())
+            ->get();
 
         foreach ($task_quantity as $data) {
             // dd( $data->total_price);
-            $task_id= $data->id;
+            $task_id = $data->id;
             $task_q = $task_q + $data->target_quantity;
             $date = $data->end_date;
         }
@@ -249,11 +260,11 @@ class SaleController extends Controller
         if ($saleDate->created_at <= $date) {
             if ($task_q == 0) {
                 $total_commission = $total_p * 0.025;
-                
+
                 Commission::create([
-                    'task_id'=>$task_id,
-                    'employee_id'=>auth()->user()->employeeProfile->id,
-                    'commission'=>$total_commission
+                    'task_id' => $task_id,
+                    'employee_id' => auth()->user()->employeeProfile->id,
+                    'commission' => $total_commission
                 ]);
 
                 // $total_S = $commission + $salary->salary;
@@ -296,26 +307,15 @@ class SaleController extends Controller
 
 
 
-    public function search()
+
+
+    public function delete($id)
     {
-
-        // if (isset($_GET['from_date'])) {
-        //     $fromDate = date('Y-m-d', strtotime($_GET['from_date']));
-        //     $sales = Sale::whereDate('created_at', [$fromDate])->get();
-        // } 
-        // if (isset($_GET['from_date'])==null) {
-        //     return redirect()->route('saleDetails.list');
-        // }
-        // return view('backend.contents.sales.salesDetails-list', compact('sales'));
-    }
-
-    public function delete($id){
         $sales = Sale::find($id);
-        try{
+        try {
             $sales->delete();
-            return redirect()->route('saleDetails.list')->with('error-message','Sale deleted successfully.');
-        }
-        catch (Throwable $e) {
+            return redirect()->route('saleDetails.list')->with('error-message', 'Sale deleted successfully.');
+        } catch (Throwable $e) {
             if ($e->getCode() == '23000') {
                 return redirect()->back()->with('error-message', 'This sales already have task.');
             }

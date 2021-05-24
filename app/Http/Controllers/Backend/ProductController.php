@@ -25,9 +25,17 @@ class ProductController extends Controller
             $products = Product::paginate(10);
         }
 
+        $search = $request->input('search');
+
+        if($request->has('search')){
+            $products = Product::where('name','like',"%{$search}%")->paginate(10);
+        }else{
+            $products = Product::paginate(10);
+        }
+
         $categories = ProductCategories::all();
 
-        return view('backend.contents.products.products-list', compact('products', 'categories'));
+        return view('backend.contents.products.products-list', compact('products', 'categories','search'));
     }
 
     //product search
@@ -161,13 +169,21 @@ class ProductController extends Controller
 
 
     //categories get method
-    public function categories()
+    public function categories(Request $request)
     {
-
         $categories = ProductCategories::paginate(10);
+
+        $search = $request->input('search');
+
+        if($request->has('search')){
+            $categories = ProductCategories::where('name','like',"%{$search}%")->paginate(10);
+        }else{
+            $categories = ProductCategories::paginate(10);
+        }
+
         // dd($productCategories);
 
-        return view('backend.contents.products.product-categories-list', compact('categories'));
+        return view('backend.contents.products.product-categories-list', compact('categories','search'));
     }
 
 

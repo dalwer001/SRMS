@@ -27,29 +27,30 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    {{-- <div class="row">
+
+    <div class="row">
         <div class="col-md-4">
-            <form action="{{route('product.search')}}" method="POST">
+            <form action="{{route('products.list')}}" method="GET">
                 @csrf
             <input name="search" type="text" placeholder="Search" class="form-control">
             <button type="submit" class="btn btn-primary">Search</button>
             </form>
         </div>
 
-    </div> --}}
+    </div>
 
-    {{-- @if (isset($search))
+    @if (isset($search))
         <p>
-        <span class="alert alert-success"> you are searching for '{{$search}}' , found ({{count($product)}})</span>
+        <span class="alert alert-success"> you are searching for '{{$search}}' , found ({{count($products)}})</span>
         </p>
-    @endif --}}
+    @endif
 
 
 
 
     <div class="px-5">
         <div class="row ">
-            <div class="dropdown mb-3 d-flex justify-content-start">
+            <div class="dropdown mb-3 d-flex justify-content-end">
                 <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Categories List

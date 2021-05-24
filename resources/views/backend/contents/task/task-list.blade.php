@@ -35,6 +35,21 @@
 
 
 <div class="px-5">
+    <div class="row py-3">
+        <div class="col-md-4">
+            <form action="{{ route('tasks.list') }}" method="GET">
+                @csrf
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-6">
+                        <input name="search" type="text" placeholder="Search" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn text-light btn-sm search-button">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <table class="table table-bordered text-center">
         <thead class="text-center table-header">
             <tr>
@@ -72,6 +87,11 @@
         @endforeach
 
     </table>
+    @if (isset($search))
+    <p class="text-secondary">
+        <span>searching for '{{ $search }}' found '{{ count($tasks) }}' results</span>
+    </p>
+@endif
 </div>
     <div>
         <form method="post" action="{{ route('tasks.create') }}" enctype="multipart/form-data">

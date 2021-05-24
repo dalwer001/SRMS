@@ -14,11 +14,24 @@ use Throwable;
 
 class TaskController extends Controller
 {
-    public function tasks()
+    public function tasks(Request $request)
     {
         $employees = Employee::all();
         $products = Product::where('status','active')->get();
         $tasks = Task::all();
+
+        $search = $request->input('search');
+
+        if($request->has('search')){
+            $tasks = Task::whereHas('employee.employeeDetail',function($query) use($search) {
+
+                $query->where('name','like',"%{$search}%");
+
+            })->paginate(10);}
+            else{
+            $tasks = Task::paginate(10);
+        }
+
         return view('backend.contents.task.task-list', compact('tasks', 'employees', 'products'));
     }
 
