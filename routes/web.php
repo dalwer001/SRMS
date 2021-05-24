@@ -80,11 +80,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/employees/edit/{id}', [EmployeeController::class, 'edit'])->name('employees.edit');
         Route::put('/employees/update/{id}', [EmployeeController::class, 'update'])->name('employees.update');
         Route::get('/employees/viewDetails/{id}', [EmployeeController::class, 'view'])->name('employees.view');
-<<<<<<< HEAD
-        Route::post('/employees/search',[EmployeeController::class,'search'])->name('employees.search');
-=======
-        
->>>>>>> ab72de47c007a6a0606698657b243d9ba2cc9e2c
 
 
 
