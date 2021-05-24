@@ -32,7 +32,7 @@ class EmployeeController extends Controller
 
 
 
-        return view('backend.contents.employees.employees-list', compact('employees'));
+        return view('backend.contents.employees.employees-list', compact('employees','search'));
     }
 
 

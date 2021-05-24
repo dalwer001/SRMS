@@ -31,7 +31,7 @@ class CustomerController extends Controller
             $customers = customer::paginate(10);
         }
 
-        return view('backend.contents.customers.customers-list', compact('customers', 'employees'));
+        return view('backend.contents.customers.customers-list', compact('customers', 'employees','search'));
     }
 
     //post method
