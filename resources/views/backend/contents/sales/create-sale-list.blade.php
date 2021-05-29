@@ -74,7 +74,7 @@
     <div class="bg-light p-3 border">
         <div class="d-flex justify-content-start my-3">
             <button type="button" class="btn add-btn fw-bolder" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Add Products
+                <i class="fas fa-plus-square add-icon"></i> Product
             </button>
         </div>
 
@@ -131,7 +131,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus-square add-icon"></i> Product</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">

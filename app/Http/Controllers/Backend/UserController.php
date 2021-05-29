@@ -41,7 +41,7 @@ class UserController extends Controller
                 $status->update([
                     'status'=> 'active'
                 ]);
-                return redirect()->route('newSale.list');
+                return redirect()->route('dashboard.list');
             }
 
         }

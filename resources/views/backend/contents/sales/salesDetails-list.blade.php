@@ -49,8 +49,10 @@
             <tr>
                 <th scope="col">Serial</th>
                 <th scope="col">Invoice no.</th>
+                @if(auth()->user()->role=='admin')
                 <th scope="col">Employee Name</th>
                 <th scope="col">Employee Email</th>
+                @endif
                 <th scope="col">Customer Name</th>
                 <th scope="col">Customer Email</th>
                 <th scope="col">Total Amount</th>
@@ -65,8 +67,10 @@
             <tr>
                 <th scope="row">{{$key+1}}</th>
                 <td>{{$item->invoice_no}}</td>
+                @if(auth()->user()->role=='admin')
                 <td>{{$item->salesEmp->employeeDetail->name}}</td>
                 <td>{{$item->salesEmp->employeeDetail->email}}</td>
+                @endif
                 <td>{{$item->customer->name}}</td>
                 <td>{{$item->customer->email}}</td>
                 <td>{{$item->total_amount}}BDT</td>

@@ -36,7 +36,6 @@ class SaleController extends Controller
         {
             if ($request->has('search')) {
                 $sales = Sale::whereHas('salesEmp.employeeDetail', function ($query) use ($search) {
-    
                     $query->where('name', 'like', "%{$search}%");
                 })->paginate(10);
             } else {

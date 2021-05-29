@@ -19,6 +19,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2 title">Dashboard</h1>
     </div>
+    @if (auth()->user()->role=='admin')
     <div class="row">
         <div class="col-md-4 my-3">
             <div class="card products text-white shadow" style="width: 20rem;height:10rem;">
@@ -100,6 +101,24 @@
         </div>
         
     </div>
+    @endif
+    @if(auth()->user()->role=='employee')
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
+                <div class="card-body">
+                    <h5 class="text-center"> <small>Task Product Quantity</small> </h5>
+                    <h1 class="text-center">{{ $task_quantity }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6"></div>
+    </div>
+    @endif
 
 
 @endsection

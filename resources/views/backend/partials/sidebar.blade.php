@@ -31,13 +31,13 @@
         </div>
         <ul class="nav flex-column item-hover border-top" id='nav'>
 
+            <li class="nav-item ">
+                <a class="nav-link active text-white" aria-current="page" href="{{ route('dashboard.list') }}">
+                    <i class="fas fa-home text-white"></i>
+                    Dashboard
+                </a>
+            </li>
             @if (auth()->user()->role == 'admin')
-                <li class="nav-item ">
-                    <a class="nav-link active text-white" aria-current="page" href="{{ route('dashboard.list') }}">
-                        <i class="fas fa-home text-white"></i>
-                        Dashboard
-                    </a>
-                </li>
 
                 <li class="nav-item ">
                     <a class="nav-link text-white" href="{{ route('products.categories') }}">

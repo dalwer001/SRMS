@@ -27,6 +27,7 @@ use App\Http\Controllers\Backend\UserController;
 Route::get('/', [UserController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.list')->middleware('auth');
 
 
 
@@ -39,7 +40,6 @@ Route::group(['prefix' => 'admin'], function () {
     //dashboard route...
 
     Route::group(['middleware' => 'admin-auth'], function () {
-        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard.list');
 
         // products route...
         Route::get('/products', [ProductController::class, 'products'])->name('products.list');
