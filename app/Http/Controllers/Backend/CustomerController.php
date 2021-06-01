@@ -17,7 +17,17 @@ class CustomerController extends Controller
         // dd($users);
         $employees = Employee::all();
         if (auth()->user()->role == 'admin') {
+            
             $customers = Customer::paginate(10);
+            $search = $request->input('search');
+
+            if($request->has('search')){
+                $customers = Customer::where('name','like',"%{$search}%")
+                ->paginate(10);
+            }else{
+                $customers = customer::paginate(10);;
+            }
+            return view('backend.contents.customers.customers-list', compact('customers', 'employees','search'));
         } else {
             $users = auth()->user()->employeeProfile->id;
             $customers = Customer::where('employee_id', $users)->paginate(10);
@@ -26,9 +36,10 @@ class CustomerController extends Controller
         $search = $request->input('search');
 
         if($request->has('search')){
-            $customers = Customer::where('name','like',"%{$search}%")->paginate(10);
+            $customers = Customer::where('name','like',"%{$search}%")
+            ->where('employee_id', $users)->paginate(10);
         }else{
-            $customers = customer::paginate(10);
+            $customers = customer::where('employee_id', $users)->paginate(10);;
         }
 
         return view('backend.contents.customers.customers-list', compact('customers', 'employees','search'));

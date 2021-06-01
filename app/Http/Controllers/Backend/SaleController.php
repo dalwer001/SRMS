@@ -37,19 +37,21 @@ class SaleController extends Controller
             if ($request->has('search')) {
                 $sales = Sale::whereHas('salesEmp.employeeDetail', function ($query) use ($search) {
                     $query->where('name', 'like', "%{$search}%");
-                })->paginate(10);
+                })->paginate(20);
             } else {
-                $sales = Sale::paginate(10);
+                $sales = Sale::paginate(20);
             }
         }
         else{
             if ($request->has('search')) {
                 $sales = Sale::whereHas('customer', function ($query) use ($search) {
-    
-                    $query->where('name', 'like', "%{$search}%");
+                    $users = auth()->user()->employeeProfile->id;
+                    $query->where('name', 'like', "%{$search}%")
+                            ->where('employee_id', $users);
+                        
                 })->paginate(10);
             } else {
-                $sales = Sale::paginate(10);
+                $sales = Sale::where('employee_id', $users)->paginate(10);
             }
         }
 
@@ -349,8 +351,13 @@ class SaleController extends Controller
 
     public function delete($id){
         $sales = Sale::find($id);
+        $salesDetails = SaleDetails::where('sale_id',$id)->get();
         try {
             $sales->delete();
+            foreach($salesDetails as $data)
+            {
+                $data->delete();
+            }
             return redirect()->route('saleDetails.list')->with('error-message', 'Sale deleted successfully.');
         } catch (Throwable $e) {
             if ($e->getCode() == '23000') {

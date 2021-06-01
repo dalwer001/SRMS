@@ -61,7 +61,9 @@
                     <th scope="col">Serial</th>
                     <th scope="col">Customer Name</th>
                     <th scope="col">Customer Email</th>
+                    @if(auth()->user()->role=="admin")
                     <th scope="col">Employee Email</th>
+                    @endif
                     <th scope="col">Contact No</th>
                     <th scope="col">Address</th>
                     <th scope="col">City</th>
@@ -75,7 +77,9 @@
                         <th scope="row">{{ $key + 1 }}</th>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->email }}</td>
+                        @if(auth()->user()->role=="admin")
                         <td>{{ $data->customerEmployee->employeeDetail->email }}</td>
+                        @endif
                         <td>{{ $data->contact_no }}</td>
                         <td class="text-start">{{ $data->address }}</td>
                         <td class="text-start">{{ $data->city }}</td>
@@ -86,7 +90,7 @@
                                         class="far fa-trash-alt"></i></a>
                             @endif
                             @if (auth()->user()->role == 'employee')
-                                <a class="text-success mx-2" href={{ route('customers.edit', $data['id']) }}><i
+                                <a class="text-success fs-5 mx-2" href={{ route('customers.edit', $data['id']) }}><i
                                         class="far fa-edit"></i></a>
                             @endif
                         </td>

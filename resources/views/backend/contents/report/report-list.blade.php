@@ -58,7 +58,14 @@
         </div>
     </form>
 </div>
+    
     <div id="printableArea">
+        @if (isset($fromDate) && $fromDate !='1970-01-01')
+                <div class="container">
+                    <h2>Production report from: {{ date('M-d, Y', strtotime($fromDate)) }} to {{ date('M-d, Y', strtotime($toDate)) }} </h2>
+                    <h3>Number of records: {{ count($sales) }}</h3>
+                </div>  
+        @endif
         <h2 class="fw-bolder text-center mb-3 title">Sales Report</h2>
         <table class="table table-bordered  text-center">
             <thead class="text-center table-header">
