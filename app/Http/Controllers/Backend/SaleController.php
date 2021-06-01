@@ -32,8 +32,7 @@ class SaleController extends Controller
 
         $search = $request->input('search');
 
-        if(auth()->user()->role == 'admin')
-        {
+        if (auth()->user()->role == 'admin') {
             if ($request->has('search')) {
                 $sales = Sale::whereHas('salesEmp.employeeDetail', function ($query) use ($search) {
                     $query->where('name', 'like', "%{$search}%");
@@ -41,14 +40,12 @@ class SaleController extends Controller
             } else {
                 $sales = Sale::paginate(20);
             }
-        }
-        else{
+        } else {
             if ($request->has('search')) {
                 $sales = Sale::whereHas('customer', function ($query) use ($search) {
                     $users = auth()->user()->employeeProfile->id;
                     $query->where('name', 'like', "%{$search}%")
-                            ->where('employee_id', $users);
-                        
+                        ->where('employee_id', $users);
                 })->paginate(10);
             } else {
                 $sales = Sale::where('employee_id', $users)->paginate(10);
@@ -105,6 +102,7 @@ class SaleController extends Controller
 
         $product = Product::find($request->product_id);
 
+
         $subtotal = $request->product_quantity * $product->unit_price;
 
         $task = Task::where('product_id', $request->product_id)
@@ -115,6 +113,11 @@ class SaleController extends Controller
         // foreach($task as $data)
         // {
         // dd($data[1]);
+        if ($task->task_quantity < $request->product_quantity)
+        {
+
+            return redirect()->back()->with('error-message', $product->name . ' have not enough quantity.');
+        }
         if ($task->end_date < Carbon::now()) {
 
             $product = Product::where('id', $task->product_id)->first();
@@ -129,7 +132,7 @@ class SaleController extends Controller
             $task->update([
                 'target_quantity' => 0,
                 'total_price' => 0,
-                'status'=>'incomplete'
+                'status' => 'incomplete'
             ]);
             // dd($product_return);
 
@@ -139,17 +142,19 @@ class SaleController extends Controller
         }
 
 
+
         // dd($quantity);
 
         $cart = Cart::where('employee_id', auth()->user()->employeeProfile->id)
             ->where('product_id', $request->product_id)->first();
+
 
         // dd($cart);
 
         if ($cart) {
             $cart->update([
                 'product_quantity' => $cart->product_quantity + $request->product_quantity,
-                'subtotal'=> $cart->subtotal + ($request->product_quantity * $product->unit_price)
+                'subtotal' => $cart->subtotal + ($request->product_quantity * $product->unit_price)
             ]);
         } else {
 
@@ -250,30 +255,28 @@ class SaleController extends Controller
             ->whereBetween('created_at', [$startDate, $endDate])
             ->get();
 
-            $updateStatus = Task::where('employee_id',  auth()->user()->employeeProfile->id)
+        $updateStatus = Task::where('employee_id',  auth()->user()->employeeProfile->id)
             ->where('start_date', $startDate)
             ->get();
-            foreach($updateStatus as $data){
-                $data->update([
-                    'status' => 'processing',
-                ]);
-            }
+        foreach ($updateStatus as $data) {
+            $data->update([
+                'status' => 'processing',
+            ]);
+        }
         // dd($sale);
         // dd($task->id);
         $task_q = 0;
 
         //all task;
         $task_quantity = $task = Task::where('employee_id',  auth()->user()->employeeProfile->id)
-        ->where('status','processing')
-        ->get();
+            ->where('status', 'processing')
+            ->get();
 
         foreach ($task_quantity as $data) {
             // dd( $data->total_price);
             $task_id = $data->id;
             $task_q = $task_q + $data->target_quantity;
             $date = $data->end_date;
-
-
         }
         $total_p = 0;
         foreach ($sale as $data) {
@@ -292,18 +295,17 @@ class SaleController extends Controller
             if ($task_q == 0) {
                 $total_commission = $total_p * 0.025;
 
-            $commission = Commission::create([
-                    'task_id'=>$task_id,
-                    'employee_id'=>auth()->user()->employeeProfile->id,
-                    'commission'=>$total_commission
+                $commission = Commission::create([
+                    'task_id' => $task_id,
+                    'employee_id' => auth()->user()->employeeProfile->id,
+                    'commission' => $total_commission
                 ]);
-                foreach($task_quantity as $data)
-                {
+                foreach ($task_quantity as $data) {
                     $data->update([
                         'status' => 'complete',
                     ]);
                 }
-        Mail::to('admin@gmail.com')->send(new taskCompleteConfirmation($commission));
+                Mail::to('admin@gmail.com')->send(new taskCompleteConfirmation($commission));
 
 
                 // $total_S = $commission + $salary->salary;
@@ -349,13 +351,13 @@ class SaleController extends Controller
 
 
 
-    public function delete($id){
+    public function delete($id)
+    {
         $sales = Sale::find($id);
-        $salesDetails = SaleDetails::where('sale_id',$id)->get();
+        $salesDetails = SaleDetails::where('sale_id', $id)->get();
         try {
             $sales->delete();
-            foreach($salesDetails as $data)
-            {
+            foreach ($salesDetails as $data) {
                 $data->delete();
             }
             return redirect()->route('saleDetails.list')->with('error-message', 'Sale deleted successfully.');

@@ -34,8 +34,8 @@ class UserController extends Controller
 
             if (auth()->user()->role == 'admin') {
                 return redirect()->route('dashboard.list');
-            } 
-            
+            }
+
             elseif (auth()->user()->role == 'employee') {
                 $status = Employee::where('user_id', auth()->user()->id);
                 $status->update([

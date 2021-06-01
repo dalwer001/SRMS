@@ -111,7 +111,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Employee Name</label>
                                 <select class="form-select" name="employee_id">
-                                    <option value="">Open this select menu</option>
+                                    <option value="">Open this select Employee</option>
                                     @foreach ($employees as $data)
                                         <option value="{{ $data->id }}">{{ $data->employeeDetail->email }}</option>
                                     @endforeach
@@ -121,7 +121,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
                                 <select class="form-select" name="product_id">
-                                    <option value="">Open this select menu</option>
+                                    <option value="">Open this select product</option>
 
                                     @foreach ($products as $data)
                                         <option value="{{ $data->id }}">{{ $data->name }}-{{ $data->generic }}-{{ $data->quantity }} Qty

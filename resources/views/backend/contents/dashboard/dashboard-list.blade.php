@@ -68,7 +68,7 @@
             <div class="card sale text-white shadow" style="width: 20rem;height:10rem;">
                 <div class="card-body">
                     <h5 class="text-center"> <small>Today's Sale</small> </h5>
-                    <h1 class="text-center">{{ $total_sale }} <span class="fs-2">BDT</span></h1>
+                    <h1 class="text-center">{{ $total_sale }} <span class="fs-5">BDT</span></h1>
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@
             <div class="card totalsale text-white shadow" style="width: 20rem;height:10rem;">
                 <div class="card-body">
                     <h5 class="text-center"> <small>Total Sale</small> </h5>
-                    <h1 class="text-center">{{ $grandTotalSale  }} <span class="fs-2">BDT</span></h1>
+                    <h1 class="text-center">{{ $grandTotalSale  }} <span class="fs-5">BDT</span></h1>
                 </div>
             </div>
         </div>
@@ -99,12 +99,14 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     @endif
+
+
     @if(auth()->user()->role=='employee')
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4 py-5">
             <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
                 <div class="card-body">
                     <h5 class="text-center"> <small>Task Product Quantity</small> </h5>
@@ -112,11 +114,86 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6"></div>
-        <div class="col-md-6"></div>
-        <div class="col-md-6"></div>
-        <div class="col-md-6"></div>
-        <div class="col-md-6"></div>
+        <div class="col-md-4 py-5">
+            <div class="col-md-6">
+                <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
+                    <div class="card-body">
+                        <h5 class="text-center"> <small>Number of Product</small> </h5>
+                        <h1 class="text-center">{{ $num_product }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-5">
+            <div class="col-md-6">
+                <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
+                    <div class="card-body">
+                        <h5 class="text-center"> <small>Total Sold Quantity of Product</small> </h5>
+                        <h1 class="text-center">{{ $emp_sold_quantity }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-5">
+            <div class="col-md-6">
+                <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
+                    <div class="card-body">
+                        <h5 class="text-center"> <small>Left Quantity of Product</small> </h5>
+                        <h1 class="text-center">{{  abs($task_quantity - $emp_sold_quantity) }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-5">
+            <div class="col-md-6">
+                <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
+                    <div class="card-body">
+                        <h5 class="text-center"> <small>Total target price</small> </h5>
+                        <h1 class="text-center">{{ $t_price }} <span class="fs-5">BDT</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-5">
+            <div class="col-md-6">
+                <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
+                    <div class="card-body">
+                        <h5 class="text-center"> <small>Total sold price</small> </h5>
+                        <h1 class="text-center">{{ $emp_total_price }} <span class="fs-5">BDT</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-5">
+            <div class="col-md-6">
+                <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
+                    <div class="card-body">
+                        <h5 class="text-center"> <small>Remaining target Price</small> </h5>
+                        <h1 class="text-center">{{ abs($t_price - $emp_total_price) }} <span class="fs-5">BDT</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-5">
+            <div class="col-md-6">
+                <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
+                    <div class="card-body">
+                        <h5 class="text-center"> <small>Grand Total Quantity of Sale</small> </h5>
+                        <h1 class="text-center">{{$grandSale_p}}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-5">
+            <div class="col-md-6">
+                <div class="card active-quantity text-white shadow" style="width: 20rem;height:10rem;">
+                    <div class="card-body">
+                        <h5 class="text-center"> <small>Grand Total of Sale Price</small> </h5>
+                        <h1 class="text-center">{{ $grandTotal_price }} <span class="fs-5">BDT</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     @endif
 

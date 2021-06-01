@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\SaleDetails;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -48,14 +49,63 @@ class DashboardController extends Controller
             $grandTotalSale += $data->total_amount;
         }
 
+        $date = Carbon::now();
+
         if (auth()->user()->role == 'employee') {
-            $task_emp = Task::where('employee_id', auth()->user()->employeeProfile->id)->get();
-            // dd($task_emp);
+            $task_emp = Task::where('employee_id', auth()->user()->employeeProfile->id)
+                ->where('start_date', '<=', $date)
+                ->where('end_date', '>=', $date)
+                ->get();
+
+
             $task_quantity = 0;
+            $num_product = $task_emp->count();
+            // dd($num_product);
+            $t_price = 0;
             foreach ($task_emp as $data) {
                 $task_quantity += $data->target_quantity;
+                $t_price += $data->total_price;
+                // $num_product += $data->start_date;
             }
-            return view('backend.contents.dashboard.dashboard-list', compact('totalNumberofProduct', 'quantity', 'totalEmployee', 'activeProduct', 'activeEmployee', 'totalCustomer', 'total_sale', 'grandTotalSale', 'totalActiveProduct', 'task_quantity'));
+
+
+            $sales = saleDetails::whereIn('sale_id', function ($query) use ($data) {
+
+                $query->from('sales')->select('id')->where('employee_id', auth()->user()->employeeProfile->id)
+                    ->whereBetween('created_at', [$data->start_date, $data->end_date])
+                    ->get();
+            })->get();
+
+            $emp_sold_quantity = 0;
+
+            $emp_total_price = 0;
+            foreach ($sales as $data) {
+                $emp_sold_quantity += $data->quantity;
+                $emp_total_price += $data->subtotal;
+            }
+
+
+
+
+            $grandSales = sale::where('employee_id', auth()->user()->employeeProfile->id)->get();
+            $grandTotal_price = 0;
+            foreach ($grandSales as $data) {
+                $grandTotal_price += $data->total_amount;
+            }
+
+
+            $grandSaleProduct = saleDetails::whereIn('sale_id', function ($query) {
+
+                $query->from('sales')->select('id')->where('employee_id', auth()->user()->employeeProfile->id)
+                    ->get();
+            })->get();
+
+            $grandSale_p = 0;
+            foreach ($grandSaleProduct as $data) {
+                $grandSale_p += $data->quantity;
+            }
+
+            return view('backend.contents.dashboard.dashboard-list', compact('totalNumberofProduct', 'quantity', 'totalEmployee', 'activeProduct', 'activeEmployee', 'totalCustomer', 'total_sale', 'grandTotalSale', 'totalActiveProduct', 'task_quantity', 'num_product', 'emp_sold_quantity', 't_price', 'emp_total_price', 'grandTotal_price', 'grandSale_p'));
         }
 
 

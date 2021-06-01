@@ -25,48 +25,50 @@
             </div>
         @endforeach
     @endif
-<div class="bg-light p-3">
-    <form action="{{ route('sales.report') }}" method="GET">
+    <div class="bg-light p-3">
+        <form action="{{ route('sales.report') }}" method="GET">
 
-        <div class="row mb-3">
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row mb-3">
-                            <label for="from" class="col-sm-2 col-form-label fw-bolder">Date from:</label>
-                            <div class="col-sm-10">
-                                <input id="from" type="date" class="form-control" name="from_date">
+            <div class="row mb-3">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row mb-3">
+                                <label for="from" class="col-sm-2 col-form-label fw-bolder">Date from:</label>
+                                <div class="col-sm-10">
+                                    <input id="from" type="date" class="form-control" name="from_date">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row mb-3">
-                            <label for="to" class="col-sm-2 col-form-label fw-bolder">Date to:</label>
-                            <div class="col-sm-10">
-                                <input id="to" type="date" class="form-control" name="to_date">
+                        <div class="col-md-6">
+                            <div class="row mb-3">
+                                <label for="to" class="col-sm-2 col-form-label fw-bolder">Date to:</label>
+                                <div class="col-sm-10">
+                                    <input id="to" type="date" class="form-control" name="to_date">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-2">
-                <button type="submit" class=" btn  modal-cancel text-white fw-bolder mb-2">Search</button>
-                <button onclick="printDiv('printableArea')" class="btn modal-submit text-white fw-bolder"><span
-                        data-feather="printer"></span>print</button>
+                <div class="col-md-2">
+                    <button type="submit" class=" btn  modal-cancel text-white fw-bolder mb-2">Search</button>
+                    <button onclick="printDiv('printableArea')" class="btn modal-submit text-white fw-bolder"><span
+                            data-feather="printer"></span>print</button>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
-    
+        </form>
+    </div>
+
     <div id="printableArea">
-        @if (isset($fromDate) && $fromDate !='1970-01-01')
-                <div class="container">
-                    <h2>Production report from: {{ date('M-d, Y', strtotime($fromDate)) }} to {{ date('M-d, Y', strtotime($toDate)) }} </h2>
-                    <h3>Number of records: {{ count($sales) }}</h3>
-                </div>  
-        @endif
+
         <h2 class="fw-bolder text-center mb-3 title">Sales Report</h2>
+        @if (isset($fromDate) && $fromDate != '1970-01-01')
+            <div>
+                <p class="text-secondary">from: {{ date('M-d, Y', strtotime($fromDate)) }} to
+                    {{ date('M-d, Y', strtotime($toDate)) }}, Number of records: {{ count($sales) }}</p>
+                <h3></h3>
+            </div>
+        @endif
         <table class="table table-bordered  text-center">
             <thead class="text-center table-header">
                 <tr>
@@ -85,7 +87,7 @@
             <tbody class="table-light">
                 @if (count($sales) > 0)
                     @foreach ($sales as $key => $item)
-                    {{-- @dd($item->productDetails->name ) --}}
+                        {{-- @dd($item->productDetails->name ) --}}
                         <tr>
                             <th scope="row">{{ $key + 1 }}</th>
                             <td>{{ $item->sale->salesEmp->employeeDetail->name }}</td>

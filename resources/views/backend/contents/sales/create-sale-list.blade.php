@@ -144,7 +144,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
                                 <select class="form-select" name="product_id">
-                                    <option value=''>Product Name</option>
+                                    <option value=''>Select product</option>
                                     @foreach ($task as $data)
                                         <option value="{{ $data->product_id }}">{{ $data->product->name }}-{{ $data->product->generic }}
                                             {{ $data->target_quantity }}Qty</option>
