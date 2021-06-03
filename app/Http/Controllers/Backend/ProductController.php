@@ -18,24 +18,29 @@ class ProductController extends Controller
     // get method
     public function products(Request $request)
     {
+        // dd($request->input('category_id'));
+        $categories = ProductCategories::all();
 
         if ($request->input('category_id')) {
             $products = Product::where('category_id', $request->input('category_id'))->paginate(10);
+            return view('backend.contents.products.products-list', compact('products', 'categories'));
+
+            // dd($products);
         } else {
             $products = Product::paginate(10);
         }
 
         $search = $request->input('search');
 
-        if($request->has('search')){
-            $products = Product::where('name','like',"%{$search}%")->paginate(10);
-        }else{
+        if ($request->has('search')) {
+            $products = Product::where('name', 'like', "%{$search}%")->paginate(10);
+        } else {
             $products = Product::paginate(10);
         }
 
-        $categories = ProductCategories::all();
 
-        return view('backend.contents.products.products-list', compact('products', 'categories','search'));
+
+        return view('backend.contents.products.products-list', compact('products', 'categories', 'search'));
     }
 
     //product search
@@ -102,11 +107,10 @@ class ProductController extends Controller
     public function delete($id)
     {
         $products = Product::find($id);
-        try{
+        try {
             $products->delete();
-            return redirect()->route('products.list')->with('error-message','Product deleted successfully.');
-        }
-        catch (Throwable $e) {
+            return redirect()->route('products.list')->with('error-message', 'Product deleted successfully.');
+        } catch (Throwable $e) {
             if ($e->getCode() == '23000') {
                 return redirect()->back()->with('error-message', 'This product already given as a task or have sale.');
             }
@@ -138,33 +142,31 @@ class ProductController extends Controller
 
         if ($request->hasFile('product_image')) {
 
-            $image_path = public_path().'/files/product/'.$products->image;
+            $image_path = public_path() . '/files/product/' . $products->image;
 
             if ($products->image) {
                 unlink($image_path);
             }
 
-                $file_name='';
+            $file_name = '';
 
-                $file = $request -> file('product_image');
-                if ($file -> isValid()) {
-                    $file_name = date('Ymdhms').'.'.$file -> getClientOriginalExtension();
-                    $file -> storeAs('product', $file_name);
-                }
+            $file = $request->file('product_image');
+            if ($file->isValid()) {
+                $file_name = date('Ymdhms') . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('product', $file_name);
+            }
 
             $products->update([
                 'image' => $file_name
             ]);
-
-
         }
         $products->update([
             'name' => $request->name,
             'quantity' => $request->quantity,
-            'unit_price'=>$request->unit_price
+            'unit_price' => $request->unit_price
         ]);
 
-        return redirect()->route('products.list')->with('success-message','Product updated successfully');
+        return redirect()->route('products.list')->with('success-message', 'Product updated successfully');
     }
 
 
@@ -175,15 +177,15 @@ class ProductController extends Controller
 
         $search = $request->input('search');
 
-        if($request->has('search')){
-            $categories = ProductCategories::where('name','like',"%{$search}%")->paginate(10);
-        }else{
+        if ($request->has('search')) {
+            $categories = ProductCategories::where('name', 'like', "%{$search}%")->paginate(10);
+        } else {
             $categories = ProductCategories::paginate(10);
         }
 
         // dd($productCategories);
 
-        return view('backend.contents.products.product-categories-list', compact('categories','search'));
+        return view('backend.contents.products.product-categories-list', compact('categories', 'search'));
     }
 
 
@@ -201,33 +203,33 @@ class ProductController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect()->route('products.categories')->with('success-message','Employee created successfully.');
+        return redirect()->route('products.categories')->with('success-message', 'Employee created successfully.');
     }
 
     //
     public function category_delete($id)
     {
         $productCategory = ProductCategories::find($id);
-        try{
+        try {
             $productCategory->delete();
             return redirect()->route('products.categories');
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             if ($e->getCode() == '23000') {
-                return redirect()->back()->with('error-message','This product category already have products.');
+                return redirect()->back()->with('error-message', 'This product category already have products.');
             }
             return back();
         }
     }
 
-      //category edit
+    //category edit
     public function category_edit($id)
     {
         $productCategory = ProductCategories::find($id);
         return view('backend.contents.products.product-categories-edit-list', compact('productCategory'));
     }
 
-    public function category_update(Request $request){
+    public function category_update(Request $request)
+    {
 
         $productCategory = ProductCategories::find($request->id);
 
@@ -236,34 +238,33 @@ class ProductController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect()->route('products.categories')->with('success-message','Product Category updated successfully');
-
+        return redirect()->route('products.categories')->with('success-message', 'Product Category updated successfully');
     }
 
     public function productCategorySearch(Request $request)
     {
         // dd($request->all());
 
-            $search=$request->search;
+        $search = $request->search;
 
-            if($search){
-                $categories=ProductCategories::where('name','like','%'.$search.'%')->paginate(10);
-            }else
-            {
-                $categories=ProductCategories::paginate(10);
-            }
+        if ($search) {
+            $categories = ProductCategories::where('name', 'like', '%' . $search . '%')->paginate(10);
+        } else {
+            $categories = ProductCategories::paginate(10);
+        }
 
 
-            // where(name=%search%)
-            $title="Search result";
-            return view('backend.contents.products.product-categories-list',compact('title','categories','search'));
+        // where(name=%search%)
+        $title = "Search result";
+        return view('backend.contents.products.product-categories-list', compact('title', 'categories', 'search'));
     }
 
 
-    public function statusUpdate($id,$status){
-        $products= Product::find($id);
-        $products->update(['status'=>$status]);
+    public function statusUpdate($id, $status)
+    {
+        $products = Product::find($id);
+        $products->update(['status' => $status]);
 
-        return redirect()->back()->with('success-message', $products->name .' is '. $status.'.');
+        return redirect()->back()->with('success-message', $products->name . ' is ' . $status . '.');
     }
 }

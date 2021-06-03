@@ -33,9 +33,9 @@
                 <tr>
                     <th>Serial</th>
                     <th>Product Name</th>
-                    <th>Product Quantity</th>
-                    <th>Product Unit Price</th>
-                    <th>Product Sub Total</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Sub Total</th>
                 </tr>
             </thead>
 
@@ -82,9 +82,5 @@
     <div class=" d-flex justify-centent-end">
         <button class="btn mt-2 modal-submit fw-bolder text-light " style="width: 120px" onclick="printDiv('printableArea')" >Print</button>
     </div>
-
-
-
-
 
 @endsection

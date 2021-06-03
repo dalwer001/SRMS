@@ -29,9 +29,6 @@ class EmployeeController extends Controller
             $employees = Employee::paginate(10);
         }
 
-
-
-
         return view('backend.contents.employees.employees-list', compact('employees','search'));
     }
 
@@ -61,7 +58,7 @@ class EmployeeController extends Controller
             $request->validate([
                 'name' => 'required',
                 'email' => 'email|required|unique:users',
-                'contact_no'=>'required|min:11|numeric',
+                'contact_no'=>'required|min:11|numeric|unique:users',
                 'address'=>'required',
                 'gender'=>'required',
                 'birth_date'=>'required|date|before_or_equal:'.\Carbon\Carbon::now()->subYears(18)->format('Y-m-d'),
@@ -127,7 +124,6 @@ class EmployeeController extends Controller
     public function update(Request $request)
     {
         $employees = Employee::find($request->id);
-
 
         if ($request->hasFile('employee_image')) {
 

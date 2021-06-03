@@ -99,7 +99,6 @@ class SaleController extends Controller
         ]);
 
 
-
         $product = Product::find($request->product_id);
 
 
@@ -113,15 +112,15 @@ class SaleController extends Controller
         // foreach($task as $data)
         // {
         // dd($data[1]);
-        if ($task->task_quantity < $request->product_quantity)
-        {
 
+        if ($task->target_quantity < $request->product_quantity)
+        {
             return redirect()->back()->with('error-message', $product->name . ' have not enough quantity.');
         }
+     
         if ($task->end_date < Carbon::now()) {
 
             $product = Product::where('id', $task->product_id)->first();
-
 
             $product_return = $product->quantity + $task->target_quantity;
 
@@ -141,6 +140,7 @@ class SaleController extends Controller
             return redirect()->back()->with('error-message', $product->name . ' product task already date over');
         }
 
+        
 
 
         // dd($quantity);

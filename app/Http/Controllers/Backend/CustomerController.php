@@ -54,7 +54,6 @@ class CustomerController extends Controller
             if ($data->email == $request->email) {
                 $request->validate([
                     'email' => 'email|required|unique:customers',
-
                 ]);
             }
         }
@@ -62,7 +61,7 @@ class CustomerController extends Controller
         $request->validate([
             'name' => 'required',
             'employee_id' => 'required',
-            'contact_no' => 'required|min:11|numeric',
+            'contact_no' => 'required|min:11|numeric|unique:customers',
             'address' => 'required',
             'city' => 'required'
         ]);

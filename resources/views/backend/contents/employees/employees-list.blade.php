@@ -78,7 +78,7 @@
                     <td class="text-start">{{ $data->address }}</td>
                     <td>{{ $data->salary }}</td>
                     <td>{{ $data->birth_date }}</td>
-                    <td>{{ $data->join_date }}</td>
+                    <td>{{date("Y-M-d",strtotime($data->created_at))}}</td>
                     <td>
                         <a class="text-primary  fs-5 mx-2" href="{{ route('employees.view', $data['id']) }}"><i
                                 class="far fa-eye"></i></a>

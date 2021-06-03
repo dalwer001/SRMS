@@ -70,11 +70,6 @@
                         placeholder="Birthday-date" value="{{ $employees['birth_date'] }}">
                 </div>
 
-                <div class=" mb-3">
-                    <label for="exampleFormControlInput1" class="form-label fw-bolder">Join Date</label>
-                    <input type="date" class="form-control" name="join_date" id="exampleFormControlInput1"
-                        placeholder="join-Date" value="{{ $employees['join_date'] }}">
-                </div>
                 <div>
                     <button type="submit" class="btn fw-bolder modal-submit"
                         onclick="return confirm('Are you sure?')">Update</button>
