@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 use App\Models\Employee;
+use App\Models\PasswordReset;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
@@ -62,5 +66,62 @@ class UserController extends Controller
         }
         Auth::logout();
         return redirect()->route('login.form')->with('success-message', 'Logout Successful.');
+    }
+
+    public function forgetPass(){
+
+        return view('backend.login.forget-password');
+    }
+
+    public function createNewPass(Request $request)
+    {
+
+        $user = User::where('email', $request->email)->first();
+        // dd($user);
+        if ($user) {
+            //send forget password link
+            Password::sendResetLink(
+                $request->only('email')
+            );
+            // dd($request->email);
+            return redirect()->back()->with('success-message', 'Email sent to :' . $request->email);
+        } else {
+            return redirect()->back()->with('error-message', 'Email not found.');
+        }
+    }
+
+    public function showResetForm($p_token, $p_email)
+    {
+        // dd($token);
+        $token = $p_token;
+        $email = $p_email;
+
+        return view('backend.login.reset-password',compact('token','email'));
+    }
+
+    public function submitPassword(Request $request){
+
+        // dd($request->all());
+
+        $request->validate([
+            'token'=>'required',
+            'email'=>'email|required',
+            'password' => 'required|min:6|confirmed'
+        ]);
+
+        $status = Password::reset(
+            $request->only('email','password','password_confirmation','token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => bcrypt($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+            }
+        );
+
+        return view('backend.login.login-list')->with('success', 'Password updated successfully.');
+
     }
 }

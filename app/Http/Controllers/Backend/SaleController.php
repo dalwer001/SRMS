@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Mail\taskCompleteConfirmation;
+use App\Mail\taskInCompleteConfirmation;
 use App\Models\Cart;
 use App\Models\Commission;
 use App\Models\Customer;
@@ -117,12 +118,14 @@ class SaleController extends Controller
         {
             return redirect()->back()->with('error-message', $product->name . ' have not enough quantity.');
         }
-     
+
         if ($task->end_date < Carbon::now()) {
 
             $product = Product::where('id', $task->product_id)->first();
 
             $product_return = $product->quantity + $task->target_quantity;
+
+            Mail::to('admin@gmail.com')->send(new taskInCompleteConfirmation($task));
 
             $product->update([
                 'quantity' => $product_return,
@@ -140,7 +143,7 @@ class SaleController extends Controller
             return redirect()->back()->with('error-message', $product->name . ' product task already date over');
         }
 
-        
+
 
 
         // dd($quantity);

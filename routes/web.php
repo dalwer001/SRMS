@@ -124,6 +124,12 @@ Route::get('/sales-details/view/{id}', [SaleController::class, 'salesDetailsView
 
 //customers
 Route::get('/customers', [CustomerController::class, 'customers'])->name('customers.list')->middleware('auth');
-
+//forgetPass
+Route::get('/forget-password',[UserController::class,'forgetPass'])->name('forgetPassword');
+Route::post('/forget-password/submit',[UserController::class,'createNewPass'])->name('newPass.create');
+Route::get('/reset-link/{token}/{email}', [UserController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset/submit', [UserController::class, 'submitPassword'])->name('password.submit');
 
 Route::get('/get-customer/{id}', [ApiController::class, 'customerDetails']);
+
+

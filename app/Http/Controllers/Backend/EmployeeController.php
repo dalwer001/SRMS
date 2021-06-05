@@ -7,6 +7,7 @@ use App\Models\Commission;
 use App\Models\Employee;
 use App\Models\Task;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -16,6 +17,7 @@ class EmployeeController extends Controller
     //get method
     public function employees(Request $request)
     {
+        $disable = Carbon::now()->subYears(18)->format('Y-m-d');
 
         $search = $request->input('search');
 
@@ -29,7 +31,7 @@ class EmployeeController extends Controller
             $employees = Employee::paginate(10);
         }
 
-        return view('backend.contents.employees.employees-list', compact('employees','search'));
+        return view('backend.contents.employees.employees-list', compact('employees','search','disable'));
     }
 
 
@@ -53,8 +55,8 @@ class EmployeeController extends Controller
             }
         }
 
-        // DB::beginTransaction();
-        // try{
+        DB::beginTransaction();
+        try{
             $request->validate([
                 'name' => 'required',
                 'email' => 'email|required|unique:users',
@@ -84,13 +86,13 @@ class EmployeeController extends Controller
                 'salary' => $request->salary
             ]);
 
-            // DB::commit();
+            DB::commit();
             return redirect()->back()->with('success-message','Employee created successfully.');
-        // }
-    //     catch(Throwable $e){
-    //         DB::rollBack();
-    //         return redirect()->back()->with('error-message', 'You missed something');
-    // }
+        }
+        catch(Throwable $e){
+            DB::rollBack();
+            return redirect()->back()->with('error-message', 'You missed something');
+    }
 }
 
     //delete method
@@ -167,6 +169,4 @@ class EmployeeController extends Controller
         $sales = Commission::where('employee_id', $employees->id)->get();
         return view('backend.contents.employees.employee-view-list', compact('employees','sales'));
     }
-
-
 }

@@ -2,31 +2,30 @@
     <div class="position-sticky pt-3 ">
         <div class="row p-3">
             {{-- <div class="sidebar-header "> --}}
-                <div class="col-md-6 ">
-                    @if (auth()->user()->role == 'employee')
+            <div class="col-md-6 ">
+                @if (auth()->user()->role == 'employee')
 
-                        <div class="avatar m-auto">
-                            <img src="{{ url('/files/employee/' . auth()->user()->employeeProfile->image) }}"
-                                alt="..." class="img-fluid rounded-circle w-100 h-100">
-                        </div>
+                    <div class="avatar m-auto">
+                        <img src="{{ url('/files/employee/' . auth()->user()->employeeProfile->image) }}" alt="..."
+                            class="img-fluid rounded-circle w-100 h-100">
+                    </div>
 
-                    @else
-                        <div class="avatar m-auto">
-                            <img src="{{ url('img/shojib.jpg') }}" alt="..."
-                                class="img-fluid rounded-circle w-100 h-100">
-                        </div>
+                @else
+                    <div class="avatar m-auto">
+                        <img src="{{ url('img/shojib.jpg') }}" alt="..." class="img-fluid rounded-circle w-100 h-100">
+                    </div>
 
-                    @endif
-                </div>
+                @endif
+            </div>
 
-                <div class="col-md-6  m-0 pt-3 ">
-                    <div>
+            <div class="col-md-6  m-0 pt-3 ">
+                <div>
                     <h1 class="h5 text-white d-flex jutify-ceontent-center">{{ auth()->user()->name }}</h1>
-                    </div>
-                    <div>
-                    <p class="text-light"><i class="fas fa-circle text-success"></i> online</p>
-                    </div>
                 </div>
+                <div>
+                    <p class="text-light"><i class="fas fa-circle text-success"></i> online</p>
+                </div>
+            </div>
             {{-- </div> --}}
         </div>
         <ul class="nav flex-column item-hover border-top" id='nav'>
@@ -92,12 +91,13 @@
             </li>
 
             @if (auth()->user()->role == 'employee')
-            <li class="nav-item ">
-                <a class="nav-link text-white" href="{{ route('employeeTask.list', auth()->user()->employeeProfile['id']) }}">
-                    <i class="fas fa-tasks text-danger"></i>
-                    Tasks
-                </a>
-            </li>
+                <li class="nav-item ">
+                    <a class="nav-link text-white"
+                        href="{{ route('employeeTask.list', auth()->user()->employeeProfile['id']) }}">
+                        <i class="fas fa-tasks text-danger"></i>
+                        Tasks
+                    </a>
+                </li>
             @endif
 
 
@@ -112,7 +112,7 @@
 
             @if (auth()->user()->role == 'admin')
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{route('sales.report')}}">
+                    <a class="nav-link text-white" href="{{ route('sales.report') }}">
                         <i class="fas fa-chart-bar text-success"></i>
                         Reports
                     </a>
@@ -120,7 +120,20 @@
             @endif
 
         </ul>
+
+
+        <div class="text-center bg-light ">
+            <div class="div-clock">
+                <div id="myClockDisplay" class="clock fw-bolder" onload="showTime()"></div>
+            </div>
+            <div class="div-date">
+                <div id="myDateDisplay" class="date fw-bolder" onload="today()"></div>
+            </div>
+        </div>
     </div>
+
+
+
 </nav>
 
 

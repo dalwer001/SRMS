@@ -68,21 +68,29 @@ class DashboardController extends Controller
                 // $num_product += $data->start_date;
             }
 
+            if ($task_emp->count() != 0) {
+                $sales = saleDetails::whereIn('sale_id', function ($query) use ($data) {
 
-            $sales = saleDetails::whereIn('sale_id', function ($query) use ($data) {
+                    $query->from('sales')->select('id')->where('employee_id', auth()->user()->employeeProfile->id)
+                        ->whereBetween('created_at', [$data->start_date, $data->end_date])
+                        ->get();
+                })->get();
 
-                $query->from('sales')->select('id')->where('employee_id', auth()->user()->employeeProfile->id)
-                    ->whereBetween('created_at', [$data->start_date, $data->end_date])
-                    ->get();
-            })->get();
+                $emp_sold_quantity = 0;
+
+                $emp_total_price = 0;
+                foreach ($sales as $data) {
+                    $emp_sold_quantity += $data->quantity;
+                    $emp_total_price += $data->subtotal;
+                }
+            }else{
+
+            $emp_total_price = 0;
 
             $emp_sold_quantity = 0;
 
-            $emp_total_price = 0;
-            foreach ($sales as $data) {
-                $emp_sold_quantity += $data->quantity;
-                $emp_total_price += $data->subtotal;
             }
+
 
 
 
