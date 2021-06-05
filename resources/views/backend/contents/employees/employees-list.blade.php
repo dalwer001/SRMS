@@ -175,13 +175,6 @@
                                 <input type="date" min="01-01-2003" class="form-control" name="birth_date" id="exampleFormControlInput1"
                                     placeholder="Birthday-date" required>
                             </div>
-
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Join Date</label>
-                                <input type="date" class="form-control" name="join_date" id="exampleFormControlInput1"
-                                    placeholder="join-Date" required>
-                            </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn modal-cancel text-white fw-bolder" data-bs-dismiss="modal">Close</button>

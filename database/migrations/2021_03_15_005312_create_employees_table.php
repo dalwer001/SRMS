@@ -22,7 +22,6 @@ class CreateEmployeesTable extends Migration
             $table->string('address',1000);
             $table->double('salary');
             $table->date('birth_date');
-            $table->date('join_date');
             $table->string('status')->default('inactive');
             $table->timestamps();
         });

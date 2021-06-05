@@ -53,16 +53,15 @@ class EmployeeController extends Controller
             }
         }
 
-        DB::beginTransaction();
-        try{
+        // DB::beginTransaction();
+        // try{
             $request->validate([
                 'name' => 'required',
                 'email' => 'email|required|unique:users',
-                'contact_no'=>'required|min:11|numeric|unique:users',
+                'contact_no'=>'required|min:11|numeric|unique:employees',
                 'address'=>'required',
                 'gender'=>'required',
                 'birth_date'=>'required|date|before_or_equal:'.\Carbon\Carbon::now()->subYears(18)->format('Y-m-d'),
-                'join_date'=>'required|after:yesterday',
                 'salary'=>'required'
             ]);
 
@@ -82,17 +81,16 @@ class EmployeeController extends Controller
                 'address' => $request->address,
                 'gender' => $request->gender,
                 'birth_date' => $request->birth_date,
-                'join_date' => $request->join_date,
                 'salary' => $request->salary
             ]);
 
-            DB::commit();
+            // DB::commit();
             return redirect()->back()->with('success-message','Employee created successfully.');
-        }
-        catch(Throwable $e){
-            DB::rollBack();
-            return redirect()->back()->with('error-message', 'You missed something');
-    }
+        // }
+    //     catch(Throwable $e){
+    //         DB::rollBack();
+    //         return redirect()->back()->with('error-message', 'You missed something');
+    // }
 }
 
     //delete method
