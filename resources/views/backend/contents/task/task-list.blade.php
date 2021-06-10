@@ -82,7 +82,14 @@
                     <td>{{ date('Y-M-d', strtotime($data->end_date)) }}</td>
                     <td>{{$data->status}}</td>
                         <td>
+                            @if($data->status=='pending')
                             <a class="text-danger fs-5 mx-2" onclick="return confirm('Are you sure?')" href="{{ route('tasks.delete', $data['id']) }}"><i class="far fa-trash-alt"></i></a>
+                            @elseif($data->status=='complete')
+                                <a href="" class="btn btn-outline-success">Task Completed Successfully</a>
+                            @else
+                                <a href="" class="btn btn-outline-primary">Task is processing</a>
+                            @endif
+
                         </td>
                 </tr>
             </tbody>

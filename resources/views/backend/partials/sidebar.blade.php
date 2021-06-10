@@ -95,7 +95,9 @@
                     <a class="nav-link text-white"
                         href="{{ route('employeeTask.list', auth()->user()->employeeProfile['id']) }}">
                         <i class="fas fa-tasks text-danger"></i>
-                        Tasks
+                        Tasks @if ($countTask)
+                            <span class="badge bg-danger rounded-pill">{{ $countTask }}</span>
+                        @endif
                     </a>
                 </li>
             @endif

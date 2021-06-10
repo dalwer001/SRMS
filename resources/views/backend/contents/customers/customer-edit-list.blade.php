@@ -4,7 +4,13 @@
         <h1 class="h2 title">Edit Customer Information</h1>
     </div>
 
-
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endforeach
+    @endif
     <div class="px-5">
 
         <div class="p-5 bg-light border">
@@ -56,8 +62,8 @@
                 </div>
                 <div>
                     <button type="submit" class="btn fw-bolder modal-submit"
-                    onclick="return confirm('Are you sure?')">Update</button>
-                <a type="cancle" class="btn fw-bolder modal-cancel" href="{{ route('customers.list') }}">Cancle</a>
+                        onclick="return confirm('Are you sure?')">Update</button>
+                    <a type="cancle" class="btn fw-bolder modal-cancel" href="{{ route('customers.list') }}">Cancle</a>
                 </div>
             </form>
         </div>

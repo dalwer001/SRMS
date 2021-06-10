@@ -20,6 +20,14 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+
+    @if (session()->has('error-message'))
+        <div class="alert alert-danger d-flex justify-content-between">
+            {{ session()->get('error-message') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
@@ -51,13 +59,15 @@
                         <label for="inputPassword" class="mb-2 text-primary fw-bold">Password</label>
                         <input type="password" id="inputPassword" name="password" class="form-control mb-3"
                             placeholder="Password" required>
-                        <a href="{{route('forgetPassword')}}" class="text-decoration-none mb-2">Forget Password</a>
+                        <a href="{{ route('forgetPassword') }}" class="text-decoration-none mb-2">Forget Password</a>
                         <button class="w-100 btn btn-lg btn-danger fw-bold" type="submit">Login</button>
                     </form>
                 </div>
             </div>
         </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

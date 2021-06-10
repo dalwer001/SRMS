@@ -105,30 +105,51 @@ class CustomerController extends Controller
     {
         $customers = Customer::find($request->id);
 
-        $customers->update([
-        'name' => $request->name,
-        'email' => $request->email,
-        'contact_no' => $request->contact_no,
-        'address' => $request->address,
-        'city' => $request->city
+        if ($customers->email  == $request->email && $customers->contact_no == $request->contact_no)
+        {
+            $customers->update([
+                'name' => $request->name,
+                'address' => $request->address,
+                'city' => $request->city
+                ]);
+        }
+        else if($customers->email  == $request->email)
+        {
+            $request->validate([
+                'contact_no' => 'required|min:11|numeric|unique:customers',
+            ]);
+            $customers->update([
+                'name' => $request->name,
+                'contact_no' => $request->contact_no,
+                'address' => $request->address,
+                'city' => $request->city
+                ]);
+        }
+        else if($customers->contact_no == $request->contact_no)
+        {
+            $request->validate([
+            'email' => 'email|required|unique:customers',
         ]);
-        return redirect()->route('customers.list');
+            $customers->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'city' => $request->city
+                ]);
+        }
+        else{
+            $request->validate([
+                'email' => 'email|required|unique:customers',
+                'contact_no' => 'required|min:11|numeric|unique:customers',
+            ]);
+            $customers->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'contact_no' => $request->contact_no,
+                'address' => $request->address,
+                'city' => $request->city
+                ]);
+        }
+        return redirect()->route('customers.list')->with('success-message',$customers->name.' '.'info update successfully');
     }
-
-    // public function search(Request $request)
-    // {
-    //     $search=$request->search;
-
-    //     if($search){
-    //         $customers=Customer::where('name','like','%'.$search.'%')->paginate(10);
-    //     }else
-    //     {
-    //         $customers=Customer::paginate(10);
-    //     }
-
-
-    //     // where(name=%search%)
-    //     $title="Search result";
-    //     return view('backend.contents.customers.customers-list',compact('title','customers','search'));
-    // }
 }

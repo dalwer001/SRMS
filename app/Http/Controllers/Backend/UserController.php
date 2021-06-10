@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Employee;
 use App\Models\PasswordReset;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
@@ -93,10 +94,16 @@ class UserController extends Controller
     public function showResetForm($p_token, $p_email)
     {
         // dd($token);
-        $token = $p_token;
-        $email = $p_email;
+        $check = PasswordReset::where('email', $p_email)->where('created_at','>=',Carbon::now()->subMinutes(2))->first();
+        if ($check) {
+            $token = $p_token;
+            $email = $p_email;
+            return view('backend.login.reset-password',compact('token','email'));
+        } else {
+            return redirect()->route('login.form')->with('error-message', 'Link expired');
+        }
 
-        return view('backend.login.reset-password',compact('token','email'));
+        
     }
 
     public function submitPassword(Request $request){
@@ -121,7 +128,7 @@ class UserController extends Controller
             }
         );
 
-        return view('backend.login.login-list')->with('success', 'Password updated successfully.');
+        return redirect()->route('login.form')->with('success-message', 'Password updated successfully.');
 
     }
 }

@@ -4,6 +4,13 @@
         <h1 class="h2 title">Edit Employee Information</h1>
     </div>
 
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endforeach
+    @endif
     {{-- modal --}}
     <div class="px-5">
 
@@ -21,7 +28,8 @@
                 <div class="form-group">
                     <label class="fw-bolder">Image</label>
                     <br>
-                    <img style="width: 150px;" class="mb-2" src="{{ url('/files/employee/' . $employees->image) }}" alt="">
+                    <img style="width: 150px;" class="mb-2" src="{{ url('/files/employee/' . $employees->image) }}"
+                        alt="">
                     <input name="product_image" type="file" class="form-control"
                         value="{{ $employees['employee_image'] }}" src="" id="">
                 </div>
@@ -46,7 +54,7 @@
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label fw-bolder">Gender</label>
                     <select class="form-select" name="gender">
-                        <option value="{{ $employees['gender']}}" selected>{{ $employees['gender']}}</option>
+                        <option value="{{ $employees['gender'] }}" selected>{{ $employees['gender'] }}</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>

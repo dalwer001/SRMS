@@ -21,17 +21,16 @@ class EmployeeController extends Controller
 
         $search = $request->input('search');
 
-        if($request->has('search')){
-            $employees = Employee::whereHas('employeeDetail',function($query) use($search){
+        if ($request->has('search')) {
+            $employees = Employee::whereHas('employeeDetail', function ($query) use ($search) {
 
-                $query->where('name','like',"%{$search}%");
-
+                $query->where('name', 'like', "%{$search}%");
             })->paginate(10);
-        }else{
+        } else {
             $employees = Employee::paginate(10);
         }
 
-        return view('backend.contents.employees.employees-list', compact('employees','search','disable'));
+        return view('backend.contents.employees.employees-list', compact('employees', 'search', 'disable'));
     }
 
 
@@ -39,7 +38,7 @@ class EmployeeController extends Controller
     public function create(Request $request)
     {
         // dd($request-> all());
-            // dd($request->file('employee_image')->getClientOriginalExtension());
+        // dd($request->file('employee_image')->getClientOriginalExtension());
 
         $file_name = '';
         //step1: check request has file?
@@ -56,15 +55,15 @@ class EmployeeController extends Controller
         }
 
         DB::beginTransaction();
-        try{
+        try {
             $request->validate([
                 'name' => 'required',
                 'email' => 'email|required|unique:users',
-                'contact_no'=>'required|min:11|numeric|unique:employees',
-                'address'=>'required',
-                'gender'=>'required',
-                'birth_date'=>'required|date|before_or_equal:'.\Carbon\Carbon::now()->subYears(18)->format('Y-m-d'),
-                'salary'=>'required'
+                'contact_no' => 'required|min:11|numeric|unique:employees',
+                'address' => 'required',
+                'gender' => 'required',
+                'birth_date' => 'required|date|before_or_equal:' . \Carbon\Carbon::now()->subYears(18)->format('Y-m-d'),
+                'salary' => 'required'
             ]);
 
             $users = User::create([
@@ -77,8 +76,8 @@ class EmployeeController extends Controller
 
 
             Employee::create([
-                'image'=>$file_name,
-                'user_id'=>$users->id,
+                'image' => $file_name,
+                'user_id' => $users->id,
                 'contact_no' => $request->contact_no,
                 'address' => $request->address,
                 'gender' => $request->gender,
@@ -87,86 +86,139 @@ class EmployeeController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success-message','Employee created successfully.');
-        }
-        catch(Throwable $e){
+            return redirect()->back()->with('success-message', 'Employee created successfully.');
+        } catch (Throwable $e) {
             DB::rollBack();
             return redirect()->back()->with('error-message', 'You missed something');
+        }
     }
-}
 
     //delete method
     public function delete($id)
     {
         $employees = Employee::find($id);
-        try{
+        try {
             $employees->delete();
             return redirect()->route('employees.list');
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             if ($e->getCode() == '23000') {
                 return redirect()->back()->with('error-message', 'This employee already have task.');
             }
             return back();
         }
-
     }
 
     // edit method
     public function edit($id)
     {
         $employees = Employee::find($id);
-        $users = User::where('id',$employees->user_id)->first();
-        return view('backend.contents.employees.employee-edit-list', compact('employees','users'));
+        $users = User::where('id', $employees->user_id)->first();
+        return view('backend.contents.employees.employee-edit-list', compact('employees', 'users'));
     }
 
 
     public function update(Request $request)
     {
         $employees = Employee::find($request->id);
+        $user = User::find($employees->user_id);
+
+
 
         if ($request->hasFile('employee_image')) {
 
-            $image_path = public_path().'/files/employee/'.$employees->image;
+            $image_path = public_path() . '/files/employee/' . $employees->image;
 
             if ($employees->image) {
                 unlink($image_path);
             }
 
-                $file_name='';
+            $file_name = '';
 
-                $file = $request -> file('product_image');
-                if ($file -> isValid()) {
-                    $file_name = date('Ymdhms').'.'.$file -> getClientOriginalExtension();
-                    $file -> storeAs('product', $file_name);
-                }
+            $file = $request->file('product_image');
+            if ($file->isValid()) {
+                $file_name = date('Ymdhms') . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('product', $file_name);
+            }
 
             $employees->image->update([
                 'image' => $file_name
             ]);
-
-
         }
         // dd($employees->user_id);
 
-        $employees->update([
-        'contact_no' => $request->contact_no,
-        'gender' => $request->gender,
-        'address' => $request->address,
-        'birth_date' => $request->birth_date,
-        'salary' => $request->salary,
-        ]);
-        User::find($employees->user_id)->update([
-            'name' => $request->name,
-            'email' => $request->email
-        ]);
-        return redirect()->route('employees.list')->with('success-message','Employee update successfully');
+
+        if ($user->email  == $request->email && $employees->contact_no == $request->contact_no) {
+            $employees->update([
+                'gender' => $request->gender,
+                'address' => $request->address,
+                'birth_date' => $request->birth_date,
+                'salary' => $request->salary,
+            ]);
+            User::find($employees->user_id)->update([
+                'name' => $request->name,
+            ]);
+        }
+
+        else if ($user->email  == $request->email) {
+            $request->validate([
+                'contact_no' => 'required|min:11|numeric|unique:employees',
+            ]);
+            $employees->update([
+                'contact_no' => $request->contact_no,
+                'gender' => $request->gender,
+                'address' => $request->address,
+                'birth_date' => $request->birth_date,
+                'salary' => $request->salary,
+            ]);
+            User::find($employees->user_id)->update([
+                'name' => $request->name,
+            ]);
+        }
+        
+        else if($employees->contact_no == $request->contact_no)
+        {
+            $request->validate([
+                'email'=>'email|unique:users',
+            ]);
+            $employees->update([
+                'gender' => $request->gender,
+                'address' => $request->address,
+                'birth_date' => $request->birth_date,
+                'salary' => $request->salary,
+            ]);
+            User::find($employees->user_id)->update([
+                'name' => $request->name,
+                'email' => $request->email
+            ]);
+        }
+
+        else {
+            $request->validate([
+                'email'=>'email|unique:users',
+                'contact_no' => 'required|min:11|numeric|unique:employees',
+            ]);
+
+            $employees->update([
+                'contact_no' => $request->contact_no,
+                'gender' => $request->gender,
+                'address' => $request->address,
+                'birth_date' => $request->birth_date,
+                'salary' => $request->salary,
+            ]);
+            User::find($employees->user_id)->update([
+                'name' => $request->name,
+                'email' => $request->email
+            ]);
+        }
+
+
+        return redirect()->route('employees.list')->with('success-message',$user->name.' '.'info update successfully');
     }
 
     public function view($id)
     {
         $employees = Employee::find($id);
         $sales = Commission::where('employee_id', $employees->id)->get();
-        return view('backend.contents.employees.employee-view-list', compact('employees','sales'));
+        return view('backend.contents.employees.employee-view-list', compact('employees', 'sales'));
     }
 }
