@@ -1,8 +1,10 @@
 <header class="navbar navbar-dark sticky-top  flex-md-nowrap p-0 header-bg">
     @if (auth()->user()->role == 'admin')
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fw-bolder  text-center  text-light header-shadow fs-4" href="{{route('dashboard.list')}}">SRMS</a>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fw-bolder  text-center  text-light header-shadow fs-4 bg-light"
+            href="{{ route('dashboard.list') }}"><img src="/img/SRMS.png" class="w-25 img-fluid" /></a>
     @else
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fw-bolder  text-center  text-light header-shadow fs-4" href="{{route('saleProduct.create')}}">SRMS</a>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fw-bolder  text-center  text-light header-shadow fs-4 bg-light"
+            href="{{ route('dashboard.list') }}"><img src="/img/SRMS.png" class="w-25 img-fluid" /></a>
     @endif
     <button class="navbar-toggler position-absolute d-md-none collapsed bg-primary" type="button"
         data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
@@ -14,11 +16,13 @@
         <li class="nav-item text-nowrap">
             @auth()
                 @if (auth()->user()->role == 'employee')
-                <span style="color:white;" data-feather="user"></span>
-                <a href="{{route('employee.profile')}}" class="text-decoration-none fw-bolder"><span style="color:white; margin-right: 30px;">{{ auth()->user()->name }}</span></a>
+                    <span style="color:white;" data-feather="user"></span>
+                    <a href="{{ route('employee.profile') }}" class="text-decoration-none fw-bolder"><span
+                            style="color:white; margin-right: 30px;">{{ auth()->user()->name }}</span></a>
                 @else
-                <span style="color:white;" data-feather="user"></span>
-                <a href="#" class="text-decoration-none"><span style="color:white; margin-right: 30px;">{{ auth()->user()->name }}</span></a>
+                    <span style="color:white;" data-feather="user"></span>
+                    <a href="#" class="text-decoration-none"><span
+                            style="color:white; margin-right: 30px;">{{ auth()->user()->name }}</span></a>
                 @endif
                 <a class="btn btn-danger btn-sm" href="{{ route('logout') }}"> Logout</a>
             @else

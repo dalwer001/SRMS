@@ -15,37 +15,36 @@
 
 <body class="container login-bg " style=>
     @if (session()->has('success-message'))
-        <div class="alert alert-success d-flex justify-content-between">
+        <div class="alert alert-success d-flex justify-content-between mt-2">
             {{ session()->get('success-message') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if ($errors->any())
         @foreach ($errors->all() as $error)
-            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+            <div class="alert alert-danger d-flex justify-content-between mt-2">{{ $error }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endforeach
     @endif
 
-    <main class="shadow m-5 ">
-        <div class="row">
-
-            <div class="col-md-12 col-sm-12 bg-light">
-
-
-                <div class="p-5 m-5">
-                    <form action="{{ route('newPass.create') }}" method="post">
+    <main class=" m-5 ">
+                <div class=" d-flex justify-content-center">
+                    <form action="{{ route('newPass.create') }}" method="post" class="login-background col-md-6 p-5 rounded mt-5s shadow">
                         @csrf
-                        <label for="inputEmail" class="mb-2 text-primary fw-bold">Enter Your Email</label>
-                        <input type="email" name="email" id="inputEmail" class="form-control mb-3"
+                        <div class="d-flex justify-content-center">
+                            <img src="/img/SRMS.png" class="w-50 img-fluid" alt="">
+                            </div>
+                        <label for="inputEmail" class="mb-2 text-primary fw-bold fs-4 text-light ">Enter Your Email</label>
+                        <input type="email" name="email" id="inputEmail" class="form-control mb-4 p-3"
                             placeholder="Email address" required autofocus>
-                        <button class="w-100 btn btn-lg btn-danger fw-bold" type="submit">Submit</button>
+                        <button class="w-100 btn btn-lg btn-danger login-btn fw-bold" type="submit">Submit</button>
                     </form>
                 </div>
-            </div>
-        </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

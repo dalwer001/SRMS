@@ -15,53 +15,45 @@
 
 <body class="container login-bg " style=>
     @if (session()->has('success-message'))
-        <div class="alert alert-success d-flex justify-content-between">
+        <div class="alert alert-success d-flex justify-content-between mt-2">
             {{ session()->get('success-message') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if ($errors->any())
         @foreach ($errors->all() as $error)
-            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+            <div class="alert alert-danger d-flex justify-content-between mt-2">{{ $error }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endforeach
     @endif
 
-    <main class="shadow m-5 ">
-        <div class="row">
 
-            <div class="col-md-12 col-sm-12 bg-light">
-                        <div class="p-5 m-5">
-                        <form action="{{ route('password.submit') }}" method="post">
-                            @csrf
-
-                            {{-- @dd($token) --}}
-
-
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>Enter New Password:</label>
-                                    <input type="password" required name="password" class="form-control" placeholder="**" id="">
-                                </div>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>Re-enter Password:</label>
-                                    <input type="password" required name="password_confirmation" class="form-control"
-                                        placeholder="**" id="">
-                                </div>
-                            </div>
-
-                            <input type="hidden" value="{{ $token }}" name="token">
-                            <input type="hidden" value="{{ $email }}" name="email">
-
-                            <button type="submit" class="btn btn-info">Submit</button>
-                        </form>
+    <main class="m-5">
+        <div class=" d-flex justify-content-center">
+            <form action="{{ route('password.submit') }}" method="post"
+                class="login-background col-md-6 p-5 rounded mt-5s shadow">
+                @csrf
+                {{-- @dd($token) --}}
+                <div class="d-flex justify-content-center">
+                    <img src="/img/SRMS.png" class="w-50 img-fluid" alt="">
                 </div>
-            </div>
+                <h1 class="h3 mb-3 fw-normal text-center fw-bolder text-light mt-3 fs-3">Reset Password</h1>
+                <label for="inputEmail" class="mb-2 text-primary fw-bold fs-4 text-light ">Enter New Password</label>
+                <input type="password" id="" name="password" class="form-control mb-4 p-3" placeholder="New Password"
+                    required>
+                <label for="inputEmail" class="mb-2 text-primary fw-bold fs-4 text-light ">Re-enter Password:</label>
+                <input type="password" id="" name="password_confirmation" class="form-control mb-4 p-3"
+                    placeholder="Re-enter Password" required>
+                <input type="hidden" value="{{ $token }}" name="token">
+                <input type="hidden" value="{{ $email }}" name="email">
+                <button class="w-100 btn btn-lg login-btn fw-bold mt-3" type="submit">Submit</button>
+            </form>
         </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

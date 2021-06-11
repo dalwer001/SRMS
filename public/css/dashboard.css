@@ -32,3 +32,35 @@
     background: rgba(49, 17, 17, 0.452);
 
 }
+
+.emp-task{
+    background: rgba(70, 109, 153, 0.507);
+}
+
+.emp_num_product{
+    background: rgba(98, 62, 182, 0.507);
+}
+
+.emp_sold_quantity{
+    background: rgba(223, 117, 117, 0.507);
+}
+.emp_left_quantity{
+    background: rgba(207, 80, 21, 0.507);
+}
+
+.emp_total_target_price{
+    background: rgba(114, 168, 13, 0.507);
+}
+.emp_total_sold_price{
+    background: rgba(70, 114, 88, 0.507);
+}
+.emp_remaining_target_price{
+    background: rgba(1, 7, 17, 0.507);
+}
+.emp_Grand_Total_Quantity{
+    background: rgba(167, 18, 18, 0.507);
+}
+
+.emp_grand_price{
+    background: rgba(82, 15, 37, 0.507);
+}

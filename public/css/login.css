@@ -13,16 +13,32 @@
   }
 
 .login-bg{
-background-image: url(../img/bg-5.jpg);
+background-image: url(../img/login-back.jpg);
 background-repeat: no-repeat;
 background-size: cover;
 background-attachment: fixed;
+/* opacity: 0.5; */
 }
 
 .backgroundForm{
 background-image: url(../img/backgroundlogin.jpg);
 background-repeat: no-repeat;
 background-size: 100% 100%;
+}
+
+.login-background{
+  background: #caa62f;
+}
+
+.login-btn{
+  border: 1px solid rgb(119, 27, 58);
+  color: white;
+}
+
+.login-btn:hover{
+  border: 1px solid white;
+  background:#030303 ;
+  color: white;
 }
 
 
