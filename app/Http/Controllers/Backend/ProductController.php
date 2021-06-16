@@ -43,24 +43,6 @@ class ProductController extends Controller
         return view('backend.contents.products.products-list', compact('products', 'categories', 'search'));
     }
 
-    //product search
-    public function search(Request $request)
-    {
-        //     $search=$request->search;
-        //     if($search){
-        //         $product=Product::where('name','like','%'.$search.'%')->paginate(5);
-        //     }else
-        //     {
-        //         $product=Product::with('productCategory')->paginate(5);
-        //     }
-
-        //     // where(name=%search%)
-        //     $title="Search result";
-        //     return view('backend.contents.products.products-list',compact('title','product','search'));
-    }
-
-
-
     //post method
     public function create(Request $request)
     {
@@ -241,23 +223,23 @@ class ProductController extends Controller
         return redirect()->route('products.categories')->with('success-message', 'Product Category updated successfully');
     }
 
-    public function productCategorySearch(Request $request)
-    {
-        // dd($request->all());
+    // public function productCategorySearch(Request $request)
+    // {
+    //     // dd($request->all());
 
-        $search = $request->search;
+    //     $search = $request->search;
 
-        if ($search) {
-            $categories = ProductCategories::where('name', 'like', '%' . $search . '%')->paginate(10);
-        } else {
-            $categories = ProductCategories::paginate(10);
-        }
+    //     if ($search) {
+    //         $categories = ProductCategories::where('name', 'like', '%' . $search . '%')->paginate(10);
+    //     } else {
+    //         $categories = ProductCategories::paginate(10);
+    //     }
 
 
-        // where(name=%search%)
-        $title = "Search result";
-        return view('backend.contents.products.product-categories-list', compact('title', 'categories', 'search'));
-    }
+    //     // where(name=%search%)
+    //     $title = "Search result";
+    //     return view('backend.contents.products.product-categories-list', compact('title', 'categories', 'search'));
+    // }
 
 
     public function statusUpdate($id, $status)

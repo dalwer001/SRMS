@@ -19,7 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->text('image')->nullable();
             $table->string('contact_no',11);
             $table->string('gender');
-            $table->string('address',1000);
+            $table->text('address');
             $table->double('salary');
             $table->date('birth_date');
             $table->string('status')->default('inactive');
