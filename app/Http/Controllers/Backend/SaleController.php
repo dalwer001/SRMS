@@ -309,44 +309,9 @@ class SaleController extends Controller
                     ]);
                 }
                 Mail::to('admin@gmail.com')->send(new taskCompleteConfirmation($commission));
-
-
-                // $total_S = $commission + $salary->salary;
-
-                // $salary->update([
-                //     'salary' => $total_S,
-                // ]);
-                // foreach ($task_quantity as $data) {
-                //     $data->delete();
-                // }
             }
         }
-        // else {
-        //     $left_q = $task_q - $sq;
-        //     $left_p = $total_p - $sub_t;
-        //     $total_loss = ($left_q * $left_p) * 0.025;
-        //     $total_S = abs($salary->salary - $total_loss);
-        //     $salary->update([
-        //         'salary' => $total_S,
-        //     ]);
-
-        //     foreach ($task as $data) {
-        //         // $product = Product::where('id', $data->product_id)->first();
-
-        //         // $product_return = $product->quantity + $data->target_quantity;
-
-        //         // // dd($product_return);
-        //         // $product->update([
-        //         //     'quantity' => $product_return,
-        //         // ]);
-        //         $data->delete();
-
-        // }
-
-        // return redirect()->route('newSale.list')->with('error', 'you have existed the sales date, your task is update to null');
-
-
-        return redirect()->route('newSale.list');
+        return redirect()->route('newSale.list')->with('success-message','Sales successfully completed');
     }
 
 
