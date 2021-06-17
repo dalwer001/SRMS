@@ -17,6 +17,7 @@
             </div>
         @endforeach
     @endif
+    
 
     @if (session()->has('error-message'))
         <div class="alert alert-danger d-flex justify-content-between">
