@@ -85,9 +85,9 @@ class UserController extends Controller
                 $request->only('email')
             );
             // dd($request->email);
-            return redirect()->back()->with('success-message', 'Email sent to ' . $request->email);
+            return redirect()->route('login.form')->with('success-message', 'Email sent to ' . $request->email);
         } else {
-            return redirect()->back()->with('error-message', 'Email not found.');
+            return redirect()->route('login.form')->with('error-message', 'Email not found.');
         }
     }
 
