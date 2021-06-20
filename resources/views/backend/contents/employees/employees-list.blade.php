@@ -38,7 +38,7 @@
                     @csrf
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6">
-                            <input name="search" type="text" placeholder="Search" class="form-control">
+                            <input name="search" type="text" placeholder="Search by employee" class="form-control">
                         </div>
                         <div class="col-md-6">
                             <button type="submit" class="btn text-light btn-sm search-button">Search</button>
@@ -67,7 +67,7 @@
         <tbody class="table-light">
             @foreach ($employees as $key => $data)
                 <tr>
-                    <th scope="row">{{ $key + 1 }}</th>
+                    <th scope="row">{{ $employees->firstItem()+$key }}</th>
                     <td>
                         <img style="width: 80px; height:80px;" src="{{ url('/files/employee/' . $data->image) }}" alt="">
                     </td>
@@ -76,15 +76,15 @@
                     <td>{{ $data->contact_no }}</td>
                     <td>{{ $data->gender }}</td>
                     <td class="text-start">{{ $data->address }}</td>
-                    <td>{{ $data->salary }}</td>
+                    <td>{{ $data->salary }}BDT</td>
                     <td>{{ $data->birth_date }}</td>
                     <td>{{date("Y-M-d",strtotime($data->created_at))}}</td>
                     <td>
-                        <a class="text-primary  fs-5 mx-2" href="{{ route('employees.view', $data['id']) }}"><i
+                        <a class="text-primary  fs-6 mx-2" href="{{ route('employees.view', $data['id']) }}"><i
                                 class="far fa-eye"></i></a>
-                        <a class="text-danger fs-5 mx-2"  href={{ route('employees.delete', $data['id']) }}><i
+                        <a class="text-danger fs-6 mx-2" onclick="return confirm('Are you sure?')"  href={{ route('employees.delete', $data['id']) }}><i
                                 class="far fa-trash-alt"></i></a>
-                        <a class="text-success  fs-5 mx-2"  href={{ route('employees.edit', $data['id']) }}><i
+                        <a class="text-success  fs-6 mx-2"  href={{ route('employees.edit', $data['id']) }}><i
                                 class="far fa-edit"></i></a>
                     </td>
                 </tr>
@@ -93,7 +93,7 @@
     </table>
     @if (isset($search))
     <p>
-    <span class="text-secondary">searching for '{{$search}}' , found '{{count($employees->employeeProfile->name)}}' results</span>
+    <span class="text-secondary">searching for '{{$search}}' , found '{{count($employees)}}' results</span>
     </p>
 @endif
 </div>
@@ -164,7 +164,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Salary</label>
                                 <input type="number" class="form-control" name="salary" id="exampleFormControlInput1"
-                                    placeholder="50000TK" required>
+                                    placeholder="50000BDT" required>
                             </div>
 
                             <div class="mb-3">
@@ -182,6 +182,8 @@
                         </div>
         </form>
     </div>
+</div>
+</div>
     <div class="d-flex justify-content-center ">
         {{ $employees->links() }}
     </div>

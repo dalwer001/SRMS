@@ -54,7 +54,7 @@
                             <option value="Rajshahi">Rajshahi</option>
                             <option value="Barisal">Barisal</option>
                             <option value="Chittagong">Chittagong</option>
-                            <option value="Shylet">Shylet</option>
+                            <option value="Sylhet">Sylhet</option>
                             <option value="Rangpur">Rangpur</option>
                             <option value="Mymensingh">Mymensingh</option>
                         @endif

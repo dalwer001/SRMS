@@ -39,7 +39,7 @@
                 @csrf
                 <div class="row d-flex align-items-center">
                     <div class="col-md-6">
-                        <input name="search" type="text" placeholder="Search" class="form-control">
+                        <input name="search" type="text" placeholder="Search by category" class="form-control">
                     </div>
                     <div class="col-md-6">
                         <button type="submit" class="btn text-light btn-sm search-button">Search</button>
@@ -63,7 +63,7 @@
         @foreach ($categories as $key => $data)
             <tbody class="table-light">
                 <tr>
-                    <th scope="row" class="text-center">{{ $key + 1 }}</th>
+                    <th scope="row" class="text-center">{{ $categories->firstItem()+$key }}</th>
                     <td class="text-center">{{ $data->name }}</td>
                     <td>{{ $data->description }}</td>
                     <td class="text-center">
@@ -115,6 +115,8 @@
                         </div>
         </form>
     </div>
+</div>
+</div>
     <div class="d-flex justify-content-center ">
         {{ $categories->links() }}
     </div>

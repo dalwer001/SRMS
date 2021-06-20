@@ -45,7 +45,7 @@
                     @csrf
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6">
-                            <input name="search" type="text" placeholder="Search" class="form-control">
+                            <input name="search" type="text" placeholder="Search by customer" class="form-control">
                         </div>
                         <div class="col-md-6">
                             <button type="submit" class="btn text-light btn-sm search-button">Search</button>
@@ -75,7 +75,7 @@
 
                 @foreach ($customers as $key => $data)
                     <tr>
-                        <th scope="row">{{ $key + 1 }}</th>
+                        <th scope="row">{{ $customers->firstItem()+$key }}</th>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->email }}</td>
                         @if(auth()->user()->role=="admin")
@@ -107,7 +107,6 @@
     </div>
 
 
-
     <div>
         <!-- Vertically centered modal -->
 
@@ -121,7 +120,6 @@
                 @csrf
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    aria-hidden="true">
                     <div class="modal-dialog modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -171,12 +169,11 @@
                                         <option value="Rajshahi">Rajshahi</option>
                                         <option value="Barisal">Barisal</option>
                                         <option value="Chittagong">Chittagong</option>
-                                        <option value="Shylet">Shylet</option>
+                                        <option value="Sylhet">Sylhet</option>
                                         <option value="Rangpur">Rangpur</option>
                                         <option value="Mymensingh">Mymensingh</option>
                                     </select>
                                 </div>
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn modal-cancel text-white fw-bolder"
@@ -186,6 +183,8 @@
             </form>
         @endif
     </div>
+</div>
+</div>
     <div class="d-flex justify-content-center ">
         {{ $customers->links() }}
     </div>

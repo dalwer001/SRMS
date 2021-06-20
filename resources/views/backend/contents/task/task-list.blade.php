@@ -41,7 +41,7 @@
                 @csrf
                 <div class="row d-flex align-items-center">
                     <div class="col-md-6">
-                        <input name="search" type="text" placeholder="Search" class="form-control">
+                        <input name="search" type="text" placeholder="Search by employee" class="form-control">
                     </div>
                     <div class="col-md-6">
                         <button type="submit" class="btn text-light btn-sm search-button">Search</button>
@@ -72,12 +72,12 @@
         @foreach ($tasks as $key => $data)
             <tbody class="bg-light">
                 <tr>
-                    <th scope="row">{{ $key + 1 }}</th>
+                    <th scope="row">{{$tasks->firstItem()+$key}}</th>
                     <td>{{ $data->employee->employeeDetail->name }}</td>
                     <td>{{ $data->employee->employeeDetail->email }}</td>
                     <td>{{ $data->product->name }}</td>
                     <td>{{ $data->total_price }} BDT</td>
-                    <td>{{ $data->target_quantity }}</td>
+                    <td>{{ $data->target_quantity }}Qty</td>
                     <td>{{ date('Y-M-d', strtotime($data->start_date)) }}</td>
                     <td>{{ date('Y-M-d', strtotime($data->end_date)) }}</td>
                     <td>{{$data->status}}</td>
@@ -148,7 +148,7 @@
 
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Start Date</label>
-                                <input type="date" name="start_date" class="form-control" id="exampleFormControlInput1"
+                                <input type="date" name="start_date" class="form-control" id="exampleFormControlInput1" min="{{date('Y-m-d')}}"
                                     placeholder="12-05-2021">
                             </div>
 
@@ -161,4 +161,12 @@
                         </div>
         </form>
     </div>
+
+</div>
+</div>
+
+<div class="d-flex justify-content-center ">
+    {{$tasks->links()}}
+</div>
+
 @endsection

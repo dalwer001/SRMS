@@ -61,7 +61,7 @@ class CustomerController extends Controller
         $request->validate([
             'name' => 'required',
             'employee_id' => 'required',
-            'contact_no' => 'required|min:11|numeric|unique:customers',
+            'contact_no' => 'required|digits:11|regex:/(01)[0-9]{9}/|numeric|unique:customers',
             'address' => 'required',
             'city' => 'required'
         ]);
@@ -116,7 +116,7 @@ class CustomerController extends Controller
         else if($customers->email  == $request->email)
         {
             $request->validate([
-                'contact_no' => 'required|min:11|numeric|unique:customers',
+                'contact_no' => 'required|digits:11|regex:/(01)[0-9]{9}/|numeric|unique:customers',
             ]);
             $customers->update([
                 'name' => $request->name,
@@ -140,7 +140,7 @@ class CustomerController extends Controller
         else{
             $request->validate([
                 'email' => 'email|required|unique:customers',
-                'contact_no' => 'required|min:11|numeric|unique:customers',
+                'contact_no' => 'required|digits:11|regex:/(01)[0-9]{9}/|numeric|unique:customers',
             ]);
             $customers->update([
                 'name' => $request->name,

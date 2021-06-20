@@ -65,7 +65,7 @@ class ProductController extends Controller
 
         $request->validate([
             'name' => 'required|unique:products',
-            'generic' => 'required|unique:products',
+            'generic' => 'required',
             'category_id' => 'required',
             'quantity' => 'required|gt:0',
             'unit_price' => 'required|gt:0'

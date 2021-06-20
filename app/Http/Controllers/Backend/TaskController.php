@@ -17,7 +17,7 @@ class TaskController extends Controller
     {
         $employees = Employee::all();
         $products = Product::where('status','active')->get();
-        $tasks = Task::all();
+        $tasks = Task::orderBy('id','desc')->paginate(10);
 
         $search = $request->input('search');
 
@@ -28,16 +28,30 @@ class TaskController extends Controller
 
             })->paginate(10);}
             else{
-            $tasks = Task::paginate(10);
+            $tasks = Task::orderBy('id','desc')->paginate(10);
         }
 
-        return view('backend.contents.task.task-list', compact('tasks', 'employees', 'products'));
+        return view('backend.contents.task.task-list', compact('tasks', 'employees', 'products','search'));
     }
 
-    public function employeeTask($id)
+    public function employeeTask($id,Request $request)
     {
-        $employee = Task::where('employee_id', $id)->get();
-        return view('backend.contents.task.employeeTask-list', compact('employee'));
+        // dd($id);
+        $employee = Task::where('employee_id',$id)->orderBy('id','desc')->get();
+        // dd($employee);
+
+        $search = $request->input('search');
+
+        if($request->has('search')){
+            $employee = Task::whereHas('product',function($query) use($search,$id) {
+                $query->where('employee_id',$id)
+                ->where('name','like',"%{$search}%");
+            })->paginate(15);}
+            else{
+            $employee = Task::where('employee_id',$id)->orderBy('id','desc')->paginate(15);
+        }
+
+        return view('backend.contents.task.employeeTask-list', compact('employee','search'));
     }
 
     public function create(Request $request)
@@ -61,7 +75,7 @@ class TaskController extends Controller
             }
 
             if ($data->product_id == $request->product_id && $data->end_date >= $request->start_date) {
-                return redirect()->back()->with('error-message', 'This task already exist and wait for the next month.');
+                return redirect()->back()->with('error-message', 'This employee has task starting date, check it or wait for the next month.');
             }
 
             if ($product_quantity < $request->target_quantity) {
@@ -111,9 +125,9 @@ class TaskController extends Controller
         if ($product_quantity < $request->target_quantity) {
             return redirect()->back()->with('error-message', 'Not enough product in store');
         } elseif ($products && $data->start_date > $request->start_date && $data->start_date < $request->start_date) {
-            return redirect()->back()->with('error-message', 'This task already given and wait for the next month');
+            return redirect()->back()->with('error-message', 'This employee has task starting date, check it or wait for the next month');
         } elseif ($products  && $data->employee_id == $request->employee_id && $data->start_date != $request->start_date && $request->start_date < Carbon::create($data->start_date)->addMonth()) {
-            return redirect()->back()->with('error-message', 'This task already given and wait for the next month');
+            return redirect()->back()->with('error-message', 'This employee has task starting date, check it or wait for the next month');
         }
         // dd($data);
         else {
@@ -124,7 +138,6 @@ class TaskController extends Controller
                 'total_price' => $total_price,
                 'start_date' => $request->start_date,
                 'end_date' => Carbon::create($request->start_date)->addMonth(),
-
             ]);
 
             $left_quantity = $product_quantity - $request->target_quantity;

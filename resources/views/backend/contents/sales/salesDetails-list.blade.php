@@ -34,7 +34,13 @@
                     @csrf
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6">
-                            <input name="search" type="text" placeholder="Search" class="form-control">
+                            @if(auth()->user()->role == 'admin')
+                            <input name="search" type="text" placeholder="Search by employee" 
+                            class="form-control">
+                            @else
+                            <input name="search" type="text" placeholder="Search by customer" 
+                            class="form-control">
+                            @endif
                         </div>
                         <div class="col-md-6">
                             <button type="submit" class="btn text-light btn-sm search-button">Search</button>
@@ -65,7 +71,7 @@
             @foreach ($sales as $key=>$item)
             {{-- @dd($item->salesEmp->employeeDetail) --}}
             <tr>
-                <th scope="row">{{$key+1}}</th>
+                <th scope="row">{{$sales->firstItem()+$key}}</th>
                 <td>{{$item->invoice_no}}</td>
                 @if(auth()->user()->role=='admin')
                 <td>{{$item->salesEmp->employeeDetail->name}}</td>
@@ -90,6 +96,8 @@
     <span class="text-secondary">searching for '{{$search}}' , found '{{count($sales)}}' result.</span>
     </p>
     @endif
+</div>
+</div>
 </div>
     <div class="d-flex justify-content-center ">
         {{ $sales->links()}}

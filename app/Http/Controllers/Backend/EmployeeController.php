@@ -23,7 +23,6 @@ class EmployeeController extends Controller
 
         if ($request->has('search')) {
             $employees = Employee::whereHas('employeeDetail', function ($query) use ($search) {
-
                 $query->where('name', 'like', "%{$search}%");
             })->paginate(10);
         } else {
@@ -59,7 +58,7 @@ class EmployeeController extends Controller
             $request->validate([
                 'name' => 'required',
                 'email' => 'email|required|unique:users',
-                'contact_no' => 'required|min:11|numeric|unique:employees',
+                'contact_no' => 'required|digits:11|regex:/(01)[0-9]{9}/|numeric|unique:employees',
                 'address' => 'required',
                 'gender' => 'required',
                 'birth_date' => 'required|date|before_or_equal:' . \Carbon\Carbon::now()->subYears(18)->format('Y-m-d'),
@@ -84,12 +83,11 @@ class EmployeeController extends Controller
                 'birth_date' => $request->birth_date,
                 'salary' => $request->salary
             ]);
-
             DB::commit();
             return redirect()->back()->with('success-message', 'Employee created successfully.');
         } catch (Throwable $e) {
             DB::rollBack();
-            return redirect()->back()->with('error-message', 'You missed something');
+            return redirect()->back()->with('error-message','You missed something or given wrong input');
         }
     }
 
@@ -97,8 +95,10 @@ class EmployeeController extends Controller
     public function delete($id)
     {
         $employees = Employee::find($id);
+        $users=User::find($employees->user_id);
         try {
             $employees->delete();
+            $users->delete();
             return redirect()->route('employees.list');
         } catch (Throwable $e) {
             if ($e->getCode() == '23000') {
@@ -161,7 +161,7 @@ class EmployeeController extends Controller
 
         else if ($user->email  == $request->email) {
             $request->validate([
-                'contact_no' => 'required|min:11|numeric|unique:employees',
+                'contact_no' => 'required|digits:11|regex:/(01)[0-9]{9}/|numeric|unique:employees',
             ]);
             $employees->update([
                 'contact_no' => $request->contact_no,
@@ -195,7 +195,7 @@ class EmployeeController extends Controller
         else {
             $request->validate([
                 'email'=>'email|unique:users',
-                'contact_no' => 'required|min:11|numeric|unique:employees',
+                'contact_no' => 'required|digits:11|regex:/(01)[0-9]{9}/|numeric|unique:employees',
             ]);
 
             $employees->update([

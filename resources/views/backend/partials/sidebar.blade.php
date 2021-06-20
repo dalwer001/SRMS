@@ -91,9 +91,10 @@
             </li>
 
             @if (auth()->user()->role == 'employee')
+            {{-- @dd(auth()->user()->employeeProfile->id) --}}
                 <li class="nav-item ">
                     <a class="nav-link text-white"
-                        href="{{ route('employeeTask.list', auth()->user()->employeeProfile['id']) }}">
+                        href="{{ route('employeeTask.list', auth()->user()->employeeProfile->id) }}">
                         <i class="fas fa-tasks text-danger"></i>
                         Tasks @if ($countTask)
                             <span class="badge bg-danger rounded-pill">{{ $countTask }}</span>

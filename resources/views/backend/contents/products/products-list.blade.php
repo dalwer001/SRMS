@@ -58,7 +58,7 @@
                     @csrf
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6">
-                            <input name="search" type="text" placeholder="Search" class="form-control">
+                            <input name="search" type="text" placeholder="Search by product" class="form-control">
                         </div>
                         <div class="col-md-6">
                             <button type="submit" class="btn text-light btn-sm search-button">Search</button>
@@ -85,15 +85,15 @@
             @foreach ($products as $key => $data)
                 <tbody class="table-light">
                     <tr>
-                        <th scope="row">{{ $key + 1 }}</th>
+                        <th scope="row">{{$products->firstItem()+$key}}</th>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->generic }}</td>
                         <td>{{ $data->productCategory->name }}</td>
                         <td>
                             <img style="width: 80px;height:80px" src="{{ url('/files/product/' . $data->image) }}" alt="">
                         </td>
-                        <td>{{ $data->quantity }}</td>
-                        <td>{{ $data->unit_price }} BDT</td>
+                        <td>{{ $data->quantity }}Qty</td>
+                        <td>{{ $data->unit_price }}BDT</td>
                         <td>
                             {{ $data->status }}
                         </td>
@@ -193,9 +193,9 @@
                         </div>
         </form>
     </div>
-
-
+</div>
+</div>
     <div class="d-flex justify-content-center ">
-        {{ $products->links() }}
+        {{$products->links()}}
     </div>
 @endsection
