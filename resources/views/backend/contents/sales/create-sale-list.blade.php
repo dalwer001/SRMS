@@ -109,7 +109,7 @@
 
                 <tfoot>
                     <td colspan="2"></td>
-                    <td colspan="2" class="fw-bold">Total sold Product Quantity= {{ $p_quantity }}Qty</td>
+                    <td colspan="2" class="fw-bold">Total Product Quantity= {{ $p_quantity }}Qty</td>
                     <td colspan="3" class="fw-bold"> Total Amount= {{ $s_total }}BDT</td>
                 </tfoot>
             </table>
