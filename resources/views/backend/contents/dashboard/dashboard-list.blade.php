@@ -86,7 +86,7 @@
                             <i class="fas fa-balance-scale fs-1 text-light mb-2"></i>
                         </div>
                         <h5 class="text-center border-top"> <small>Today's Sale</small> </h5>
-                        <h1 class="text-center">{{ $total_sale }} <span class="fs-5">BDT</span></h1>
+                        <h1 class="text-center">{{ $total_sale }}<span class="fs-5">BDT</span></h1>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@
                             <i class="fas fa-chart-bar fs-1 text-light mb-2"></i>
                         </div>
                         <h5 class="text-center border-top"> <small>Total Sale</small> </h5>
-                        <h1 class="text-center">{{ $grandTotalSale }} <span class="fs-5">BDT</span></h1>
+                        <h1 class="text-center">{{ $grandTotalSale }}<span class="fs-5">BDT</span></h1>
                     </div>
                 </div>
             </div>

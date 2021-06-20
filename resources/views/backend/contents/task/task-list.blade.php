@@ -57,6 +57,7 @@
                 <th scope="col">Employee Name</th>
                 <th scope="col">Employee Email</th>
                 <th scope="col">Product Name</th>
+                <th scope="col">Product Image</th>
                 <th scope="col">Total Price</th>
                 <th scope="col">Target quantity</th>
                 <th scope="col">Start Date</th>
@@ -76,7 +77,8 @@
                     <td>{{ $data->employee->employeeDetail->name }}</td>
                     <td>{{ $data->employee->employeeDetail->email }}</td>
                     <td>{{ $data->product->name }}</td>
-                    <td>{{ $data->total_price }} BDT</td>
+                    <td><img style="width: 80px;height:80px" src="{{ url('/files/product/' . $data->product->image) }}" alt=""></td>
+                    <td>{{ $data->total_price }}BDT</td>
                     <td>{{ $data->target_quantity }}Qty</td>
                     <td>{{ date('Y-M-d', strtotime($data->start_date)) }}</td>
                     <td>{{ date('Y-M-d', strtotime($data->end_date)) }}</td>

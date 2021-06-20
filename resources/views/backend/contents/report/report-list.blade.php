@@ -12,7 +12,7 @@
     @endif
 
     @if (session()->has('error-message'))
-        <div class="alert alert-success d-flex justify-content-between">
+        <div class="alert alert-danger d-flex justify-content-between">
             {{ session()->get('error-message') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -60,15 +60,15 @@
     </div>
 
     <div id="printableArea">
-
+        @if (count($sales) > 0 )
         <h2 class="fw-bolder text-center mb-3 title">Sales Report</h2>
         @if (isset($fromDate) && $fromDate != '1970-01-01')
-            <div>
-                <p class="text-secondary">from: {{ date('M-d, Y', strtotime($fromDate)) }} to
-                    {{ date('M-d, Y', strtotime($toDate)) }}, Number of records: {{ count($sales) }}</p>
-                <h3></h3>
-            </div>
-        @endif
+        <div>
+            <p class="text-secondary">from: {{ date('M-d, Y', strtotime($fromDate)) }} to
+                {{ date('M-d, Y', strtotime($toDate)) }}, Number of records: {{ count($sales) }}</p>
+            <h3></h3>
+        </div>
+    @endif
         <table class="table table-bordered  text-center">
             <thead class="text-center table-header">
                 <tr>
@@ -85,7 +85,6 @@
                 </tr>
             </thead>
             <tbody class="table-light">
-                @if (count($sales) > 0)
                     @foreach ($sales as $key => $item)
                         {{-- @dd($item->productDetails->name ) --}}
                         <tr>
@@ -95,21 +94,17 @@
                             <td>{{ $item->sale->customer->name }}</td>
                             <td>{{ $item->sale->customer->email }}</td>
                             <td>{{ $item->productDetails->name }}</td>
-                            <td>{{ $item->productDetails->unit_price }}</td>
-                            <td>{{ $item->quantity }}</td>
+                            <td>{{ $item->productDetails->unit_price }}BDT</td>
+                            <td>{{ $item->quantity }}Qty</td>
                             <td>{{ $item->sale->total_amount }}BDT</td>
                             <td>{{ date('Y-M-d', strtotime($item->created_at)) }}</td>
                         </tr>
                     @endforeach
-                @else
-                    <tr>
-                        <td class="text-center text-danger fw-bolder fs-3" colspan="10">No data found!</td>
-                    </tr>
-                @endif
             </tbody>
         </table>
+        @else
+            <div class="text-center text-danger fw-bolder fs-3" colspan="10">No data found!</div>
+        @endif
     </div>
-
-
 
 @endsection
