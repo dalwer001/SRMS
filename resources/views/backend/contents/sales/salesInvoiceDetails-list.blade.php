@@ -74,7 +74,7 @@
         <h5> {{ $sale->salesEmp->employeeDetail->name }}</h5>
         <p> <strong>Mobile No:</strong> +88{{ $sale->salesEmp->employeeDetail->employeeProfile->contact_no }}</p>
         <p> <strong> Email: </strong>{{ $sale->salesEmp->employeeDetail->email }}</p>
-        <p> <strong>Address: </strong> {{ $sale->salesEmp->employeeDetail->employeeProfile->address }}</p>
+        {{-- <p> <strong>Address: </strong> {{ $sale->salesEmp->employeeDetail->employeeProfile->address }}</p> --}}
 
     </div>
 </div>

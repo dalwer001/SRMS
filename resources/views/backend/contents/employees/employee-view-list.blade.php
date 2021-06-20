@@ -34,7 +34,7 @@
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img src="{{ url('/files/employee/' . $employees->image) }}" alt="Admin"
-                                    class="rounded img-thumbnail " width="250px" height="250px">
+                                    class="rounded img-thumbnail " width="200px" height="200px">
                                 <div class="mt-3">
                                     <h4>{{ $employees->employeeDetail->name }}</h4>
                                     <p class="text-muted font-size-sm">{{ $employees->address }},
