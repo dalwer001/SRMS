@@ -15,7 +15,7 @@
                 <div class="mb-3 form-group">
                     <label for="exampleFormControlInput1" class="form-label fw-bolder"">Product Name</label>
                     <input type=" text" name="name" class="form-control" placeholder="Product Name"
-                        value="{{ $products['name'] }} " readonly>
+                        value="{{ $products['name'] }} ">
                 </div>
 
                 <div class="form-group">
