@@ -80,7 +80,7 @@
                     <th scope="col">Product Name</th>
                     <th scope="col">Unit Price</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Total Amount</th>
+                    <th scope="col">Subtotal</th>
                     <th scope="col">Date</th>
                 </tr>
             </thead>
@@ -96,7 +96,7 @@
                             <td>{{ $item->productDetails->name }}</td>
                             <td>{{ $item->productDetails->unit_price }}BDT</td>
                             <td>{{ $item->quantity }}Qty</td>
-                            <td>{{ $item->sale->total_amount }}BDT</td>
+                            <td>{{ $item->subtotal }}BDT</td>
                             <td>{{ date('Y-M-d', strtotime($item->created_at)) }}</td>
                         </tr>
                     @endforeach

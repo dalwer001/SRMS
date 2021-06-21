@@ -41,7 +41,7 @@
                 <li class="nav-item ">
                     <a class="nav-link text-white" href="{{ route('products.categories') }}">
                         <i class="far fa-file-alt text-warning"></i>
-                        Products Categories
+                        Product Categories
                     </a>
                 </li>
                 <li class="nav-item ">
