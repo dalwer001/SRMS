@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="mb-3 form-group">
-                    <label for="exampleFormControlInput1" class="form-label  fw-bolder">Price</label>
+                    <label for="exampleFormControlInput1" class="form-label  fw-bolder">Unit Price</label>
                     <input type="double" name="unit_price" class="form-control" placeholder="5BDT"
                         value="{{ $products['unit_price'] }}">
                 </div>
