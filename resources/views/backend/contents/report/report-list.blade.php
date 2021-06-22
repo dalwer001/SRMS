@@ -100,6 +100,13 @@
                             <td>{{ date('Y-M-d', strtotime($item->created_at)) }}</td>
                         </tr>
                     @endforeach
+                    
+            </tbody>
+            <tbody class="table-header">
+                <td colspan="7"></td>
+                <td colspan="1" class="fw-bold text-start">Total Quantity={{$t_quantity}}Qty</td>
+                <td colspan="1" class="fw-bold text-start">Total Amount={{$total}}BDT</td>
+                <td></td>
             </tbody>
         </table>
         @else
