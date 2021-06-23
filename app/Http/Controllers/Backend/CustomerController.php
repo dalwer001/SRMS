@@ -140,7 +140,7 @@ class CustomerController extends Controller
         else{
             $request->validate([
                 'email' => 'email|required|unique:customers',
-                'contact_no' => 'required|digits:11|regex:/(01)[0-9]{9}/|numeric|unique:customers',
+                'contact_no' => 'required|digits:11||regex:/(01)[0-9]{9}/|numeric|unique:customers',
             ]);
             $customers->update([
                 'name' => $request->name,

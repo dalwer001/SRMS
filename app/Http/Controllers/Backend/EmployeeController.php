@@ -61,7 +61,7 @@ class EmployeeController extends Controller
                 'contact_no' => 'required|digits:11|regex:/(01)[0-9]{9}/|numeric|unique:employees',
                 'address' => 'required',
                 'gender' => 'required',
-                'birth_date' => 'required|date|before_or_equal:' . \Carbon\Carbon::now()->subYears(18)->format('Y-m-d'),
+                'birth_date' =>'required|date|before_or_equal:' . \Carbon\Carbon::now()->subYears(18)->format('Y-m-d'),
                 'salary' => 'required'
             ]);
 
