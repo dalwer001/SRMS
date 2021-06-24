@@ -17,6 +17,7 @@ class ReportController extends Controller
         { 
             $fromDate = date('Y-m-d',strtotime($_GET['from_date']));
             $toDate = date('Y-m-d',strtotime($_GET['to_date']));
+            
             // $fromDate = date('Y-m-d',$fromDate);
             // $toDate = date('Y-m-d',$toDate);
 
