@@ -35,7 +35,7 @@
                             <div class="row mb-3">
                                 <label for="from" class="col-sm-2 col-form-label fw-bolder">Date from:</label>
                                 <div class="col-sm-10">
-                                    <input id="from" type="date" class="form-control" name="from_date">
+                                    <input id="from" type="date" class="form-control" name="from_date" max="{{date('Y-m-d')}}">
                                 </div>
                             </div>
                         </div>
