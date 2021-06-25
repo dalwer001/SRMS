@@ -24,7 +24,7 @@
                     <a href="#" class="text-decoration-none"><span
                             style="color:white; margin-right: 30px;">{{ auth()->user()->name }}</span></a>
                 @endif
-                <a class="btn btn-danger btn-sm" href="{{ route('logout') }}"> Logout</a>
+                <a class="btn btn-outline-danger btn-sm text-white" href="{{ route('logout') }}"> Logout</a>
             @else
                 <a class="btn btn-success" href="{{ route('login.form') }}">Login</a>
             @endauth

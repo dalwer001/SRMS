@@ -75,7 +75,7 @@ class TaskController extends Controller
             }
 
             if ($data->product_id == $request->product_id && $data->end_date >= $request->start_date) {
-                return redirect()->back()->with('error-message', 'This employee has task starting date, check it or wait for the next month.');
+                return redirect()->back()->with('error-message', 'This product provide as a task for this employee');
             }
 
             if ($product_quantity < $request->target_quantity) {
