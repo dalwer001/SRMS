@@ -18,7 +18,7 @@
 <br>
 <p>Sincerely,</p>
 <br>
-<p>SRMS Ltd,</p>
+<p>Amulet Pharmacitical Ltd,</p>
 <p>House # 04 (2rd Floor), Mohakhali C/A, Dhaka-1212, Bangladesh.</p>
 <p>Tel : +02 989 42 92.</p>
 

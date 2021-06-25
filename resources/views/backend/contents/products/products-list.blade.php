@@ -177,7 +177,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Quantity</label>
                                 <input type="number" name="quantity" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="500" required>
+                                    placeholder="500Qty." required>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Unit Price</label>

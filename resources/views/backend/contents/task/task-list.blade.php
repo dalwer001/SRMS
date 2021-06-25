@@ -129,7 +129,7 @@
 
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Product Name</label>
-                                <select class="form-select" name="product_id">
+                                <select class="form-select " name="product_id">
                                     <option value="">Open this select product</option>
 
                                     @foreach ($products as $data)

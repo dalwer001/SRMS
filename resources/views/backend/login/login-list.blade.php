@@ -58,9 +58,17 @@
                         <input type="email" name="email" id="inputEmail" class="form-control mb-4 p-3"
                             placeholder="Email address" required autofocus>
                         <label for="inputPassword" class="mb-2 text-primary fw-bold fs-4 text-light ">Password</label>
-                        <input type="password" id="inputPassword" name="password" class="form-control mb-4 p-3"
+
+                    <input type="password" id="inputPassword" name="password" class="form-control mb-4 p-3"
                             placeholder="Password" required>
-                        <a href="{{ route('forgetPassword') }}" class="text-decoration-none text-light">* Forget Password</a>
+                            {{-- Employee <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> 
+                            Admin <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"> --}}
+
+                            {{-- <br>  --}}
+    {{-- <div id="ifYes" style="visibility:hidden"> --}}
+        <a href="{{ route('forgetPassword') }}" class="text-decoration-none text-light">* Forget Password</a>
+    {{-- </div> --}}
+
                         <button class="w-100 btn btn-lg login-btn fw-bold mt-3" type="submit">Login</button>
                     </form>
                 </div>
@@ -69,6 +77,15 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- <script>
+        function yesnoCheck() {
+    if (document.getElementById('yesCheck').checked) {
+        document.getElementById('ifYes').style.visibility = 'visible';
+    }
+    else document.getElementById('ifYes').style.visibility = 'hidden';
+
+}
+    </script> --}}
 </body>
 
 </html>

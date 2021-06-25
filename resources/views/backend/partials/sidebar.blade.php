@@ -121,23 +121,23 @@
 
         </ul>
 
-        @if (auth()->user()->role == 'employee')
-            <div class="text-center" style="margin-top: 500px">
-                <div class="div-clock row d-flex justify-content-center">
-                    <div class="col-md-4">
+        {{-- @if (auth()->user()->role == 'employee')
+            <div class="text-center" style="margin-top: 500px"> --}}
+                {{-- <div class="div-clock row d-flex justify-content-center bg-warning"> --}}
+                    {{-- <div class="col-md-4">
                         <i class="far fa-clock text-white fs-1 mt-3" style="margin-left:80px;"></i>
+                    </div> --}}
+                    <div class=" bg-primary d-flex justify-content-center">
+                        <p id="myClockDisplay" class="clock fw-bolder text-light  fs-5" onload="showTime()"> </p>  
+                        <p id="myDateDisplay" class="date fw-bolder text-light  fs-5" onload="today()"></p>
                     </div>
-                    <div class="div-date col-md-8">
-                        <div id="myClockDisplay" class="clock fw-bolder text-light me-5 fs-5" onload="showTime()"></div>
-                        <div id="myDateDisplay" class="date fw-bolder text-light me-5 fs-5 mb-5" onload="today()"></div>
-                    </div>
-                </div>
+                {{-- </div> --}}
 
-            </div>
-        @endif
+            {{-- </div>
+        @endif --}}
 
 
-        @if (auth()->user()->role == 'admin')
+        {{-- @if (auth()->user()->role == 'admin')
             <div class="text-center" style="margin-top: 320px">
                 <div class="div-clock row d-flex justify-content-center">
                     <div class="col-md-4">
@@ -150,7 +150,7 @@
                 </div>
 
             </div>
-        @endif
+        @endif --}}
 
 
     </div>
