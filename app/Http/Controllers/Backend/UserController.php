@@ -65,7 +65,7 @@ class UserController extends Controller
                 ]);
             }
         } else {
-            Auth::logout();
+            // Auth::logout();
             return redirect()->route('login.form')->with('success-message', 'Not Logged In.');
         }
 
