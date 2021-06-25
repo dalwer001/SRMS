@@ -25,7 +25,7 @@ class ProfileController extends Controller
 
 
         if (!Hash::check($request->input('current_password'), auth()->user()->password)) {
-            return redirect()->back()->with('error', 'Current Password does not match.');
+            return redirect()->back()->with('error-message', 'Current Password does not match.');
         }
 
 
@@ -38,7 +38,7 @@ class ProfileController extends Controller
 
 
         if (Hash::check($request->input('new_password'), auth()->user()->password)) {
-            return redirect()->back()->with('error', 'New password can not be the old password.');
+            return redirect()->back()->with('error-message', 'New password can not be the old password.');
         }
 
 

@@ -4,13 +4,13 @@
 
 
     @if (session()->has('success-message'))
-        <div class="alert alert-success d-flex justify-content-between">
+        <div class="alert alert-success d-flex justify-content-between m-2">
             {{ session()->get('success-message') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if (session()->has('error-message'))
-        <div class="alert alert-danger d-flex justify-content-between">
+        <div class="alert alert-danger d-flex justify-content-between m-2">
             {{ session()->get('error-message') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -18,7 +18,7 @@
 
     @if ($errors->any())
         @foreach ($errors->all() as $error)
-            <div class="alert alert-danger d-flex justify-content-between">{{ $error }}
+            <div class="alert alert-danger d-flex justify-content-between m-2">{{ $error }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endforeach
@@ -185,7 +185,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Confirm Password:</label>
-                            <input type="password" required name="confirm_password" class="form-control" placeholder="****"
+                            <input type="password" required name="confirm_password" class="form-control" placeholder="*****"
                                 id="">
                         </div>
                     </div>

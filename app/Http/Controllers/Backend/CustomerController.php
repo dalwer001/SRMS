@@ -74,6 +74,8 @@ class CustomerController extends Controller
             'address' => $request->address,
             'city' => $request->city
         ]);
+
+        
         return redirect()->back()->with('success-message','Customer created successfully.');
     }
 

@@ -39,16 +39,13 @@ class UserController extends Controller
 
             if (auth()->user()->role == 'admin') {
                 return redirect()->route('dashboard.list');
-            }
-
-            elseif (auth()->user()->role == 'employee') {
+            } elseif (auth()->user()->role == 'employee') {
                 $status = Employee::where('user_id', auth()->user()->id);
                 $status->update([
-                    'status'=> 'active'
+                    'status' => 'active'
                 ]);
                 return redirect()->route('dashboard.list');
             }
-
         }
         return back()->withErrors([
             'email' => 'Invalid Credentials.'
@@ -58,18 +55,26 @@ class UserController extends Controller
     //logout
     public function logout()
     {
-        if(auth()->user()->role == 'employee')
-        {
-            $status = Employee::where('user_id', auth()->user()->id);
-            $status->update([
-                'status'=> 'inactive'
-            ]);
+
+        // dd();
+        if (auth()->user() != null) {
+            if (auth()->user()->role == 'employee') {
+                $status = Employee::where('user_id', auth()->user()->id);
+                $status->update([
+                    'status' => 'inactive'
+                ]);
+            }
+        } else {
+            Auth::logout();
+            return redirect()->route('login.form')->with('success-message', 'Not Logged In.');
         }
+
         Auth::logout();
         return redirect()->route('login.form')->with('success-message', 'Logout Successful.');
     }
 
-    public function forgetPass(){
+    public function forgetPass()
+    {
 
         return view('backend.login.forget-password');
     }
@@ -94,41 +99,38 @@ class UserController extends Controller
     public function showResetForm($p_token, $p_email)
     {
         // dd($token);
-        $check = PasswordReset::where('email', $p_email)->where('created_at','>=',Carbon::now()->subMinutes(2))->first();
+        $check = PasswordReset::where('email', $p_email)->where('created_at', '>=', Carbon::now()->subMinutes(2))->first();
         if ($check) {
             $token = $p_token;
             $email = $p_email;
-            return view('backend.login.reset-password',compact('token','email'));
+            return view('backend.login.reset-password', compact('token', 'email'));
         } else {
             return redirect()->route('login.form')->with('error-message', 'Link expired');
         }
-
-        
     }
 
-    public function submitPassword(Request $request){
+    public function submitPassword(Request $request)
+    {
 
         // dd($request->all());
 
         $request->validate([
-            'token'=>'required',
-            'email'=>'email|required',
+            'token' => 'required',
+            'email' => 'email|required',
             'password' => 'required|min:6|confirmed'
         ]);
 
         $status = Password::reset(
-            $request->only('email','password','password_confirmation','token'),
+            $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([
                     'password' => bcrypt($password)
                 ])->setRememberToken(Str::random(60));
 
                 $user->save();
-
             }
         );
 
         return redirect()->route('login.form')->with('success-message', 'Password updated successfully.');
-
     }
 }

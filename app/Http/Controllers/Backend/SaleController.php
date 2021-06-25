@@ -83,8 +83,6 @@ class SaleController extends Controller
             $p_quantity = $p_quantity + $data->product_quantity;
         }
 
-
-
         // dd($s_total,$p_quantity);
         return view('backend.contents.sales.create-sale-list', compact('task', 'customer', 'sales', 's_total', 'p_quantity'));
     }
