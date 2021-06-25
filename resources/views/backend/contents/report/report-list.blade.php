@@ -110,6 +110,13 @@
             </tbody>
         </table>
         @else
+        @if (isset($fromDate) && $fromDate != '1970-01-01')
+        <div>
+            <p class="text-secondary">from: {{ date('M-d, Y', strtotime($fromDate)) }} to
+                {{ date('M-d, Y', strtotime($toDate)) }}, Number of records: {{ count($sales) }}</p>
+            <h3></h3>
+        </div>
+    @endif
             <div class="text-center text-danger fw-bolder fs-3" colspan="10">No data found!</div>
         @endif
     </div>

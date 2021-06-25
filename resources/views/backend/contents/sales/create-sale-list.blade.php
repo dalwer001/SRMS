@@ -84,6 +84,7 @@
                     <tr>
                         <th scope="col">serial</th>
                         <th scope="col">Product Name</th>
+                        <th scope="col">Product Image</th>
                         <th scope="col">Product Quantity</th>
                         <th scope="col">Unit Price</th>
                         <th scope="col" colspan="2">Sub Total</th>
@@ -97,6 +98,7 @@
                         <tr>
                             <th scope="row">{{ $key + 1 }}</th>
                             <td>{{ $item->p_name->name }}</td>
+                            <td><img style="width: 80px;height:80px" src="{{ url('/files/product/' . $item->p_name->image) }}" alt=""></td>
                             <td>{{ $item->product_quantity }}Qty</td>
                             <td>{{ $item->unit_price }}BDT</td>
                             <td colspan="2">{{ $item->subtotal }}BDT</td>
@@ -108,7 +110,7 @@
                 @endforeach
 
                 <tfoot>
-                    <td colspan="2"></td>
+                    <td colspan="3"></td>
                     <td colspan="2" class="fw-bold">Total Product Quantity= {{ $p_quantity }}Qty</td>
                     <td colspan="3" class="fw-bold"> Total Amount= {{ $s_total }}BDT</td>
                 </tfoot>

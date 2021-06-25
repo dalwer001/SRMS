@@ -128,8 +128,8 @@
                         <i class="far fa-clock text-white fs-1 mt-3" style="margin-left:80px;"></i>
                     </div> --}}
                     <div class=" bg-primary d-flex justify-content-center">
-                        <p id="myClockDisplay" class="clock fw-bolder text-light  fs-5" onload="showTime()"> </p>  
-                        <p id="myDateDisplay" class="date fw-bolder text-light  fs-5" onload="today()"></p>
+                        <p id="myClockDisplay" class="clock fw-bolder text-light  fs-5 " onload="showTime()"> </p>  
+                        <p id="myDateDisplay" class="date fw-bolder text-light  fs-5 mx-2" onload="today()"></p>
                     </div>
                 {{-- </div> --}}
 

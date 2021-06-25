@@ -33,6 +33,7 @@
                 <tr>
                     <th>Serial</th>
                     <th>Product Name</th>
+                    <th>Product Image</th>
                     <th>Quantity</th>
                     <th>Unit Price</th>
                     <th>Sub Total</th>
@@ -44,6 +45,7 @@
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td class="col-md-3">{{ $item->productDetails->name }}</td>
+                        <td class="col-md-3"><img style="width: 80px;height:80px" src="{{ url('/files/product/' . $item->productDetails->image) }}" alt=""></td>
                         <td class="col-md-3"> {{ $item->quantity }}</td>
                         <td class="col-md-3"> {{ $item->unit_price }}</td>
                         <td class="col-md-3"> {{ $item->subtotal }} BDT</td>
@@ -53,7 +55,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4">
+                    <td colspan="5">
                         <strong class="d-flex justify-content-end">Total Amount = </strong>
                     </td>
                     <td>
