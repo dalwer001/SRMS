@@ -42,11 +42,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => 'admin-auth'], function () {
 
         // products route...
-        Route::get('/products', [P::class, 'products'])->name('products.list');
-        Route::post('/products', [P::class, 'create'])->name('products.create');
-        Route::get('/products/delete/{id}', [P::class, 'delete'])->name('products.delete');
-        Route::get('/products/edit/{id}', [P::class, 'edit'])->name('products.edit');
-        Route::put('/products/update/{id}', [P::class, 'update'])->name('products.update');
+        Route::get('/products', [ProductController::class, 'products'])->name('products.list');
+        Route::post('/products', [ProductController::class, 'create'])->name('products.create');
+        Route::get('/products/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
+        Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/products/update/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::get('/product/{id}/{status}', [ProductController::class, 'statusUpdate'])->name('status.update');
 
 
