@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\controller;
+use App\Http\Controllers\Controller;
 use App\Models\Commission;
 use App\Models\Employee;
 use App\Models\Task;
