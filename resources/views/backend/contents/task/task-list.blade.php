@@ -122,7 +122,7 @@
                                 <select class="form-select" name="employee_id">
                                     <option value="">Open this select Employee</option>
                                     @foreach ($employees as $data)
-                                        <option value="{{ $data->id }}">{{ $data->employeeDetail->email }}</option>
+                                        <option value={{ $data->id }}>{{ $data->employeeDetail->email }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -133,7 +133,7 @@
                                     <option value="">Open this select product</option>
 
                                     @foreach ($products as $data)
-                                        <option value="{{ $data->id }}">{{ $data->name }}-{{ $data->generic }}-{{ $data->quantity }} Qty
+                                        <option value={{ $data->id }}>{{ $data->name }}-{{ $data->generic }}-{{ $data->quantity }} Qty
                                         </option>
                                     @endforeach
                                 </select>
