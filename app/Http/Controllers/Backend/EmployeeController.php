@@ -221,4 +221,10 @@ class EmployeeController extends Controller
         $sales = Commission::where('employee_id', $employees->id)->get();
         return view('backend.contents.employees.employee-view-list', compact('employees', 'sales'));
     }
+
+    public function employeesApi(){
+        $employees = Employee::all();
+        return $employees;
+    }
 }
+
