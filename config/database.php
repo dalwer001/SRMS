@@ -1,6 +1,6 @@
 <?php
 
-$DATABASE_URL = parse_url('postgres://jfyxxbztbxkonz:3a7246d93277ee0a41fb59b135e590eca4e31f944b91346d3a6dad171d5420f0@ec2-3-219-52-220.compute-1.amazonaws.com:5432/ddd4q2c3ph4g5r');
+// $DATABASE_URL = parse_url();
 
 return [
 
@@ -58,11 +58,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => $DATABASE_URL["host"],
-            'port' => $DATABASE_URL["port"],
-            'database' => ltrim($DATABASE_URL["path"], "/"),
-            'username' => $DATABASE_URL["user"],
-            'password' => $DATABASE_URL["pass"],
+            'host' => env('DB_LIVE_LINK'["host"]),
+            'port' => env('DB_LIVE_LINK'["port"]),
+            'database' => ltrim(env('DB_LIVE_LINK'["path"], "/")),
+            'username' => env('DB_LIVE_LINK'["user"]),
+            'password' => env('DB_LIVE_LINK'["pass"]),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
